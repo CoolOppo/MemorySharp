@@ -7,13 +7,13 @@
  * See the file LICENSE for more information.
 */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Binarysharp.MemoryManagement.Native;
 using Binarysharp.MemoryManagement.Threading;
 using Binarysharp.MemoryManagement.Windows.Keyboard;
 using Binarysharp.MemoryManagement.Windows.Mouse;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Binarysharp.MemoryManagement.Windows
 {

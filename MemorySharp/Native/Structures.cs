@@ -7,9 +7,9 @@
  * See the file LICENSE for more information.
 */
 
+using Binarysharp.MemoryManagement.Internals;
 using System;
 using System.Runtime.InteropServices;
-using Binarysharp.MemoryManagement.Internals;
 
 namespace Binarysharp.MemoryManagement.Native
 {

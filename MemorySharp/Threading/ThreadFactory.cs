@@ -7,12 +7,12 @@
  * See the file LICENSE for more information.
 */
 
+using Binarysharp.MemoryManagement.Internals;
+using Binarysharp.MemoryManagement.Native;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Binarysharp.MemoryManagement.Internals;
-using Binarysharp.MemoryManagement.Native;
 
 namespace Binarysharp.MemoryManagement.Threading
 {

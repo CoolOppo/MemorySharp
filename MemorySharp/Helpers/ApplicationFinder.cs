@@ -7,11 +7,11 @@
  * See the file LICENSE for more information.
 */
 
+using Binarysharp.MemoryManagement.Windows;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Binarysharp.MemoryManagement.Windows;
 
 namespace Binarysharp.MemoryManagement.Helpers
 {

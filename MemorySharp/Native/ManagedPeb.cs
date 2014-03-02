@@ -7,8 +7,8 @@
  * See the file LICENSE for more information.
 */
 
-using System;
 using Binarysharp.MemoryManagement.Memory;
+using System;
 
 namespace Binarysharp.MemoryManagement.Native
 {

@@ -7,10 +7,10 @@
  * See the file LICENSE for more information.
 */
 
+using Binarysharp.MemoryManagement.Internals;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Binarysharp.MemoryManagement.Internals;
 
 namespace Binarysharp.MemoryManagement.Windows
 {

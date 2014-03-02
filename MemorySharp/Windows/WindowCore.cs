@@ -7,15 +7,15 @@
  * See the file LICENSE for more information.
 */
 
+using Binarysharp.MemoryManagement.Helpers;
+using Binarysharp.MemoryManagement.Internals;
+using Binarysharp.MemoryManagement.Native;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
-using Binarysharp.MemoryManagement.Helpers;
-using Binarysharp.MemoryManagement.Internals;
-using Binarysharp.MemoryManagement.Native;
 
 namespace Binarysharp.MemoryManagement.Windows
 {
