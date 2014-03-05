@@ -129,13 +129,6 @@
   <ItemGroup>
     <None Include="MemorySharp.licenseheader" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Fasm.NET\Fasm.NET\Fasm.NET.vcxproj">
-      <Project>{2dac1a31-ef28-499a-b67a-963b5343d778}</Project>
-      <Name>Fasm.NET</Name>
-      <Private>True</Private>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
