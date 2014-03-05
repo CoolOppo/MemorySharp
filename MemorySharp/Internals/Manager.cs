@@ -1,13 +1,4 @@
-﻿/*
- * MemorySharp Library v1.0.0
- * http://www.binarysharp.com/
- *
- * Copyright (C) 2012-2013 Jämes Ménétrey (a.k.a. ZenLulz).
- * This library is released under the MIT License.
- * See the file LICENSE for more information.
-*/
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Binarysharp.MemoryManagement.Internals
 {
@@ -32,7 +23,10 @@ namespace Binarysharp.MemoryManagement.Internals
         /// </summary>
         public IReadOnlyDictionary<string, T> Items
         {
-            get { return InternalItems; }
+            get
+            {
+                return InternalItems;
+            }
         }
 
         #endregion

@@ -1,13 +1,4 @@
-﻿/*
- * MemorySharp Library v1.0.0
- * http://www.binarysharp.com/
- *
- * Copyright (C) 2012-2013 Jämes Ménétrey (a.k.a. ZenLulz).
- * This library is released under the MIT License.
- * See the file LICENSE for more information.
-*/
-
-using Binarysharp.MemoryManagement.Native;
+﻿using Binarysharp.MemoryManagement.Native;
 
 namespace Binarysharp.MemoryManagement.Windows.Mouse
 {
@@ -22,8 +13,7 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
         ///     Initializes a new instance of a child of the <see cref="SendInputMouse" /> class.
         /// </summary>
         /// <param name="window">The reference of the <see cref="RemoteWindow" /> object.</param>
-        public SendInputMouse(RemoteWindow window)
-            : base(window)
+        public SendInputMouse(RemoteWindow window) : base(window)
         {
         }
 
@@ -40,7 +30,7 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
         /// <param name="y">The y-coordinate.</param>
         protected override void MoveToAbsolute(int x, int y)
         {
-            Input input = CreateInput();
+            var input = CreateInput();
             input.Mouse.DeltaX = CalculateAbsoluteCoordinateX(x);
             input.Mouse.DeltaY = CalculateAbsoluteCoordinateY(y);
             input.Mouse.Flags = MouseFlags.Move | MouseFlags.Absolute;
@@ -57,7 +47,7 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
         /// </summary>
         public override void PressLeft()
         {
-            Input input = CreateInput();
+            var input = CreateInput();
             input.Mouse.Flags = MouseFlags.LeftDown;
             WindowCore.SendInput(input);
         }
@@ -71,7 +61,7 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
         /// </summary>
         public override void PressMiddle()
         {
-            Input input = CreateInput();
+            var input = CreateInput();
             input.Mouse.Flags = MouseFlags.MiddleDown;
             WindowCore.SendInput(input);
         }
@@ -85,7 +75,7 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
         /// </summary>
         public override void PressRight()
         {
-            Input input = CreateInput();
+            var input = CreateInput();
             input.Mouse.Flags = MouseFlags.RightDown;
             WindowCore.SendInput(input);
         }
@@ -99,7 +89,7 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
         /// </summary>
         public override void ReleaseLeft()
         {
-            Input input = CreateInput();
+            var input = CreateInput();
             input.Mouse.Flags = MouseFlags.LeftUp;
             WindowCore.SendInput(input);
         }
@@ -113,7 +103,7 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
         /// </summary>
         public override void ReleaseMiddle()
         {
-            Input input = CreateInput();
+            var input = CreateInput();
             input.Mouse.Flags = MouseFlags.MiddleUp;
             WindowCore.SendInput(input);
         }
@@ -127,7 +117,7 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
         /// </summary>
         public override void ReleaseRight()
         {
-            Input input = CreateInput();
+            var input = CreateInput();
             input.Mouse.Flags = MouseFlags.RightUp;
             WindowCore.SendInput(input);
         }
@@ -142,7 +132,7 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
         /// <param name="delta">The amount of wheel movement.</param>
         public override void ScrollHorizontally(int delta = 120)
         {
-            Input input = CreateInput();
+            var input = CreateInput();
             input.Mouse.Flags = MouseFlags.HWheel;
             input.Mouse.MouseData = delta;
             WindowCore.SendInput(input);
@@ -158,7 +148,7 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
         /// <param name="delta">The amount of wheel movement.</param>
         public override void ScrollVertically(int delta = 120)
         {
-            Input input = CreateInput();
+            var input = CreateInput();
             input.Mouse.Flags = MouseFlags.Wheel;
             input.Mouse.MouseData = delta;
             WindowCore.SendInput(input);
@@ -173,7 +163,7 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
         /// <summary>
         ///     Calculates the x-coordinate with the system metric.
         /// </summary>
-        private int CalculateAbsoluteCoordinateX(int x)
+        int CalculateAbsoluteCoordinateX(int x)
         {
             return (x*65536)/NativeMethods.GetSystemMetrics(SystemMetrics.CxScreen);
         }
@@ -185,7 +175,7 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
         /// <summary>
         ///     Calculates the y-coordinate with the system metric.
         /// </summary>
-        private int CalculateAbsoluteCoordinateY(int y)
+        int CalculateAbsoluteCoordinateY(int y)
         {
             return (y*65536)/NativeMethods.GetSystemMetrics(SystemMetrics.CyScreen);
         }
@@ -197,7 +187,7 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
         /// <summary>
         ///     Create an <see cref="Input" /> structure for mouse event.
         /// </summary>
-        private Input CreateInput()
+        Input CreateInput()
         {
             return new Input(InputTypes.Mouse);
         }

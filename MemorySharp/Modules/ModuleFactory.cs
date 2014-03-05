@@ -1,13 +1,4 @@
-﻿/*
- * MemorySharp Library v1.0.0
- * http://www.binarysharp.com/
- *
- * Copyright (C) 2012-2013 Jämes Ménétrey (a.k.a. ZenLulz).
- * This library is released under the MIT License.
- * See the file LICENSE for more information.
-*/
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -45,7 +36,10 @@ namespace Binarysharp.MemoryManagement.Modules
         /// </summary>
         public IEnumerable<InjectedModule> InjectedModules
         {
-            get { return InternalInjectedModules.AsReadOnly(); }
+            get
+            {
+                return InternalInjectedModules.AsReadOnly();
+            }
         }
 
         #endregion
@@ -57,7 +51,10 @@ namespace Binarysharp.MemoryManagement.Modules
         /// </summary>
         public RemoteModule MainModule
         {
-            get { return FetchModule(MemorySharp.Native.MainModule); }
+            get
+            {
+                return FetchModule(MemorySharp.Native.MainModule);
+            }
         }
 
         #endregion
@@ -85,7 +82,10 @@ namespace Binarysharp.MemoryManagement.Modules
         /// </summary>
         internal IEnumerable<ProcessModule> NativeModules
         {
-            get { return MemorySharp.Native.Modules.Cast<ProcessModule>(); }
+            get
+            {
+                return MemorySharp.Native.Modules.Cast<ProcessModule>();
+            }
         }
 
         #endregion
@@ -99,7 +99,10 @@ namespace Binarysharp.MemoryManagement.Modules
         /// <returns>A new instance of a <see cref="RemotePointer" /> class.</returns>
         public RemotePointer this[IntPtr address]
         {
-            get { return new RemotePointer(MemorySharp, address); }
+            get
+            {
+                return new RemotePointer(MemorySharp, address);
+            }
         }
 
         /// <summary>
@@ -109,7 +112,10 @@ namespace Binarysharp.MemoryManagement.Modules
         /// <returns>A new instance of a <see cref="RemoteModule" /> class.</returns>
         public RemoteModule this[string moduleName]
         {
-            get { return FetchModule(moduleName); }
+            get
+            {
+                return FetchModule(moduleName);
+            }
         }
 
         #endregion
@@ -150,7 +156,7 @@ namespace Binarysharp.MemoryManagement.Modules
         public virtual void Dispose()
         {
             // Release all injected modules which must be disposed
-            foreach (InjectedModule injectedModule in InternalInjectedModules.Where(m => m.MustBeDisposed))
+            foreach (var injectedModule in InternalInjectedModules.Where(m => m.MustBeDisposed))
             {
                 injectedModule.Dispose();
             }
@@ -158,7 +164,9 @@ namespace Binarysharp.MemoryManagement.Modules
             foreach (var cachedFunction in RemoteModule.CachedFunctions.ToArray())
             {
                 if (cachedFunction.Key.Item2 == MemorySharp.Handle)
+                {
                     RemoteModule.CachedFunctions.Remove(cachedFunction);
+                }
             }
             // Avoid the finalizer
             GC.SuppressFinalize(this);
@@ -175,12 +183,17 @@ namespace Binarysharp.MemoryManagement.Modules
         public void Eject(RemoteModule module)
         {
             // If the module is valid
-            if (!module.IsValid) return;
+            if (!module.IsValid)
+            {
+                return;
+            }
 
             // Find if the module is an injected one
-            InjectedModule injected = InternalInjectedModules.FirstOrDefault(m => m.Equals(module));
+            var injected = InternalInjectedModules.FirstOrDefault(m => m.Equals(module));
             if (injected != null)
+            {
                 InternalInjectedModules.Remove(injected);
+            }
 
             // Eject the module
             RemoteModule.InternalEject(MemorySharp, module);
@@ -193,10 +206,12 @@ namespace Binarysharp.MemoryManagement.Modules
         public void Eject(string moduleName)
         {
             // Fint the module to eject
-            RemoteModule module = RemoteModules.FirstOrDefault(m => m.Name == moduleName);
+            var module = RemoteModules.FirstOrDefault(m => m.Name == moduleName);
             // Eject the module is it's valid
             if (module != null)
+            {
                 RemoteModule.InternalEject(MemorySharp, module);
+            }
         }
 
         #endregion
@@ -217,8 +232,9 @@ namespace Binarysharp.MemoryManagement.Modules
             moduleName = moduleName.ToLower();
             // Check if the module name has an extension
             if (!Path.HasExtension(moduleName))
+            {
                 moduleName += ".dll";
-
+            }
 
             // Fetch and return the module
             return new RemoteModule(MemorySharp, NativeModules.First(m => m.ModuleName.ToLower() == moduleName));
@@ -229,7 +245,7 @@ namespace Binarysharp.MemoryManagement.Modules
         /// </summary>
         /// <param name="module">A module in the remote process.</param>
         /// <returns>A new instance of a <see cref="RemoteModule" /> class.</returns>
-        private RemoteModule FetchModule(ProcessModule module)
+        RemoteModule FetchModule(ProcessModule module)
         {
             return FetchModule(module.ModuleName);
         }
@@ -250,7 +266,7 @@ namespace Binarysharp.MemoryManagement.Modules
         public InjectedModule Inject(string path, bool mustBeDisposed = true)
         {
             // Injects the module
-            InjectedModule module = InjectedModule.InternalInject(MemorySharp, path);
+            var module = InjectedModule.InternalInject(MemorySharp, path);
             // Add the module in the list
             InternalInjectedModules.Add(module);
             // Return the module

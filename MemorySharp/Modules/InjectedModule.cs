@@ -1,17 +1,7 @@
-﻿/*
- * MemorySharp Library v1.0.0
- * http://www.binarysharp.com/
- *
- * Copyright (C) 2012-2013 Jämes Ménétrey (a.k.a. ZenLulz).
- * This library is released under the MIT License.
- * See the file LICENSE for more information.
-*/
-
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Linq;
 using Binarysharp.MemoryManagement.Internals;
-using Binarysharp.MemoryManagement.Threading;
 
 namespace Binarysharp.MemoryManagement.Modules
 {
@@ -63,7 +53,9 @@ namespace Binarysharp.MemoryManagement.Modules
         ~InjectedModule()
         {
             if (MustBeDisposed)
+            {
                 Dispose();
+            }
         }
 
         #endregion
@@ -104,12 +96,16 @@ namespace Binarysharp.MemoryManagement.Modules
         internal static InjectedModule InternalInject(MemorySharp memorySharp, string path)
         {
             // Call LoadLibraryA remotely
-            RemoteThread thread = memorySharp.Threads.CreateAndJoin(
-                memorySharp["kernel32"]["LoadLibraryA"].BaseAddress, path);
+            var thread = memorySharp.Threads.CreateAndJoin(memorySharp["kernel32"]["LoadLibraryA"].BaseAddress, path);
             // Get the inject module
             if (thread.GetExitCode<IntPtr>() != IntPtr.Zero)
+            {
                 return new InjectedModule(memorySharp,
-                    memorySharp.Modules.NativeModules.First(m => m.BaseAddress == thread.GetExitCode<IntPtr>()));
+                                          memorySharp.Modules.NativeModules.First(
+                                                                                  m =>
+                                                                                  m.BaseAddress ==
+                                                                                  thread.GetExitCode<IntPtr>()));
+            }
             return null;
         }
 

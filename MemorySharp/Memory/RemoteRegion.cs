@@ -1,13 +1,4 @@
-﻿/*
- * MemorySharp Library v1.0.0
- * http://www.binarysharp.com/
- *
- * Copyright (C) 2012-2013 Jämes Ménétrey (a.k.a. ZenLulz).
- * This library is released under the MIT License.
- * See the file LICENSE for more information.
-*/
-
-using System;
+﻿using System;
 using Binarysharp.MemoryManagement.Native;
 
 namespace Binarysharp.MemoryManagement.Memory
@@ -26,7 +17,10 @@ namespace Binarysharp.MemoryManagement.Memory
         /// </summary>
         public MemoryBasicInformation Information
         {
-            get { return MemoryCore.Query(MemorySharp.Handle, BaseAddress); }
+            get
+            {
+                return MemoryCore.Query(MemorySharp.Handle, BaseAddress);
+            }
         }
 
         #endregion
@@ -38,7 +32,10 @@ namespace Binarysharp.MemoryManagement.Memory
         /// </summary>
         public override bool IsValid
         {
-            get { return base.IsValid && Information.State != MemoryStateFlags.Free; }
+            get
+            {
+                return base.IsValid && Information.State != MemoryStateFlags.Free;
+            }
         }
 
         #endregion
@@ -69,7 +66,8 @@ namespace Binarysharp.MemoryManagement.Memory
         /// <param name="mustBeDisposed">The resource will be automatically disposed when the finalizer collects the object.</param>
         /// <returns>A new instance of the <see cref="MemoryProtection" /> class.</returns>
         public MemoryProtection ChangeProtection(
-            MemoryProtectionFlags protection = MemoryProtectionFlags.ExecuteReadWrite, bool mustBeDisposed = true)
+            MemoryProtectionFlags protection = MemoryProtectionFlags.ExecuteReadWrite,
+            bool mustBeDisposed = true)
         {
             return new MemoryProtection(MemorySharp, BaseAddress, Information.RegionSize, protection, mustBeDisposed);
         }
@@ -83,7 +81,10 @@ namespace Binarysharp.MemoryManagement.Memory
         /// </summary>
         public bool Equals(RemoteRegion other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
             return ReferenceEquals(this, other) ||
                    (BaseAddress.Equals(other.BaseAddress) && MemorySharp.Equals(other.MemorySharp) &&
                     Information.RegionSize.Equals(other.Information.RegionSize));
@@ -94,8 +95,14 @@ namespace Binarysharp.MemoryManagement.Memory
         /// </summary>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
             return obj.GetType() == GetType() && Equals((RemoteRegion) obj);
         }
 
@@ -149,8 +156,10 @@ namespace Binarysharp.MemoryManagement.Memory
         /// </summary>
         public override string ToString()
         {
-            return string.Format("BaseAddress = 0x{0:X} Size = 0x{1:X} Protection = {2}", BaseAddress.ToInt64(),
-                Information.RegionSize, Information.Protect);
+            return string.Format("BaseAddress = 0x{0:X} Size = 0x{1:X} Protection = {2}",
+                                 BaseAddress.ToInt64(),
+                                 Information.RegionSize,
+                                 Information.Protect);
         }
 
         #endregion

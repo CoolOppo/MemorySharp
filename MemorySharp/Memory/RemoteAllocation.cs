@@ -1,13 +1,4 @@
-﻿/*
- * MemorySharp Library v1.0.0
- * http://www.binarysharp.com/
- *
- * Copyright (C) 2012-2013 Jämes Ménétrey (a.k.a. ZenLulz).
- * This library is released under the MIT License.
- * See the file LICENSE for more information.
-*/
-
-using System;
+﻿using System;
 using Binarysharp.MemoryManagement.Internals;
 using Binarysharp.MemoryManagement.Native;
 
@@ -49,9 +40,10 @@ namespace Binarysharp.MemoryManagement.Memory
         /// <param name="size">The size of the allocated memory.</param>
         /// <param name="protection">The protection of the allocated memory.</param>
         /// <param name="mustBeDisposed">The allocated memory will be released when the finalizer collects the object.</param>
-        internal RemoteAllocation(MemorySharp memorySharp, int size,
-            MemoryProtectionFlags protection = MemoryProtectionFlags.ExecuteReadWrite,
-            bool mustBeDisposed = true)
+        internal RemoteAllocation(MemorySharp memorySharp,
+                                  int size,
+                                  MemoryProtectionFlags protection = MemoryProtectionFlags.ExecuteReadWrite,
+                                  bool mustBeDisposed = true)
             : base(memorySharp, MemoryCore.Allocate(memorySharp.Handle, size, protection))
         {
             // Set local vars
@@ -65,7 +57,9 @@ namespace Binarysharp.MemoryManagement.Memory
         ~RemoteAllocation()
         {
             if (MustBeDisposed)
+            {
                 Dispose();
+            }
         }
 
         #endregion

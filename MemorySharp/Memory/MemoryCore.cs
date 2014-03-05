@@ -1,13 +1,4 @@
-﻿/*
- * MemorySharp Library v1.0.0
- * http://www.binarysharp.com/
- *
- * Copyright (C) 2012-2013 Jämes Ménétrey (a.k.a. ZenLulz).
- * This library is released under the MIT License.
- * See the file LICENSE for more information.
-*/
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Binarysharp.MemoryManagement.Helpers;
@@ -31,19 +22,22 @@ namespace Binarysharp.MemoryManagement.Memory
         /// <param name="protectionFlags">The memory protection for the region of pages to be allocated.</param>
         /// <param name="allocationFlags">The type of memory allocation.</param>
         /// <returns>The base address of the allocated region.</returns>
-        public static IntPtr Allocate(SafeMemoryHandle processHandle, int size,
-            MemoryProtectionFlags protectionFlags = MemoryProtectionFlags.ExecuteReadWrite,
-            MemoryAllocationFlags allocationFlags = MemoryAllocationFlags.Commit)
+        public static IntPtr Allocate(SafeMemoryHandle processHandle,
+                                      int size,
+                                      MemoryProtectionFlags protectionFlags = MemoryProtectionFlags.ExecuteReadWrite,
+                                      MemoryAllocationFlags allocationFlags = MemoryAllocationFlags.Commit)
         {
             // Check if the handle is valid
             HandleManipulator.ValidateAsArgument(processHandle, "processHandle");
 
             // Allocate a memory page
-            IntPtr ret = NativeMethods.VirtualAllocEx(processHandle, IntPtr.Zero, size, allocationFlags, protectionFlags);
+            var ret = NativeMethods.VirtualAllocEx(processHandle, IntPtr.Zero, size, allocationFlags, protectionFlags);
 
             // Check whether the memory page is valid
             if (ret != IntPtr.Zero)
+            {
                 return ret;
+            }
 
             // If the pointer isn't valid, throws an exception
             throw new Win32Exception(string.Format("Couldn't allocate memory of {0} byte(s).", size));
@@ -110,12 +104,17 @@ namespace Binarysharp.MemoryManagement.Memory
             var info = new ProcessBasicInformation();
 
             // Get the process info
-            int ret = NativeMethods.NtQueryInformationProcess(processHandle,
-                ProcessInformationClass.ProcessBasicInformation, ref info, info.Size, IntPtr.Zero);
+            var ret = NativeMethods.NtQueryInformationProcess(processHandle,
+                                                              ProcessInformationClass.ProcessBasicInformation,
+                                                              ref info,
+                                                              info.Size,
+                                                              IntPtr.Zero);
 
             // If the function succeeded
             if (ret == 0)
+            {
                 return info;
+            }
 
             // Else, couldn't get the process info, throws an exception
             throw new ApplicationException(
@@ -135,11 +134,13 @@ namespace Binarysharp.MemoryManagement.Memory
         public static SafeMemoryHandle OpenProcess(ProcessAccessFlags accessFlags, int processId)
         {
             // Get an handle from the remote process
-            SafeMemoryHandle handle = NativeMethods.OpenProcess(accessFlags, false, processId);
+            var handle = NativeMethods.OpenProcess(accessFlags, false, processId);
 
             // Check whether the handle is valid
             if (!handle.IsInvalid && !handle.IsClosed)
+            {
                 return handle;
+            }
 
             // Else the handle isn't valid, throws an exception
             throw new Win32Exception(string.Format("Couldn't open the process {0}.", processId));
@@ -169,7 +170,9 @@ namespace Binarysharp.MemoryManagement.Memory
             // Read the data from the target process
             if (NativeMethods.ReadProcessMemory(processHandle, address, buffer, size, out nbBytesRead) &&
                 size == nbBytesRead)
+            {
                 return buffer;
+            }
 
             // Else the data couldn't be read, throws an exception
             throw new Win32Exception(string.Format("Couldn't read {0} byte(s) from 0x{1}.", size, address.ToString("X")));
@@ -190,8 +193,10 @@ namespace Binarysharp.MemoryManagement.Memory
         /// <param name="size">The size of the region whose access protection attributes are changed, in bytes.</param>
         /// <param name="protection">The memory protection option.</param>
         /// <returns>The old protection of the region in a <see cref="Native.MemoryBasicInformation" /> structure.</returns>
-        public static MemoryProtectionFlags ChangeProtection(SafeMemoryHandle processHandle, IntPtr address, int size,
-            MemoryProtectionFlags protection)
+        public static MemoryProtectionFlags ChangeProtection(SafeMemoryHandle processHandle,
+                                                             IntPtr address,
+                                                             int size,
+                                                             MemoryProtectionFlags protection)
         {
             // Check if the handles are valid
             HandleManipulator.ValidateAsArgument(processHandle, "processHandle");
@@ -210,7 +215,9 @@ namespace Binarysharp.MemoryManagement.Memory
             // Else the protection couldn't be changed, throws an exception
             throw new Win32Exception(
                 string.Format("Couldn't change the protection of the memory at 0x{0} of {1} byte(s) to {2}.",
-                    address.ToString("X"), size, protection));
+                              address.ToString("X"),
+                              size,
+                              protection));
         }
 
         #endregion
@@ -233,13 +240,17 @@ namespace Binarysharp.MemoryManagement.Memory
 
             // Query the memory region
             if (
-                NativeMethods.VirtualQueryEx(processHandle, baseAddress, out memoryInfo,
-                    MarshalType<MemoryBasicInformation>.Size) != 0)
+                NativeMethods.VirtualQueryEx(processHandle,
+                                             baseAddress,
+                                             out memoryInfo,
+                                             MarshalType<MemoryBasicInformation>.Size) != 0)
+            {
                 return memoryInfo;
+            }
 
             // Else the information couldn't be got
             throw new Win32Exception(string.Format("Couldn't query information about the memory region 0x{0}",
-                baseAddress.ToString("X")));
+                                                   baseAddress.ToString("X")));
         }
 
         /// <summary>
@@ -249,19 +260,22 @@ namespace Binarysharp.MemoryManagement.Memory
         /// <param name="addressFrom">A pointer to the starting address of the region of pages to be queried.</param>
         /// <param name="addressTo">A pointer to the ending address of the region of pages to be queried.</param>
         /// <returns>A collection of <see cref="Native.MemoryBasicInformation" /> structures.</returns>
-        public static IEnumerable<MemoryBasicInformation> Query(SafeMemoryHandle processHandle, IntPtr addressFrom,
-            IntPtr addressTo)
+        public static IEnumerable<MemoryBasicInformation> Query(SafeMemoryHandle processHandle,
+                                                                IntPtr addressFrom,
+                                                                IntPtr addressTo)
         {
             // Check if the handle is valid
             HandleManipulator.ValidateAsArgument(processHandle, "processHandle");
 
             // Convert the addresses to Int64
-            long numberFrom = addressFrom.ToInt64();
-            long numberTo = addressTo.ToInt64();
+            var numberFrom = addressFrom.ToInt64();
+            var numberTo = addressTo.ToInt64();
 
             // The first address must be lower than the second
             if (numberFrom >= numberTo)
+            {
                 throw new ArgumentException("The starting address must be lower than the ending address.", "addressFrom");
+            }
 
             // Create the variable storing the result of the call of VirtualQueryEx
             int ret;
@@ -273,15 +287,19 @@ namespace Binarysharp.MemoryManagement.Memory
                 MemoryBasicInformation memoryInfo;
 
                 // Get the next memory page
-                ret = NativeMethods.VirtualQueryEx(processHandle, new IntPtr(numberFrom), out memoryInfo,
-                    MarshalType<MemoryBasicInformation>.Size);
+                ret = NativeMethods.VirtualQueryEx(processHandle,
+                                                   new IntPtr(numberFrom),
+                                                   out memoryInfo,
+                                                   MarshalType<MemoryBasicInformation>.Size);
 
                 // Increment the starting address with the size of the page
                 numberFrom += memoryInfo.RegionSize;
 
                 // Return the memory page
                 if (memoryInfo.State != MemoryStateFlags.Free)
+                {
                     yield return memoryInfo;
+                }
             } while (numberFrom < numberTo && ret != 0);
         }
 
@@ -310,12 +328,15 @@ namespace Binarysharp.MemoryManagement.Memory
             {
                 // Check whether the length of the data written is equal to the inital array
                 if (nbBytesWritten == byteArray.Length)
+                {
                     return nbBytesWritten;
+                }
             }
 
             // Else the data couldn't be written, throws an exception
-            throw new Win32Exception(string.Format("Couldn't write {0} bytes to 0x{1}", byteArray.Length,
-                address.ToString("X")));
+            throw new Win32Exception(string.Format("Couldn't write {0} bytes to 0x{1}",
+                                                   byteArray.Length,
+                                                   address.ToString("X")));
         }
 
         #endregion

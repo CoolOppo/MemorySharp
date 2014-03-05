@@ -1,14 +1,4 @@
-﻿/*
- * MemorySharp Library v1.0.0
- * http://www.binarysharp.com/
- *
- * Copyright (C) 2012-2013 Jämes Ménétrey (a.k.a. ZenLulz).
- * This library is released under the MIT License.
- * See the file LICENSE for more information.
-*/
-
-using System;
-using Binarysharp.Assemblers.Fasm;
+﻿using System;
 
 namespace Binarysharp.MemoryManagement.Assembly.Assembler
 {
@@ -41,6 +31,14 @@ namespace Binarysharp.MemoryManagement.Assembly.Assembler
             asm = String.Format("use32\norg 0x{0:X8}\n", baseAddress.ToInt64()) + asm;
             // Assemble and return the code
             return FasmNet.Assemble(asm);
+        }
+    }
+
+    public class FasmNet
+    {
+        public static byte[] Assemble(string asm)
+        {
+            throw new NotImplementedException();
         }
     }
 }

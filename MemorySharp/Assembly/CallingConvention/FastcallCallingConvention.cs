@@ -1,13 +1,4 @@
-﻿/*
- * MemorySharp Library v1.0.0
- * http://www.binarysharp.com/
- *
- * Copyright (C) 2012-2013 Jämes Ménétrey (a.k.a. ZenLulz).
- * This library is released under the MIT License.
- * See the file LICENSE for more information.
-*/
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -23,7 +14,10 @@ namespace Binarysharp.MemoryManagement.Assembly.CallingConvention
         /// </summary>
         public string Name
         {
-            get { return "Fastcall"; }
+            get
+            {
+                return "Fastcall";
+            }
         }
 
         /// <summary>
@@ -31,7 +25,10 @@ namespace Binarysharp.MemoryManagement.Assembly.CallingConvention
         /// </summary>
         public CleanupTypes Cleanup
         {
-            get { return CleanupTypes.Callee; }
+            get
+            {
+                return CleanupTypes.Callee;
+            }
         }
 
         /// <summary>
@@ -58,7 +55,7 @@ namespace Binarysharp.MemoryManagement.Assembly.CallingConvention
             }
             // For each parameters (in reverse order)
             paramList.Reverse();
-            foreach (IntPtr parameter in paramList)
+            foreach (var parameter in paramList)
             {
                 ret.AppendLine("push " + parameter);
             }

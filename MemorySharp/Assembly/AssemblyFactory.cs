@@ -1,13 +1,4 @@
-﻿/*
- * MemorySharp Library v1.0.0
- * http://www.binarysharp.com/
- *
- * Copyright (C) 2012-2013 Jämes Ménétrey (a.k.a. ZenLulz).
- * This library is released under the MIT License.
- * See the file LICENSE for more information.
-*/
-
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Binarysharp.MemoryManagement.Assembly.Assembler;
@@ -110,7 +101,7 @@ namespace Binarysharp.MemoryManagement.Assembly
         public T Execute<T>(IntPtr address)
         {
             // Execute and join the code in a new thread
-            RemoteThread thread = MemorySharp.Threads.CreateAndJoin(address);
+            var thread = MemorySharp.Threads.CreateAndJoin(address);
             // Return the exit code of the thread
             return thread.GetExitCode<T>();
         }
@@ -160,27 +151,29 @@ namespace Binarysharp.MemoryManagement.Assembly
         public T Execute<T>(IntPtr address, CallingConventions callingConvention, params dynamic[] parameters)
         {
             // Marshal the parameters
-            IMarshalledValue[] marshalledParameters =
+            var marshalledParameters =
                 parameters.Select(p => MarshalValue.Marshal(MemorySharp, p)).Cast<IMarshalledValue>().ToArray();
             // Start a transaction
             AssemblyTransaction t;
             using (t = BeginTransaction())
             {
                 // Get the object dedicated to create mnemonics for the given calling convention
-                ICallingConvention calling = CallingConventionSelector.Get(callingConvention);
+                var calling = CallingConventionSelector.Get(callingConvention);
                 // Push the parameters
                 t.AddLine(calling.FormatParameters(marshalledParameters.Select(p => p.Reference).ToArray()));
                 // Call the function
                 t.AddLine(calling.FormatCalling(address));
                 // Clean the parameters
                 if (calling.Cleanup == CleanupTypes.Caller)
+                {
                     t.AddLine(calling.FormatCleaning(marshalledParameters.Length));
+                }
                 // Add the return mnemonic
                 t.AddLine("retn");
             }
 
             // Clean the marshalled parameters
-            foreach (IMarshalledValue parameter in marshalledParameters)
+            foreach (var parameter in marshalledParameters)
             {
                 parameter.Dispose();
             }
@@ -283,8 +276,9 @@ namespace Binarysharp.MemoryManagement.Assembly
         ///     The return value is an asynchronous operation that return the exit code of the thread created to execute the
         ///     assembly code.
         /// </returns>
-        public Task<IntPtr> ExecuteAsync(IntPtr address, CallingConventions callingConvention,
-            params dynamic[] parameters)
+        public Task<IntPtr> ExecuteAsync(IntPtr address,
+                                         CallingConventions callingConvention,
+                                         params dynamic[] parameters)
         {
             return ExecuteAsync<IntPtr>(address, callingConvention, parameters);
         }
@@ -321,9 +315,9 @@ namespace Binarysharp.MemoryManagement.Assembly
         public RemoteAllocation Inject(string asm)
         {
             // Assemble the assembly code
-            byte[] code = Assembler.Assemble(asm);
+            var code = Assembler.Assemble(asm);
             // Allocate a chunk of memory to store the assembly code
-            RemoteAllocation memory = MemorySharp.Memory.Allocate(code.Length);
+            var memory = MemorySharp.Memory.Allocate(code.Length);
             // Inject the code
             Inject(asm, memory.BaseAddress);
             // Return the memory allocated
@@ -399,7 +393,7 @@ namespace Binarysharp.MemoryManagement.Assembly
         public T InjectAndExecute<T>(string asm)
         {
             // Inject the assembly code
-            using (RemoteAllocation memory = Inject(asm))
+            using (var memory = Inject(asm))
             {
                 // Execute the code
                 return Execute<T>(memory.BaseAddress);

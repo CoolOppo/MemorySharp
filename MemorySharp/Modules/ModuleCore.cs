@@ -1,13 +1,4 @@
-﻿/*
- * MemorySharp Library v1.0.0
- * http://www.binarysharp.com/
- *
- * Copyright (C) 2012-2013 Jämes Ménétrey (a.k.a. ZenLulz).
- * This library is released under the MIT License.
- * See the file LICENSE for more information.
-*/
-
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -32,23 +23,27 @@ namespace Binarysharp.MemoryManagement.Modules
         public static IntPtr GetProcAddress(string moduleName, string functionName)
         {
             // Get the module
-            ProcessModule module =
+            var module =
                 Process.GetCurrentProcess()
-                    .Modules.Cast<ProcessModule>()
-                    .FirstOrDefault(m => m.ModuleName.ToLower() == moduleName.ToLower());
+                       .Modules.Cast<ProcessModule>()
+                       .FirstOrDefault(m => m.ModuleName.ToLower() == moduleName.ToLower());
 
             // Check whether there is a module loaded with this name
             if (module == null)
+            {
                 throw new ArgumentException(
                     string.Format("Couldn't get the module {0} because it doesn't exist in the current process.",
-                        moduleName));
+                                  moduleName));
+            }
 
             // Get the function address
-            IntPtr ret = NativeMethods.GetProcAddress(module.BaseAddress, functionName);
+            var ret = NativeMethods.GetProcAddress(module.BaseAddress, functionName);
 
             // Check whether the function was found
             if (ret != IntPtr.Zero)
+            {
                 return ret;
+            }
 
             // Else the function was not found, throws an exception
             throw new Win32Exception(string.Format("Couldn't get the function address of {0}.", functionName));
@@ -76,20 +71,24 @@ namespace Binarysharp.MemoryManagement.Modules
         public static void FreeLibrary(string libraryName)
         {
             // Get the module
-            ProcessModule module =
+            var module =
                 Process.GetCurrentProcess()
-                    .Modules.Cast<ProcessModule>()
-                    .FirstOrDefault(m => m.ModuleName.ToLower() == libraryName.ToLower());
+                       .Modules.Cast<ProcessModule>()
+                       .FirstOrDefault(m => m.ModuleName.ToLower() == libraryName.ToLower());
 
             // Check whether there is a library loaded with this name
             if (module == null)
+            {
                 throw new ArgumentException(
                     string.Format("Couldn't free the library {0} because it doesn't exist in the current process.",
-                        libraryName));
+                                  libraryName));
+            }
 
             // Free the library
             if (!NativeMethods.FreeLibrary(module.BaseAddress))
+            {
                 throw new Win32Exception(string.Format("Couldn't free the library {0}.", libraryName));
+            }
         }
 
         /// <summary>
@@ -117,12 +116,16 @@ namespace Binarysharp.MemoryManagement.Modules
         {
             // Check whether the file exists
             if (!File.Exists(libraryPath))
+            {
                 throw new FileNotFoundException(
                     string.Format("Couldn't load the library {0} because the file doesn't exist.", libraryPath));
+            }
 
             // Load the library
             if (NativeMethods.LoadLibrary(libraryPath) == IntPtr.Zero)
+            {
                 throw new Win32Exception(string.Format("Couldn't load the library {0}.", libraryPath));
+            }
 
             // Enumerate the loaded modules and return the one newly added
             return Process.GetCurrentProcess().Modules.Cast<ProcessModule>().First(m => m.FileName == libraryPath);

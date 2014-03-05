@@ -1,13 +1,4 @@
-﻿/*
- * MemorySharp Library v1.0.0
- * http://www.binarysharp.com/
- *
- * Copyright (C) 2012-2013 Jämes Ménétrey (a.k.a. ZenLulz).
- * This library is released under the MIT License.
- * See the file LICENSE for more information.
-*/
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Binarysharp.MemoryManagement.Native;
@@ -40,7 +31,10 @@ namespace Binarysharp.MemoryManagement.Windows
         /// </summary>
         public IEnumerable<RemoteWindow> Children
         {
-            get { return ChildrenHandles.Select(handle => new RemoteWindow(MemorySharp, handle)); }
+            get
+            {
+                return ChildrenHandles.Select(handle => new RemoteWindow(MemorySharp, handle));
+            }
         }
 
         #endregion
@@ -52,7 +46,10 @@ namespace Binarysharp.MemoryManagement.Windows
         /// </summary>
         protected IEnumerable<IntPtr> ChildrenHandles
         {
-            get { return WindowCore.EnumChildWindows(Handle); }
+            get
+            {
+                return WindowCore.EnumChildWindows(Handle);
+            }
         }
 
         #endregion
@@ -64,7 +61,10 @@ namespace Binarysharp.MemoryManagement.Windows
         /// </summary>
         public string ClassName
         {
-            get { return WindowCore.GetClassName(Handle); }
+            get
+            {
+                return WindowCore.GetClassName(Handle);
+            }
         }
 
         #endregion
@@ -91,10 +91,13 @@ namespace Binarysharp.MemoryManagement.Windows
         /// </summary>
         public int Height
         {
-            get { return Placement.NormalPosition.Height; }
+            get
+            {
+                return Placement.NormalPosition.Height;
+            }
             set
             {
-                WindowPlacement p = Placement;
+                var p = Placement;
                 p.NormalPosition.Height = value;
                 Placement = p;
             }
@@ -109,7 +112,10 @@ namespace Binarysharp.MemoryManagement.Windows
         /// </summary>
         public bool IsActivated
         {
-            get { return WindowCore.GetForegroundWindow() == Handle; }
+            get
+            {
+                return WindowCore.GetForegroundWindow() == Handle;
+            }
         }
 
         #endregion
@@ -121,7 +127,10 @@ namespace Binarysharp.MemoryManagement.Windows
         /// </summary>
         public bool IsMainWindow
         {
-            get { return MemorySharp.Windows.MainWindow == this; }
+            get
+            {
+                return MemorySharp.Windows.MainWindow == this;
+            }
         }
 
         #endregion
@@ -151,8 +160,14 @@ namespace Binarysharp.MemoryManagement.Windows
         /// </summary>
         public WindowPlacement Placement
         {
-            get { return WindowCore.GetWindowPlacement(Handle); }
-            set { WindowCore.SetWindowPlacement(Handle, value); }
+            get
+            {
+                return WindowCore.GetWindowPlacement(Handle);
+            }
+            set
+            {
+                WindowCore.SetWindowPlacement(Handle, value);
+            }
         }
 
         #endregion
@@ -164,8 +179,14 @@ namespace Binarysharp.MemoryManagement.Windows
         /// </summary>
         public WindowStates State
         {
-            get { return Placement.ShowCmd; }
-            set { WindowCore.ShowWindow(Handle, value); }
+            get
+            {
+                return Placement.ShowCmd;
+            }
+            set
+            {
+                WindowCore.ShowWindow(Handle, value);
+            }
         }
 
         #endregion
@@ -177,8 +198,14 @@ namespace Binarysharp.MemoryManagement.Windows
         /// </summary>
         public string Title
         {
-            get { return WindowCore.GetWindowText(Handle); }
-            set { WindowCore.SetWindowText(Handle, value); }
+            get
+            {
+                return WindowCore.GetWindowText(Handle);
+            }
+            set
+            {
+                WindowCore.SetWindowText(Handle, value);
+            }
         }
 
         #endregion
@@ -190,7 +217,10 @@ namespace Binarysharp.MemoryManagement.Windows
         /// </summary>
         public RemoteThread Thread
         {
-            get { return MemorySharp.Threads.GetThreadById(WindowCore.GetWindowThreadId(Handle)); }
+            get
+            {
+                return MemorySharp.Threads.GetThreadById(WindowCore.GetWindowThreadId(Handle));
+            }
         }
 
         #endregion
@@ -202,10 +232,13 @@ namespace Binarysharp.MemoryManagement.Windows
         /// </summary>
         public int Width
         {
-            get { return Placement.NormalPosition.Width; }
+            get
+            {
+                return Placement.NormalPosition.Width;
+            }
             set
             {
-                WindowPlacement p = Placement;
+                var p = Placement;
                 p.NormalPosition.Width = value;
                 Placement = p;
             }
@@ -220,10 +253,13 @@ namespace Binarysharp.MemoryManagement.Windows
         /// </summary>
         public int X
         {
-            get { return Placement.NormalPosition.Left; }
+            get
+            {
+                return Placement.NormalPosition.Left;
+            }
             set
             {
-                WindowPlacement p = Placement;
+                var p = Placement;
                 p.NormalPosition.Right = value + p.NormalPosition.Width;
                 p.NormalPosition.Left = value;
                 Placement = p;
@@ -239,10 +275,13 @@ namespace Binarysharp.MemoryManagement.Windows
         /// </summary>
         public int Y
         {
-            get { return Placement.NormalPosition.Top; }
+            get
+            {
+                return Placement.NormalPosition.Top;
+            }
             set
             {
-                WindowPlacement p = Placement;
+                var p = Placement;
                 p.NormalPosition.Bottom = value + p.NormalPosition.Height;
                 p.NormalPosition.Top = value;
                 Placement = p;
@@ -305,8 +344,14 @@ namespace Binarysharp.MemoryManagement.Windows
         /// </summary>
         public bool Equals(RemoteWindow other)
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
             return Equals(MemorySharp, other.MemorySharp) && Handle.Equals(other.Handle);
         }
 
@@ -315,9 +360,18 @@ namespace Binarysharp.MemoryManagement.Windows
         /// </summary>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
             return Equals((RemoteWindow) obj);
         }
 
@@ -355,7 +409,7 @@ namespace Binarysharp.MemoryManagement.Windows
         {
             unchecked
             {
-                int hashCode = (MemorySharp != null ? MemorySharp.GetHashCode() : 0);
+                var hashCode = (MemorySharp != null ? MemorySharp.GetHashCode() : 0);
                 hashCode = (hashCode*397) ^ Handle.GetHashCode();
                 return hashCode;
             }

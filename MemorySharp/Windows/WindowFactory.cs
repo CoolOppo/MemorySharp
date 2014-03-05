@@ -1,13 +1,4 @@
-﻿/*
- * MemorySharp Library v1.0.0
- * http://www.binarysharp.com/
- *
- * Copyright (C) 2012-2013 Jämes Ménétrey (a.k.a. ZenLulz).
- * This library is released under the MIT License.
- * See the file LICENSE for more information.
-*/
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Binarysharp.MemoryManagement.Internals;
@@ -24,7 +15,7 @@ namespace Binarysharp.MemoryManagement.Windows
         /// <summary>
         ///     The reference of the <see cref="MemorySharp" /> object.
         /// </summary>
-        private readonly MemorySharp _memorySharp;
+        readonly MemorySharp _memorySharp;
 
         #endregion
 
@@ -37,7 +28,10 @@ namespace Binarysharp.MemoryManagement.Windows
         /// </summary>
         public IEnumerable<RemoteWindow> ChildWindows
         {
-            get { return ChildWindowHandles.Select(handle => new RemoteWindow(_memorySharp, handle)); }
+            get
+            {
+                return ChildWindowHandles.Select(handle => new RemoteWindow(_memorySharp, handle));
+            }
         }
 
         #endregion
@@ -49,7 +43,10 @@ namespace Binarysharp.MemoryManagement.Windows
         /// </summary>
         internal IEnumerable<IntPtr> ChildWindowHandles
         {
-            get { return WindowCore.EnumChildWindows(_memorySharp.Native.MainWindowHandle); }
+            get
+            {
+                return WindowCore.EnumChildWindows(_memorySharp.Native.MainWindowHandle);
+            }
         }
 
         #endregion
@@ -61,7 +58,10 @@ namespace Binarysharp.MemoryManagement.Windows
         /// </summary>
         public RemoteWindow MainWindow
         {
-            get { return new RemoteWindow(_memorySharp, MainWindowHandle); }
+            get
+            {
+                return new RemoteWindow(_memorySharp, MainWindowHandle);
+            }
         }
 
         #endregion
@@ -73,7 +73,10 @@ namespace Binarysharp.MemoryManagement.Windows
         /// </summary>
         public IntPtr MainWindowHandle
         {
-            get { return _memorySharp.Native.MainWindowHandle; }
+            get
+            {
+                return _memorySharp.Native.MainWindowHandle;
+            }
         }
 
         #endregion
@@ -87,7 +90,10 @@ namespace Binarysharp.MemoryManagement.Windows
         /// <returns>A collection of <see cref="RemoteWindow" />.</returns>
         public IEnumerable<RemoteWindow> this[string windowTitle]
         {
-            get { return GetWindowsByTitle(windowTitle); }
+            get
+            {
+                return GetWindowsByTitle(windowTitle);
+            }
         }
 
         #endregion
@@ -99,7 +105,10 @@ namespace Binarysharp.MemoryManagement.Windows
         /// </summary>
         public IEnumerable<RemoteWindow> RemoteWindows
         {
-            get { return WindowHandles.Select(handle => new RemoteWindow(_memorySharp, handle)); }
+            get
+            {
+                return WindowHandles.Select(handle => new RemoteWindow(_memorySharp, handle));
+            }
         }
 
         #endregion
@@ -111,7 +120,13 @@ namespace Binarysharp.MemoryManagement.Windows
         /// </summary>
         internal IEnumerable<IntPtr> WindowHandles
         {
-            get { return new List<IntPtr>(ChildWindowHandles) {MainWindowHandle}; }
+            get
+            {
+                return new List<IntPtr>(ChildWindowHandles)
+                       {
+                           MainWindowHandle
+                       };
+            }
         }
 
         #endregion
@@ -155,9 +170,9 @@ namespace Binarysharp.MemoryManagement.Windows
         /// <returns>A collection of <see cref="RemoteWindow" />.</returns>
         public IEnumerable<RemoteWindow> GetWindowsByClassName(string className)
         {
-            return WindowHandles
-                .Where(handle => WindowCore.GetClassName(handle) == className)
-                .Select(handle => new RemoteWindow(_memorySharp, handle));
+            return
+                WindowHandles.Where(handle => WindowCore.GetClassName(handle) == className)
+                             .Select(handle => new RemoteWindow(_memorySharp, handle));
         }
 
         #endregion
@@ -171,9 +186,9 @@ namespace Binarysharp.MemoryManagement.Windows
         /// <returns>A collection of <see cref="RemoteWindow" />.</returns>
         public IEnumerable<RemoteWindow> GetWindowsByTitle(string windowTitle)
         {
-            return WindowHandles
-                .Where(handle => WindowCore.GetWindowText(handle) == windowTitle)
-                .Select(handle => new RemoteWindow(_memorySharp, handle));
+            return
+                WindowHandles.Where(handle => WindowCore.GetWindowText(handle) == windowTitle)
+                             .Select(handle => new RemoteWindow(_memorySharp, handle));
         }
 
         #endregion
@@ -187,9 +202,9 @@ namespace Binarysharp.MemoryManagement.Windows
         /// <returns>A collection of <see cref="RemoteWindow" />.</returns>
         public IEnumerable<RemoteWindow> GetWindowsByTitleContains(string windowTitle)
         {
-            return WindowHandles
-                .Where(handle => WindowCore.GetWindowText(handle).Contains(windowTitle))
-                .Select(handle => new RemoteWindow(_memorySharp, handle));
+            return
+                WindowHandles.Where(handle => WindowCore.GetWindowText(handle).Contains(windowTitle))
+                             .Select(handle => new RemoteWindow(_memorySharp, handle));
         }
 
         #endregion

@@ -1,13 +1,4 @@
-﻿/*
- * MemorySharp Library v1.0.0
- * http://www.binarysharp.com/
- *
- * Copyright (C) 2012-2013 Jämes Ménétrey (a.k.a. ZenLulz).
- * This library is released under the MIT License.
- * See the file LICENSE for more information.
-*/
-
-using System;
+﻿using System;
 using System.Linq;
 using System.Text;
 
@@ -23,7 +14,10 @@ namespace Binarysharp.MemoryManagement.Assembly.CallingConvention
         /// </summary>
         public string Name
         {
-            get { return "Cdecl"; }
+            get
+            {
+                return "Cdecl";
+            }
         }
 
         /// <summary>
@@ -31,7 +25,10 @@ namespace Binarysharp.MemoryManagement.Assembly.CallingConvention
         /// </summary>
         public CleanupTypes Cleanup
         {
-            get { return CleanupTypes.Caller; }
+            get
+            {
+                return CleanupTypes.Caller;
+            }
         }
 
         /// <summary>
@@ -44,7 +41,7 @@ namespace Binarysharp.MemoryManagement.Assembly.CallingConvention
             // Declare a var to store the mnemonics
             var ret = new StringBuilder();
             // For each parameters (in reverse order)
-            foreach (IntPtr parameter in parameters.Reverse())
+            foreach (var parameter in parameters.Reverse())
             {
                 ret.AppendLine("push " + parameter);
             }

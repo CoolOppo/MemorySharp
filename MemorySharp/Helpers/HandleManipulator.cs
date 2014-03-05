@@ -1,13 +1,4 @@
-﻿/*
- * MemorySharp Library v1.0.0
- * http://www.binarysharp.com/
- *
- * Copyright (C) 2012-2013 Jämes Ménétrey (a.k.a. ZenLulz).
- * This library is released under the MIT License.
- * See the file LICENSE for more information.
-*/
-
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -33,7 +24,9 @@ namespace Binarysharp.MemoryManagement.Helpers
 
             // Close the handle
             if (!NativeMethods.CloseHandle(handle))
+            {
                 throw new Win32Exception("Couldn't close the handle correctly.");
+            }
         }
 
         #endregion
@@ -66,11 +59,13 @@ namespace Binarysharp.MemoryManagement.Helpers
             ValidateAsArgument(processHandle, "processHandle");
 
             // Find the process id
-            int ret = NativeMethods.GetProcessId(processHandle);
+            var ret = NativeMethods.GetProcessId(processHandle);
 
             // If the process id is valid
             if (ret != 0)
+            {
                 return ret;
+            }
 
             // Else the function failed, throws an exception
             throw new Win32Exception("Couldn't find the process id of the specified handle.");
@@ -88,12 +83,14 @@ namespace Binarysharp.MemoryManagement.Helpers
         public static ProcessThread HandleToThread(SafeMemoryHandle threadHandle)
         {
             // Search the thread by iterating the processes list
-            foreach (Process process in Process.GetProcesses())
+            foreach (var process in Process.GetProcesses())
             {
-                ProcessThread ret =
+                var ret =
                     process.Threads.Cast<ProcessThread>().FirstOrDefault(t => t.Id == HandleToThreadId(threadHandle));
                 if (ret != null)
+                {
                     return ret;
+                }
             }
 
             // If no thread was found, throws a exception like the First() function with no element
@@ -115,11 +112,13 @@ namespace Binarysharp.MemoryManagement.Helpers
             ValidateAsArgument(threadHandle, "threadHandle");
 
             // Find the thread id
-            int ret = NativeMethods.GetThreadId(threadHandle);
+            var ret = NativeMethods.GetThreadId(threadHandle);
 
             // If the thread id is valid
             if (ret != 0)
+            {
                 return ret;
+            }
 
             //Else the function failed, throws an exception
             throw new Win32Exception("Couldn't find the thread id of the specified handle.");
@@ -138,11 +137,15 @@ namespace Binarysharp.MemoryManagement.Helpers
         {
             // Check if the handle is not null
             if (handle == null)
+            {
                 throw new ArgumentNullException(argumentName);
+            }
 
             // Check if the handle is valid
             if (handle == IntPtr.Zero)
+            {
                 throw new ArgumentException("The handle is not valid.", argumentName);
+            }
         }
 
         /// <summary>
@@ -154,11 +157,15 @@ namespace Binarysharp.MemoryManagement.Helpers
         {
             // Check if the handle is not null
             if (handle == null)
+            {
                 throw new ArgumentNullException(argumentName);
+            }
 
             // Check if the handle is valid
             if (handle.IsClosed || handle.IsInvalid)
+            {
                 throw new ArgumentException("The handle is not valid or closed.", argumentName);
+            }
         }
 
         #endregion

@@ -1,13 +1,4 @@
-﻿/*
- * MemorySharp Library v1.0.0
- * http://www.binarysharp.com/
- *
- * Copyright (C) 2012-2013 Jämes Ménétrey (a.k.a. ZenLulz).
- * This library is released under the MIT License.
- * See the file LICENSE for more information.
-*/
-
-using System;
+﻿using System;
 using System.Text;
 using System.Threading.Tasks;
 using Binarysharp.MemoryManagement.Assembly.CallingConvention;
@@ -38,7 +29,10 @@ namespace Binarysharp.MemoryManagement.Memory
         /// </summary>
         public virtual bool IsValid
         {
-            get { return MemorySharp.IsRunning && BaseAddress != IntPtr.Zero; }
+            get
+            {
+                return MemorySharp.IsRunning && BaseAddress != IntPtr.Zero;
+            }
         }
 
         #endregion
@@ -82,7 +76,9 @@ namespace Binarysharp.MemoryManagement.Memory
         /// <param name="mustBeDisposed">The resource will be automatically disposed when the finalizer collects the object.</param>
         /// <returns>A new instance of the <see cref="MemoryProtection" /> class.</returns>
         public MemoryProtection ChangeProtection(int size,
-            MemoryProtectionFlags protection = MemoryProtectionFlags.ExecuteReadWrite, bool mustBeDisposed = true)
+                                                 MemoryProtectionFlags protection =
+                                                     MemoryProtectionFlags.ExecuteReadWrite,
+                                                 bool mustBeDisposed = true)
         {
             return new MemoryProtection(MemorySharp, BaseAddress, size, protection, mustBeDisposed);
         }
@@ -96,7 +92,10 @@ namespace Binarysharp.MemoryManagement.Memory
         /// </summary>
         public bool Equals(RemotePointer other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
             return ReferenceEquals(this, other) ||
                    (BaseAddress.Equals(other.BaseAddress) && MemorySharp.Equals(other.MemorySharp));
         }
@@ -106,8 +105,14 @@ namespace Binarysharp.MemoryManagement.Memory
         /// </summary>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
             return obj.GetType() == GetType() && Equals((RemotePointer) obj);
         }
 

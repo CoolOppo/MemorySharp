@@ -1,13 +1,4 @@
-﻿/*
- * MemorySharp Library v1.0.0
- * http://www.binarysharp.com/
- *
- * Copyright (C) 2012-2013 Jämes Ménétrey (a.k.a. ZenLulz).
- * This library is released under the MIT License.
- * See the file LICENSE for more information.
-*/
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -27,7 +18,10 @@ namespace Binarysharp.MemoryManagement.Helpers
         /// </summary>
         public static IEnumerable<IntPtr> TopLevelWindows
         {
-            get { return WindowCore.EnumTopLevelWindows(); }
+            get
+            {
+                return WindowCore.EnumTopLevelWindows();
+            }
         }
 
         #endregion
@@ -39,7 +33,10 @@ namespace Binarysharp.MemoryManagement.Helpers
         /// </summary>
         public static IEnumerable<IntPtr> Windows
         {
-            get { return WindowCore.EnumAllWindows(); }
+            get
+            {
+                return WindowCore.EnumAllWindows();
+            }
         }
 
         #endregion

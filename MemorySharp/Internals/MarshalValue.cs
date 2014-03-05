@@ -1,13 +1,4 @@
-﻿/*
- * MemorySharp Library v1.0.0
- * http://www.binarysharp.com/
- *
- * Copyright (C) 2012-2013 Jämes Ménétrey (a.k.a. ZenLulz).
- * This library is released under the MIT License.
- * See the file LICENSE for more information.
-*/
-
-using System;
+﻿using System;
 using Binarysharp.MemoryManagement.Memory;
 
 namespace Binarysharp.MemoryManagement.Internals
@@ -106,7 +97,9 @@ namespace Binarysharp.MemoryManagement.Internals
         {
             // Free the allocated memory
             if (Allocated != null)
+            {
                 Allocated.Dispose();
+            }
             // Set the pointer to zero
             Reference = IntPtr.Zero;
             // Avoid the finalizer
@@ -120,12 +113,12 @@ namespace Binarysharp.MemoryManagement.Internals
         /// <summary>
         ///     Marshals the value into the remote process.
         /// </summary>
-        private void Marshal()
+        void Marshal()
         {
             // If the type is string, it's a special case
             if (typeof (T) == typeof (string))
             {
-                string text = Value.ToString();
+                var text = Value.ToString();
                 // Allocate memory in the remote process (string + '\0')
                 Allocated = MemorySharp.Memory.Allocate(text.Length + 1);
                 // Write the value
@@ -137,7 +130,7 @@ namespace Binarysharp.MemoryManagement.Internals
             {
                 // For all other types
                 // Convert the value into a byte array
-                byte[] byteArray = MarshalType<T>.ObjectToByteArray(Value);
+                var byteArray = MarshalType<T>.ObjectToByteArray(Value);
 
                 // If the value can be stored directly in registers
                 if (MarshalType<T>.CanBeStoredInRegisters)

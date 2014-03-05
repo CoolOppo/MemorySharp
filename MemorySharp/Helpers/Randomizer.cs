@@ -1,13 +1,4 @@
-﻿/*
- * MemorySharp Library v1.0.0
- * http://www.binarysharp.com/
- *
- * Copyright (C) 2012-2013 Jämes Ménétrey (a.k.a. ZenLulz).
- * This library is released under the MIT License.
- * See the file LICENSE for more information.
-*/
-
-using System;
+﻿using System;
 using System.Text;
 
 namespace Binarysharp.MemoryManagement.Helpers
@@ -22,12 +13,12 @@ namespace Binarysharp.MemoryManagement.Helpers
         /// <summary>
         ///     Provides random engine.
         /// </summary>
-        private static readonly Random Random = new Random();
+        static readonly Random Random = new Random();
 
         /// <summary>
         ///     Allowed characters in random strings.
         /// </summary>
-        private static readonly char[] AllowedChars =
+        static readonly char[] AllowedChars =
             "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".ToCharArray();
 
         #endregion
@@ -86,11 +77,10 @@ namespace Binarysharp.MemoryManagement.Helpers
             var builder = new StringBuilder(GenerateNumber(minSize, maxSize));
 
             // Fill the string builder
-            for (int i = 0; i < builder.Capacity; i++)
+            for (var i = 0; i < builder.Capacity; i++)
             {
                 builder.Append(AllowedChars[GenerateNumber(AllowedChars.Length - 1)]);
             }
-
             return builder.ToString();
         }
 

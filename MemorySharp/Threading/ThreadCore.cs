@@ -1,13 +1,4 @@
-﻿/*
- * MemorySharp Library v1.0.0
- * http://www.binarysharp.com/
- *
- * Copyright (C) 2012-2013 Jämes Ménétrey (a.k.a. ZenLulz).
- * This library is released under the MIT License.
- * See the file LICENSE for more information.
-*/
-
-using System;
+﻿using System;
 using System.ComponentModel;
 using Binarysharp.MemoryManagement.Helpers;
 using Binarysharp.MemoryManagement.Internals;
@@ -33,8 +24,10 @@ namespace Binarysharp.MemoryManagement.Threading
         /// <param name="parameter">A pointer to a variable to be passed to the thread function.</param>
         /// <param name="creationFlags">The flags that control the creation of the thread.</param>
         /// <returns>A handle to the new thread.</returns>
-        public static SafeMemoryHandle CreateRemoteThread(SafeMemoryHandle processHandle, IntPtr startAddress,
-            IntPtr parameter, ThreadCreationFlags creationFlags = ThreadCreationFlags.Run)
+        public static SafeMemoryHandle CreateRemoteThread(SafeMemoryHandle processHandle,
+                                                          IntPtr startAddress,
+                                                          IntPtr parameter,
+                                                          ThreadCreationFlags creationFlags = ThreadCreationFlags.Run)
         {
             // Check if the handles are valid
             HandleManipulator.ValidateAsArgument(processHandle, "processHandle");
@@ -42,12 +35,19 @@ namespace Binarysharp.MemoryManagement.Threading
 
             // Create the remote thread
             int threadId;
-            SafeMemoryHandle ret = NativeMethods.CreateRemoteThread(processHandle, IntPtr.Zero, 0, startAddress,
-                parameter, creationFlags, out threadId);
+            var ret = NativeMethods.CreateRemoteThread(processHandle,
+                                                       IntPtr.Zero,
+                                                       0,
+                                                       startAddress,
+                                                       parameter,
+                                                       creationFlags,
+                                                       out threadId);
 
             // If the thread is created
             if (!ret.IsClosed && !ret.IsInvalid)
+            {
                 return ret;
+            }
 
             // Else couldn't create thread, throws an exception
             throw new Win32Exception(string.Format("Couldn't create the thread at 0x{0}.", startAddress.ToString("X")));
@@ -75,12 +75,15 @@ namespace Binarysharp.MemoryManagement.Threading
 
             // Get the exit code of the thread
             if (!NativeMethods.GetExitCodeThread(threadHandle, out exitCode))
+            {
                 throw new Win32Exception("Couldn't get the exit code of the thread.");
+            }
 
             // If the thread is still active
             if (exitCode == new IntPtr(259))
+            {
                 return null;
-
+            }
             return exitCode;
         }
 
@@ -95,19 +98,24 @@ namespace Binarysharp.MemoryManagement.Threading
         /// <param name="contextFlags">Determines which registers are returned or set.</param>
         /// <returns>A <see cref="ThreadContext" /> structure that receives the appropriate context of the specified thread.</returns>
         public static ThreadContext GetThreadContext(SafeMemoryHandle threadHandle,
-            ThreadContextFlags contextFlags = ThreadContextFlags.Full)
+                                                     ThreadContextFlags contextFlags = ThreadContextFlags.Full)
         {
             // Check if the handle is valid
             HandleManipulator.ValidateAsArgument(threadHandle, "threadHandle");
 
             // Allocate a thread context structure
-            var context = new ThreadContext {ContextFlags = contextFlags};
+            var context = new ThreadContext
+                          {
+                              ContextFlags = contextFlags
+                          };
 
             // Set the context flag
 
             // Get the thread context
             if (NativeMethods.GetThreadContext(threadHandle, ref context))
+            {
                 return context;
+            }
 
             // Else couldn't get the thread context, throws an exception
             throw new Win32Exception("Couldn't get the thread context.");
@@ -131,7 +139,9 @@ namespace Binarysharp.MemoryManagement.Threading
             // Get the selector entry
             LdtEntry entry;
             if (NativeMethods.GetThreadSelectorEntry(threadHandle, selector, out entry))
+            {
                 return entry;
+            }
 
             // Else couldn't get the selector entry, throws an exception
             throw new Win32Exception(string.Format("Couldn't get the selector entry for this selector: {0}.", selector));
@@ -150,11 +160,13 @@ namespace Binarysharp.MemoryManagement.Threading
         public static SafeMemoryHandle OpenThread(ThreadAccessFlags accessFlags, int threadId)
         {
             // Open the thread
-            SafeMemoryHandle ret = NativeMethods.OpenThread(accessFlags, false, threadId);
+            var ret = NativeMethods.OpenThread(accessFlags, false, threadId);
 
             // If the thread was opened
             if (!ret.IsClosed && !ret.IsInvalid)
+            {
                 return ret;
+            }
 
             // Else couldn't open the thread, throws an exception
             throw new Win32Exception(string.Format("Couldn't open the thread #{0}.", threadId));
@@ -178,12 +190,17 @@ namespace Binarysharp.MemoryManagement.Threading
             var info = new ThreadBasicInformation();
 
             // Get the thread info
-            uint ret = NativeMethods.NtQueryInformationThread(threadHandle, 0, ref info,
-                MarshalType<ThreadBasicInformation>.Size, IntPtr.Zero);
+            var ret = NativeMethods.NtQueryInformationThread(threadHandle,
+                                                             0,
+                                                             ref info,
+                                                             MarshalType<ThreadBasicInformation>.Size,
+                                                             IntPtr.Zero);
 
             // If the function succeeded
             if (ret == 0)
+            {
                 return info;
+            }
 
             // Else, couldn't get the thread info, throws an exception
             throw new ApplicationException(
@@ -206,12 +223,13 @@ namespace Binarysharp.MemoryManagement.Threading
             HandleManipulator.ValidateAsArgument(threadHandle, "threadHandle");
 
             // Resume the thread
-            uint ret = NativeMethods.ResumeThread(threadHandle);
+            var ret = NativeMethods.ResumeThread(threadHandle);
 
             // If the function failed
             if (ret == uint.MaxValue)
+            {
                 throw new Win32Exception("Couldn't resume the thread.");
-
+            }
             return ret;
         }
 
@@ -234,7 +252,9 @@ namespace Binarysharp.MemoryManagement.Threading
 
             // Set the thread context
             if (!NativeMethods.SetThreadContext(threadHandle, ref context))
+            {
                 throw new Win32Exception("Couldn't set the thread context.");
+            }
         }
 
         #endregion
@@ -252,12 +272,13 @@ namespace Binarysharp.MemoryManagement.Threading
             HandleManipulator.ValidateAsArgument(threadHandle, "threadHandle");
 
             // Suspend the thread
-            uint ret = NativeMethods.SuspendThread(threadHandle);
+            var ret = NativeMethods.SuspendThread(threadHandle);
 
             // If the function failed
             if (ret == uint.MaxValue)
+            {
                 throw new Win32Exception("Couldn't suspend the thread.");
-
+            }
             return ret;
         }
 
@@ -276,11 +297,13 @@ namespace Binarysharp.MemoryManagement.Threading
             HandleManipulator.ValidateAsArgument(threadHandle, "threadHandle");
 
             // Terminate the thread
-            bool ret = NativeMethods.TerminateThread(threadHandle, exitCode);
+            var ret = NativeMethods.TerminateThread(threadHandle, exitCode);
 
             // If the function failed
             if (!ret)
+            {
                 throw new Win32Exception("Couldn't terminate the thread.");
+            }
         }
 
         #endregion
@@ -302,13 +325,16 @@ namespace Binarysharp.MemoryManagement.Threading
             HandleManipulator.ValidateAsArgument(handle, "handle");
 
             // Wait for single object
-            WaitValues ret = NativeMethods.WaitForSingleObject(handle,
-                timeout.HasValue ? Convert.ToUInt32(timeout.Value.TotalMilliseconds) : 0);
+            var ret = NativeMethods.WaitForSingleObject(handle,
+                                                        timeout.HasValue
+                                                            ? Convert.ToUInt32(timeout.Value.TotalMilliseconds)
+                                                            : 0);
 
             // If the function failed
             if (ret == WaitValues.Failed)
+            {
                 throw new Win32Exception("The WaitForSingleObject function call failed.");
-
+            }
             return ret;
         }
 
@@ -323,12 +349,13 @@ namespace Binarysharp.MemoryManagement.Threading
             HandleManipulator.ValidateAsArgument(handle, "handle");
 
             // Wait for single object
-            WaitValues ret = NativeMethods.WaitForSingleObject(handle, 0xFFFFFFFF);
+            var ret = NativeMethods.WaitForSingleObject(handle, 0xFFFFFFFF);
 
             // If the function failed
             if (ret == WaitValues.Failed)
+            {
                 throw new Win32Exception("The WaitForSingleObject function call failed.");
-
+            }
             return ret;
         }
 

@@ -1,13 +1,4 @@
-﻿/*
- * MemorySharp Library v1.0.0
- * http://www.binarysharp.com/
- *
- * Copyright (C) 2012-2013 Jämes Ménétrey (a.k.a. ZenLulz).
- * This library is released under the MIT License.
- * See the file LICENSE for more information.
-*/
-
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -34,12 +25,12 @@ namespace Binarysharp.MemoryManagement.Threading
         /// <summary>
         ///     The parameter passed to the thread when it was created.
         /// </summary>
-        private readonly IMarshalledValue _parameter;
+        readonly IMarshalledValue _parameter;
 
         /// <summary>
         ///     The task involved in cleaning the parameter memory when the <see cref="RemoteThread" /> object is collected.
         /// </summary>
-        private readonly Task _parameterCleaner;
+        readonly Task _parameterCleaner;
 
         #endregion
 
@@ -60,22 +51,27 @@ namespace Binarysharp.MemoryManagement.Threading
                 if (IsAlive)
                 {
                     // Check if the thread is already suspended
-                    bool isSuspended = IsSuspended;
+                    var isSuspended = IsSuspended;
                     try
                     {
                         // Suspend the thread if it wasn't
                         if (!isSuspended)
+                        {
                             Suspend();
+                        }
                         // Get the context
                         return ThreadCore.GetThreadContext(Handle,
-                            ThreadContextFlags.All | ThreadContextFlags.FloatingPoint |
-                            ThreadContextFlags.DebugRegisters | ThreadContextFlags.ExtendedRegisters);
+                                                           ThreadContextFlags.All | ThreadContextFlags.FloatingPoint |
+                                                           ThreadContextFlags.DebugRegisters |
+                                                           ThreadContextFlags.ExtendedRegisters);
                     }
                     finally
                     {
                         // Resume the thread if it wasn't suspended
                         if (!isSuspended)
+                        {
                             Resume();
+                        }
                     }
                 }
                 // The thread is closed, cannot set the context
@@ -85,15 +81,20 @@ namespace Binarysharp.MemoryManagement.Threading
             set
             {
                 // Check if the thread is alive
-                if (!IsAlive) return;
+                if (!IsAlive)
+                {
+                    return;
+                }
 
                 // Check if the thread is already suspended
-                bool isSuspended = IsSuspended;
+                var isSuspended = IsSuspended;
                 try
                 {
                     // Suspend the thread if it wasn't
                     if (!isSuspended)
+                    {
                         Suspend();
+                    }
                     // Set the context
                     ThreadCore.SetThreadContext(Handle, value);
                 }
@@ -101,7 +102,9 @@ namespace Binarysharp.MemoryManagement.Threading
                 {
                     // Resume the thread if it wasn't suspended
                     if (!isSuspended)
+                    {
                         Resume();
+                    }
                 }
             }
         }
@@ -133,7 +136,10 @@ namespace Binarysharp.MemoryManagement.Threading
         /// </summary>
         public bool IsAlive
         {
-            get { return !IsTerminated; }
+            get
+            {
+                return !IsTerminated;
+            }
         }
 
         #endregion
@@ -145,7 +151,10 @@ namespace Binarysharp.MemoryManagement.Threading
         /// </summary>
         public bool IsMainThread
         {
-            get { return this == MemorySharp.Threads.MainThread; }
+            get
+            {
+                return this == MemorySharp.Threads.MainThread;
+            }
         }
 
         #endregion
@@ -240,10 +249,10 @@ namespace Binarysharp.MemoryManagement.Threading
             _parameter = parameter;
             // Create the task
             _parameterCleaner = new Task(() =>
-            {
-                Join();
-                _parameter.Dispose();
-            });
+                                         {
+                                             Join();
+                                             _parameter.Dispose();
+                                         });
         }
 
         /// <summary>
@@ -280,7 +289,10 @@ namespace Binarysharp.MemoryManagement.Threading
         /// </summary>
         public bool Equals(RemoteThread other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
             return ReferenceEquals(this, other) || (Id == other.Id && MemorySharp.Equals(other.MemorySharp));
         }
 
@@ -289,8 +301,14 @@ namespace Binarysharp.MemoryManagement.Threading
         /// </summary>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
             return obj.GetType() == GetType() && Equals((RemoteThread) obj);
         }
 
@@ -304,7 +322,7 @@ namespace Binarysharp.MemoryManagement.Threading
         public T GetExitCode<T>()
         {
             // Get the exit code of the thread (can be nullable)
-            IntPtr? ret = ThreadCore.GetExitCodeThread(Handle);
+            var ret = ThreadCore.GetExitCodeThread(Handle);
             // Return the exit code or the default value of T if there's no exit code
             return ret.HasValue ? MarshalType<T>.PtrToObject(MemorySharp, ret.Value) : default(T);
         }
@@ -385,7 +403,9 @@ namespace Binarysharp.MemoryManagement.Threading
         public void Refresh()
         {
             if (Native == null)
+            {
                 return;
+            }
             // Refresh the process info
             MemorySharp.Native.Refresh();
             // Get new info about the thread
@@ -424,14 +444,19 @@ namespace Binarysharp.MemoryManagement.Threading
         public void Resume()
         {
             // Check if the thread is still alive
-            if (!IsAlive) return;
+            if (!IsAlive)
+            {
+                return;
+            }
 
             // Start the thread
             ThreadCore.ResumeThread(Handle);
 
             // Start a task to clean the memory used by the parameter if we created the thread
             if (_parameter != null && !_parameterCleaner.IsCompleted)
+            {
                 _parameterCleaner.Start();
+            }
         }
 
         #endregion
@@ -463,7 +488,9 @@ namespace Binarysharp.MemoryManagement.Threading
         public void Terminate(int exitCode = 0)
         {
             if (IsAlive)
+            {
                 ThreadCore.TerminateThread(Handle, exitCode);
+            }
         }
 
         #endregion

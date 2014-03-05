@@ -1,13 +1,4 @@
-﻿/*
- * MemorySharp Library v1.0.0
- * http://www.binarysharp.com/
- *
- * Copyright (C) 2012-2013 Jämes Ménétrey (a.k.a. ZenLulz).
- * This library is released under the MIT License.
- * See the file LICENSE for more information.
-*/
-
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
 using Binarysharp.MemoryManagement.Internals;
 
@@ -375,7 +366,10 @@ namespace Binarysharp.MemoryManagement.Native
         /// </summary>
         public int Size
         {
-            get { return MarshalType<ProcessBasicInformation>.Size; }
+            get
+            {
+                return MarshalType<ProcessBasicInformation>.Size;
+            }
         }
     }
 
@@ -651,8 +645,14 @@ namespace Binarysharp.MemoryManagement.Native
         /// </summary>
         public int Height
         {
-            get { return Bottom - Top; }
-            set { Bottom = Top + value; }
+            get
+            {
+                return Bottom - Top;
+            }
+            set
+            {
+                Bottom = Top + value;
+            }
         }
 
         /// <summary>
@@ -660,8 +660,14 @@ namespace Binarysharp.MemoryManagement.Native
         /// </summary>
         public int Width
         {
-            get { return Right - Left; }
-            set { Right = Left + value; }
+            get
+            {
+                return Right - Left;
+            }
+            set
+            {
+                Right = Left + value;
+            }
         }
 
         /// <summary>

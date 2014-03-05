@@ -1,13 +1,4 @@
-﻿/*
- * MemorySharp Library v1.0.0
- * http://www.binarysharp.com/
- *
- * Copyright (C) 2012-2013 Jämes Ménétrey (a.k.a. ZenLulz).
- * This library is released under the MIT License.
- * See the file LICENSE for more information.
-*/
-
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
 using Binarysharp.MemoryManagement.Memory;
@@ -62,22 +53,16 @@ namespace Binarysharp.MemoryManagement.Internals
             Size = TypeCode == TypeCode.Boolean ? 1 : Marshal.SizeOf(RealType);
             TypeCode = Type.GetTypeCode(RealType);
             // Check if the type can be stored in registers
-            CanBeStoredInRegisters =
-                IsIntPtr ||
+            CanBeStoredInRegisters = IsIntPtr ||
 #if x64
                 TypeCode == TypeCode.Int64 ||
                 TypeCode == TypeCode.UInt64 ||
 #endif
-                    TypeCode == TypeCode.Boolean ||
-                TypeCode == TypeCode.Byte ||
-                TypeCode == TypeCode.Char ||
-                TypeCode == TypeCode.Int16 ||
-                TypeCode == TypeCode.Int32 ||
-                TypeCode == TypeCode.Int64 ||
-                TypeCode == TypeCode.SByte ||
-                TypeCode == TypeCode.Single ||
-                TypeCode == TypeCode.UInt16 ||
-                TypeCode == TypeCode.UInt32;
+                                     TypeCode == TypeCode.Boolean || TypeCode == TypeCode.Byte ||
+                                     TypeCode == TypeCode.Char || TypeCode == TypeCode.Int16 ||
+                                     TypeCode == TypeCode.Int32 || TypeCode == TypeCode.Int64 ||
+                                     TypeCode == TypeCode.SByte || TypeCode == TypeCode.Single ||
+                                     TypeCode == TypeCode.UInt16 || TypeCode == TypeCode.UInt32;
         }
 
         #endregion
@@ -112,7 +97,10 @@ namespace Binarysharp.MemoryManagement.Internals
                 case TypeCode.Boolean:
                     return BitConverter.GetBytes((bool) (object) obj);
                 case TypeCode.Char:
-                    return Encoding.UTF8.GetBytes(new[] {(char) (object) obj});
+                    return Encoding.UTF8.GetBytes(new[]
+                                                  {
+                                                      (char) (object) obj
+                                                  });
                 case TypeCode.Double:
                     return BitConverter.GetBytes((double) (object) obj);
                 case TypeCode.Int16:
@@ -164,17 +152,23 @@ namespace Binarysharp.MemoryManagement.Internals
                         switch (byteArray.Length)
                         {
                             case 1:
-                                return
-                                    (T)
-                                        (object)
-                                            new IntPtr(BitConverter.ToInt32(new byte[] {byteArray[0], 0x0, 0x0, 0x0}, 0));
+                                return (T) (object) new IntPtr(BitConverter.ToInt32(new byte[]
+                                                                                    {
+                                                                                        byteArray[0],
+                                                                                        0x0,
+                                                                                        0x0,
+                                                                                        0x0
+                                                                                    },
+                                                                                    0));
                             case 2:
-                                return
-                                    (T)
-                                        (object)
-                                            new IntPtr(
-                                                BitConverter.ToInt32(new byte[] {byteArray[0], byteArray[1], 0x0, 0x0},
-                                                    0));
+                                return (T) (object) new IntPtr(BitConverter.ToInt32(new byte[]
+                                                                                    {
+                                                                                        byteArray[0],
+                                                                                        byteArray[1],
+                                                                                        0x0,
+                                                                                        0x0
+                                                                                    },
+                                                                                    0));
                             case 4:
                                 return (T) (object) new IntPtr(BitConverter.ToInt32(byteArray, 0));
                             case 8:
@@ -231,9 +225,10 @@ namespace Binarysharp.MemoryManagement.Internals
         /// <returns>The return value is the pointer converted to the given data type.</returns>
         public static T PtrToObject(MemorySharp memorySharp, IntPtr pointer)
         {
-            return ByteArrayToObject(CanBeStoredInRegisters
-                ? BitConverter.GetBytes(pointer.ToInt64())
-                : memorySharp.Read<byte>(pointer, Size, false));
+            return
+                ByteArrayToObject(CanBeStoredInRegisters
+                                      ? BitConverter.GetBytes(pointer.ToInt64())
+                                      : memorySharp.Read<byte>(pointer, Size, false));
         }
 
         #endregion

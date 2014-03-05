@@ -1,13 +1,4 @@
-﻿/*
- * MemorySharp Library v1.0.0
- * http://www.binarysharp.com/
- *
- * Copyright (C) 2012-2013 Jämes Ménétrey (a.k.a. ZenLulz).
- * This library is released under the MIT License.
- * See the file LICENSE for more information.
-*/
-
-using System;
+﻿using System;
 using Binarysharp.MemoryManagement.Native;
 
 namespace Binarysharp.MemoryManagement.Windows.Keyboard
@@ -108,25 +99,32 @@ namespace Binarysharp.MemoryManagement.Windows.Keyboard
         ///     KeyDown resources: http://msdn.microsoft.com/en-us/library/windows/desktop/ms646280%28v=vs.85%29.aspx
         ///     KeyUp resources:  http://msdn.microsoft.com/en-us/library/windows/desktop/ms646281%28v=vs.85%29.aspx
         /// </remarks>
-        private UIntPtr MakeKeyParameter(Keys key, bool keyUp, bool fRepeat, uint cRepeat, bool altDown, bool fExtended)
+        UIntPtr MakeKeyParameter(Keys key, bool keyUp, bool fRepeat, uint cRepeat, bool altDown, bool fExtended)
         {
             // Create the result and assign it with the repeat count
-            uint result = cRepeat;
+            var result = cRepeat;
             // Add the scan code with a left shift operation
             result |= WindowCore.MapVirtualKey(key, TranslationTypes.VirtualKeyToScanCode) << 16;
             // Does we need to set the extended flag ?
             if (fExtended)
+            {
                 result |= 0x1000000;
+            }
             // Does we need to set the alt flag ?
             if (altDown)
+            {
                 result |= 0x20000000;
+            }
             // Does we need to set the repeat flag ?
             if (fRepeat)
+            {
                 result |= 0x40000000;
+            }
             // Does we need to set the keyUp flag ?
             if (keyUp)
+            {
                 result |= 0x80000000;
-
+            }
             return new UIntPtr(result);
         }
 
@@ -140,7 +138,7 @@ namespace Binarysharp.MemoryManagement.Windows.Keyboard
         ///     The value is always 1 for a <see cref="WindowsMessages.KeyUp" /> message.
         /// </param>
         /// <returns>The return value is the lParam when posting or sending a message regarding key press.</returns>
-        private UIntPtr MakeKeyParameter(Keys key, bool keyUp)
+        UIntPtr MakeKeyParameter(Keys key, bool keyUp)
         {
             return MakeKeyParameter(key, keyUp, keyUp, 1, false, false);
         }

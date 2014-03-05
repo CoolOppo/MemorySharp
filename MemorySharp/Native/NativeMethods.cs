@@ -1,13 +1,4 @@
-﻿/*
- * MemorySharp Library v1.0.0
- * http://www.binarysharp.com/
- *
- * Copyright (C) 2012-2013 Jämes Ménétrey (a.k.a. ZenLulz).
- * This library is released under the MIT License.
- * See the file LICENSE for more information.
-*/
-
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -78,9 +69,13 @@ namespace Binarysharp.MemoryManagement.Native
         ///     <see cref="Marshal.GetLastWin32Error" />.
         /// </returns>
         [DllImport("kernel32.dll", SetLastError = true)]
-        public static extern SafeMemoryHandle CreateRemoteThread(SafeMemoryHandle hProcess, IntPtr lpThreadAttributes,
-            uint dwStackSize, IntPtr lpStartAddress,
-            IntPtr lpParameter, ThreadCreationFlags dwCreationFlags, out int lpThreadId);
+        public static extern SafeMemoryHandle CreateRemoteThread(SafeMemoryHandle hProcess,
+                                                                 IntPtr lpThreadAttributes,
+                                                                 uint dwStackSize,
+                                                                 IntPtr lpStartAddress,
+                                                                 IntPtr lpParameter,
+                                                                 ThreadCreationFlags dwCreationFlags,
+                                                                 out int lpThreadId);
 
         #endregion
 
@@ -286,8 +281,9 @@ namespace Binarysharp.MemoryManagement.Native
         ///     <see cref="Marshal.GetLastWin32Error" />.
         /// </returns>
         [DllImport("kernel32.dll", SetLastError = true)]
-        public static extern bool GetThreadSelectorEntry(SafeMemoryHandle hThread, uint dwSelector,
-            out LdtEntry lpSelectorEntry);
+        public static extern bool GetThreadSelectorEntry(SafeMemoryHandle hThread,
+                                                         uint dwSelector,
+                                                         out LdtEntry lpSelectorEntry);
 
         #endregion
 
@@ -542,8 +538,10 @@ namespace Binarysharp.MemoryManagement.Native
         /// <returns>Returns an NTSTATUS success or error code. (STATUS_SUCCESS = 0x0).</returns>
         [DllImport("ntdll.dll")]
         public static extern int NtQueryInformationProcess(SafeMemoryHandle processHandle,
-            ProcessInformationClass infoclass,
-            ref ProcessBasicInformation processinfo, int length, IntPtr bytesread);
+                                                           ProcessInformationClass infoclass,
+                                                           ref ProcessBasicInformation processinfo,
+                                                           int length,
+                                                           IntPtr bytesread);
 
         #endregion
 
@@ -582,8 +580,11 @@ namespace Binarysharp.MemoryManagement.Native
         /// </param>
         /// <returns>Returns an NTSTATUS success or error code. (STATUS_SUCCESS = 0x0).</returns>
         [DllImport("ntdll.dll")]
-        public static extern uint NtQueryInformationThread(SafeMemoryHandle hwnd, uint infoclass,
-            ref ThreadBasicInformation threadinfo, int length, IntPtr bytesread);
+        public static extern uint NtQueryInformationThread(SafeMemoryHandle hwnd,
+                                                           uint infoclass,
+                                                           ref ThreadBasicInformation threadinfo,
+                                                           int length,
+                                                           IntPtr bytesread);
 
         #endregion
 
@@ -610,7 +611,8 @@ namespace Binarysharp.MemoryManagement.Native
         /// </returns>
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern SafeMemoryHandle OpenProcess(ProcessAccessFlags dwDesiredAccess,
-            [MarshalAs(UnmanagedType.Bool)] bool bInheritHandle, int dwProcessId);
+                                                          [MarshalAs(UnmanagedType.Bool)] bool bInheritHandle,
+                                                          int dwProcessId);
 
         #endregion
 
@@ -637,7 +639,8 @@ namespace Binarysharp.MemoryManagement.Native
         /// </returns>
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern SafeMemoryHandle OpenThread(ThreadAccessFlags dwDesiredAccess,
-            [MarshalAs(UnmanagedType.Bool)] bool bInheritHandle, int dwThreadId);
+                                                         [MarshalAs(UnmanagedType.Bool)] bool bInheritHandle,
+                                                         int dwThreadId);
 
         #endregion
 
@@ -699,8 +702,11 @@ namespace Binarysharp.MemoryManagement.Native
         /// </returns>
         [DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool ReadProcessMemory(SafeMemoryHandle hProcess, IntPtr lpBaseAddress,
-            [Out] byte[] lpBuffer, int dwSize, out int lpNumberOfBytesRead);
+        public static extern bool ReadProcessMemory(SafeMemoryHandle hProcess,
+                                                    IntPtr lpBaseAddress,
+                                                    [Out] byte[] lpBuffer,
+                                                    int dwSize,
+                                                    out int lpNumberOfBytesRead);
 
         #endregion
 
@@ -815,7 +821,7 @@ namespace Binarysharp.MemoryManagement.Native
         /// </returns>
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern bool SetThreadContext(SafeMemoryHandle hThread,
-            [MarshalAs(UnmanagedType.Struct)] ref ThreadContext lpContext);
+                                                   [MarshalAs(UnmanagedType.Struct)] ref ThreadContext lpContext);
 
         #endregion
 
@@ -964,8 +970,11 @@ namespace Binarysharp.MemoryManagement.Native
         ///     <see cref="Marshal.GetLastWin32Error" />.
         /// </returns>
         [DllImport("kernel32.dll", SetLastError = true)]
-        public static extern IntPtr VirtualAllocEx(SafeMemoryHandle hProcess, IntPtr lpAddress, int dwSize,
-            MemoryAllocationFlags flAllocationType, MemoryProtectionFlags flProtect);
+        public static extern IntPtr VirtualAllocEx(SafeMemoryHandle hProcess,
+                                                   IntPtr lpAddress,
+                                                   int dwSize,
+                                                   MemoryAllocationFlags flAllocationType,
+                                                   MemoryProtectionFlags flProtect);
 
         #endregion
 
@@ -1006,8 +1015,10 @@ namespace Binarysharp.MemoryManagement.Native
         /// </returns>
         [DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool VirtualFreeEx(SafeMemoryHandle hProcess, IntPtr lpAddress, int dwSize,
-            MemoryReleaseFlags dwFreeType);
+        public static extern bool VirtualFreeEx(SafeMemoryHandle hProcess,
+                                                IntPtr lpAddress,
+                                                int dwSize,
+                                                MemoryReleaseFlags dwFreeType);
 
         #endregion
 
@@ -1051,8 +1062,11 @@ namespace Binarysharp.MemoryManagement.Native
         ///     <see cref="Marshal.GetLastWin32Error" />.
         /// </returns>
         [DllImport("kernel32.dll", SetLastError = true)]
-        public static extern bool VirtualProtectEx(SafeMemoryHandle hProcess, IntPtr lpAddress, int dwSize,
-            MemoryProtectionFlags flNewProtect, out MemoryProtectionFlags lpflOldProtect);
+        public static extern bool VirtualProtectEx(SafeMemoryHandle hProcess,
+                                                   IntPtr lpAddress,
+                                                   int dwSize,
+                                                   MemoryProtectionFlags flNewProtect,
+                                                   out MemoryProtectionFlags lpflOldProtect);
 
         #endregion
 
@@ -1085,8 +1099,10 @@ namespace Binarysharp.MemoryManagement.Native
         ///     <see cref="Marshal.GetLastWin32Error" />.
         /// </returns>
         [DllImport("kernel32.dll", SetLastError = true)]
-        public static extern int VirtualQueryEx(SafeMemoryHandle hProcess, IntPtr lpAddress,
-            out MemoryBasicInformation lpBuffer, int dwLength);
+        public static extern int VirtualQueryEx(SafeMemoryHandle hProcess,
+                                                IntPtr lpAddress,
+                                                out MemoryBasicInformation lpBuffer,
+                                                int dwLength);
 
         #endregion
 
@@ -1148,8 +1164,11 @@ namespace Binarysharp.MemoryManagement.Native
         /// </returns>
         [DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool WriteProcessMemory(SafeMemoryHandle hProcess, IntPtr lpBaseAddress, byte[] lpBuffer,
-            int nSize, out int lpNumberOfBytesWritten);
+        public static extern bool WriteProcessMemory(SafeMemoryHandle hProcess,
+                                                     IntPtr lpBaseAddress,
+                                                     byte[] lpBuffer,
+                                                     int nSize,
+                                                     out int lpNumberOfBytesWritten);
 
         #endregion
     }

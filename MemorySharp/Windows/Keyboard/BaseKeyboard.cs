@@ -1,13 +1,4 @@
-﻿/*
- * MemorySharp Library v1.0.0
- * http://www.binarysharp.com/
- *
- * Copyright (C) 2012-2013 Jämes Ménétrey (a.k.a. ZenLulz).
- * This library is released under the MIT License.
- * See the file LICENSE for more information.
-*/
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -75,11 +66,13 @@ namespace Binarysharp.MemoryManagement.Windows.Keyboard
         public virtual void Release(Keys key)
         {
             // Create the tuple
-            Tuple<IntPtr, Keys> tuple = Tuple.Create(Window.Handle, key);
+            var tuple = Tuple.Create(Window.Handle, key);
 
             // If the key is pressed with an interval
             if (PressedKeys.Contains(tuple))
+            {
                 PressedKeys.Remove(tuple);
+            }
         }
 
         #endregion
@@ -98,26 +91,28 @@ namespace Binarysharp.MemoryManagement.Windows.Keyboard
         public void Press(Keys key, TimeSpan interval)
         {
             // Create the tuple
-            Tuple<IntPtr, Keys> tuple = Tuple.Create(Window.Handle, key);
+            var tuple = Tuple.Create(Window.Handle, key);
 
             // If the key is already pressed
             if (PressedKeys.Contains(tuple))
+            {
                 return;
+            }
 
             // Add the key to the collection
             PressedKeys.Add(tuple);
             // Start a new task to press the key at the specified interval
             Task.Run(async () =>
-            {
-                // While the key must be pressed
-                while (PressedKeys.Contains(tuple))
-                {
-                    // Press the key
-                    Press(key);
-                    // Wait the interval
-                    await Task.Delay(interval);
-                }
-            });
+                           {
+                               // While the key must be pressed
+                               while (PressedKeys.Contains(tuple))
+                               {
+                                   // Press the key
+                                   Press(key);
+                                   // Wait the interval
+                                   await Task.Delay(interval);
+                               }
+                           });
         }
 
         #endregion
@@ -147,7 +142,7 @@ namespace Binarysharp.MemoryManagement.Windows.Keyboard
         /// <param name="args">An array of objects to write using format.</param>
         public void Write(string text, params object[] args)
         {
-            foreach (char character in string.Format(text, args))
+            foreach (var character in string.Format(text, args))
             {
                 Write(character);
             }

@@ -1,13 +1,4 @@
-﻿/*
- * MemorySharp Library v1.0.0
- * http://www.binarysharp.com/
- *
- * Copyright (C) 2012-2013 Jämes Ménétrey (a.k.a. ZenLulz).
- * This library is released under the MIT License.
- * See the file LICENSE for more information.
-*/
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -39,8 +30,9 @@ namespace Binarysharp.MemoryManagement.Windows
             // Get the window class name
             var stringBuilder = new StringBuilder(char.MaxValue);
             if (NativeMethods.GetClassName(windowHandle, stringBuilder, stringBuilder.Capacity) == 0)
+            {
                 throw new Win32Exception("Couldn't get the class name of the window or the window has no class name.");
-
+            }
             return stringBuilder.ToString();
         }
 
@@ -71,11 +63,11 @@ namespace Binarysharp.MemoryManagement.Windows
         /// <returns>The return value is the requested system metric or configuration setting.</returns>
         public static int GetSystemMetrics(SystemMetrics metric)
         {
-            int ret = NativeMethods.GetSystemMetrics(metric);
-
+            var ret = NativeMethods.GetSystemMetrics(metric);
             if (ret != 0)
+            {
                 return ret;
-
+            }
             throw new Win32Exception(
                 "The call of GetSystemMetrics failed. Unfortunately, GetLastError code doesn't provide more information.");
         }
@@ -95,16 +87,19 @@ namespace Binarysharp.MemoryManagement.Windows
             HandleManipulator.ValidateAsArgument(windowHandle, "windowHandle");
 
             // Get the size of the window's title
-            int capacity = NativeMethods.GetWindowTextLength(windowHandle);
+            var capacity = NativeMethods.GetWindowTextLength(windowHandle);
             // If the window doesn't contain any title
             if (capacity == 0)
+            {
                 return string.Empty;
+            }
 
             // Get the text of the window's title bar text
             var stringBuilder = new StringBuilder(capacity + 1);
             if (NativeMethods.GetWindowText(windowHandle, stringBuilder, stringBuilder.Capacity) == 0)
+            {
                 throw new Win32Exception("Couldn't get the text of the window's title bar or the window has no title.");
-
+            }
             return stringBuilder.ToString();
         }
 
@@ -131,8 +126,9 @@ namespace Binarysharp.MemoryManagement.Windows
 
             // Get the window placement
             if (!NativeMethods.GetWindowPlacement(windowHandle, out placement))
+            {
                 throw new Win32Exception("Couldn't get the window placement.");
-
+            }
             return placement;
         }
 
@@ -153,7 +149,6 @@ namespace Binarysharp.MemoryManagement.Windows
             // Get the process id
             int processId;
             NativeMethods.GetWindowThreadProcessId(windowHandle, out processId);
-
             return processId;
         }
 
@@ -190,7 +185,7 @@ namespace Binarysharp.MemoryManagement.Windows
             var list = new List<IntPtr>();
 
             // For each top-level windows
-            foreach (IntPtr topWindow in EnumTopLevelWindows())
+            foreach (var topWindow in EnumTopLevelWindows())
             {
                 // Add this window to the list
                 list.Add(topWindow);
@@ -217,10 +212,10 @@ namespace Binarysharp.MemoryManagement.Windows
             var list = new List<IntPtr>();
             // Create the callback
             EnumWindowsProc callback = delegate(IntPtr windowHandle, IntPtr lParam)
-            {
-                list.Add(windowHandle);
-                return true;
-            };
+                                       {
+                                           list.Add(windowHandle);
+                                           return true;
+                                       };
             // Enumerate all windows
             NativeMethods.EnumChildWindows(parentHandle, callback, IntPtr.Zero);
 
@@ -284,13 +279,13 @@ namespace Binarysharp.MemoryManagement.Windows
 
             // Create the data structure
             var flashInfo = new FlashInfo
-            {
-                Size = Marshal.SizeOf(typeof (FlashInfo)),
-                Hwnd = windowHandle,
-                Flags = flags,
-                Count = count,
-                Timeout = Convert.ToInt32(timeout.TotalMilliseconds)
-            };
+                            {
+                                Size = Marshal.SizeOf(typeof (FlashInfo)),
+                                Hwnd = windowHandle,
+                                Flags = flags,
+                                Count = count,
+                                Timeout = Convert.ToInt32(timeout.TotalMilliseconds)
+                            };
 
             // Flash the window
             NativeMethods.FlashWindowEx(ref flashInfo);
@@ -390,7 +385,9 @@ namespace Binarysharp.MemoryManagement.Windows
 
             // Post the message
             if (!NativeMethods.PostMessage(windowHandle, message, wParam, lParam))
+            {
                 throw new Win32Exception(string.Format("Couldn't post the message '{0}'.", message));
+            }
         }
 
         /// <summary>
@@ -426,7 +423,9 @@ namespace Binarysharp.MemoryManagement.Windows
             if (inputs != null && inputs.Length != 0)
             {
                 if (NativeMethods.SendInput(inputs.Length, inputs, MarshalType<Input>.Size) == 0)
+                {
                     throw new Win32Exception("Couldn't send the inputs.");
+                }
             }
             else
             {
@@ -440,7 +439,10 @@ namespace Binarysharp.MemoryManagement.Windows
         /// <param name="input">A structure represents an event to be inserted into the keyboard or mouse input stream.</param>
         public static void SendInput(Input input)
         {
-            SendInput(new[] {input});
+            SendInput(new[]
+                      {
+                          input
+                      });
         }
 
         #endregion
@@ -501,14 +503,18 @@ namespace Binarysharp.MemoryManagement.Windows
 
             // If the window is already activated, do nothing
             if (GetForegroundWindow() == windowHandle)
+            {
                 return;
+            }
 
             // Restore the window if minimized
             ShowWindow(windowHandle, WindowStates.Restore);
 
             // Activate the window
             if (!NativeMethods.SetForegroundWindow(windowHandle))
+            {
                 throw new ApplicationException("Couldn't set the window to foreground.");
+            }
         }
 
         #endregion
@@ -529,7 +535,7 @@ namespace Binarysharp.MemoryManagement.Windows
             HandleManipulator.ValidateAsArgument(windowHandle, "windowHandle");
 
             // Get a WindowPlacement structure of the current window
-            WindowPlacement placement = GetWindowPlacement(windowHandle);
+            var placement = GetWindowPlacement(windowHandle);
 
             // Set the values
             placement.NormalPosition.Left = left;
@@ -556,11 +562,15 @@ namespace Binarysharp.MemoryManagement.Windows
 
             // If the debugger is attached and the state of the window is ShowDefault, there's an issue where the window disappears
             if (Debugger.IsAttached && placement.ShowCmd == WindowStates.ShowNormal)
+            {
                 placement.ShowCmd = WindowStates.Restore;
+            }
 
             // Set the window placement
             if (!NativeMethods.SetWindowPlacement(windowHandle, ref placement))
+            {
                 throw new Win32Exception("Couldn't set the window placement.");
+            }
         }
 
         #endregion
@@ -579,7 +589,9 @@ namespace Binarysharp.MemoryManagement.Windows
 
             // Set the text of the window's title bar
             if (!NativeMethods.SetWindowText(windowHandle, title))
+            {
                 throw new Win32Exception("Couldn't set the text of the window's title bar.");
+            }
         }
 
         #endregion

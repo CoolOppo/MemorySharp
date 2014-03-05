@@ -1,13 +1,4 @@
-﻿/*
- * MemorySharp Library v1.0.0
- * http://www.binarysharp.com/
- *
- * Copyright (C) 2012-2013 Jämes Ménétrey (a.k.a. ZenLulz).
- * This library is released under the MIT License.
- * See the file LICENSE for more information.
-*/
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Binarysharp.MemoryManagement.Internals;
@@ -43,7 +34,10 @@ namespace Binarysharp.MemoryManagement.Memory
         /// </summary>
         public IEnumerable<RemoteAllocation> RemoteAllocations
         {
-            get { return InternalRemoteAllocations.AsReadOnly(); }
+            get
+            {
+                return InternalRemoteAllocations.AsReadOnly();
+            }
         }
 
         #endregion
@@ -64,7 +58,7 @@ namespace Binarysharp.MemoryManagement.Memory
 #endif
                 return
                     MemoryCore.Query(MemorySharp.Handle, IntPtr.Zero, adresseTo)
-                        .Select(page => new RemoteRegion(MemorySharp, page.BaseAddress));
+                              .Select(page => new RemoteRegion(MemorySharp, page.BaseAddress));
             }
         }
 
@@ -108,7 +102,8 @@ namespace Binarysharp.MemoryManagement.Memory
         /// <param name="mustBeDisposed">The allocated memory will be released when the finalizer collects the object.</param>
         /// <returns>A new instance of the <see cref="RemoteAllocation" /> class.</returns>
         public RemoteAllocation Allocate(int size,
-            MemoryProtectionFlags protection = MemoryProtectionFlags.ExecuteReadWrite, bool mustBeDisposed = true)
+                                         MemoryProtectionFlags protection = MemoryProtectionFlags.ExecuteReadWrite,
+                                         bool mustBeDisposed = true)
         {
             // Allocate a memory space
             var memory = new RemoteAllocation(MemorySharp, size, protection, mustBeDisposed);
@@ -129,10 +124,14 @@ namespace Binarysharp.MemoryManagement.Memory
         {
             // Dispose the element
             if (!allocation.IsDisposed)
+            {
                 allocation.Dispose();
+            }
             // Remove the element from the allocated memory list
             if (InternalRemoteAllocations.Contains(allocation))
+            {
                 InternalRemoteAllocations.Remove(allocation);
+            }
         }
 
         #endregion
@@ -145,8 +144,7 @@ namespace Binarysharp.MemoryManagement.Memory
         public virtual void Dispose()
         {
             // Release all allocated memories which must be disposed
-            foreach (
-                RemoteAllocation allocatedMemory in InternalRemoteAllocations.Where(m => m.MustBeDisposed).ToArray())
+            foreach (var allocatedMemory in InternalRemoteAllocations.Where(m => m.MustBeDisposed).ToArray())
             {
                 allocatedMemory.Dispose();
             }
