@@ -21,7 +21,8 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
         /// Initializes a new instance of a child of the <see cref="SendInputMouse"/> class.
         /// </summary>
         /// <param name="window">The reference of the <see cref="RemoteWindow"/> object.</param>
-        public SendInputMouse(RemoteWindow window) : base(window)
+        public SendInputMouse(RemoteWindow window)
+            : base(window)
         {
         }
         #endregion
@@ -83,7 +84,7 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
         public override void ReleaseLeft()
         {
             var input = CreateInput();
-            input.Mouse.Flags = MouseFlags.RightUp;
+            input.Mouse.Flags = MouseFlags.LeftUp;
             WindowCore.SendInput(input);
         }
         #endregion
