@@ -12,31 +12,37 @@ using System.Collections.Generic;
 namespace Binarysharp.MemoryManagement.Internals
 {
     /// <summary>
-    /// Class managing objects implementing <see cref="INamedElement"/> interface.
+    ///     Class managing objects implementing <see cref="INamedElement" /> interface.
     /// </summary>
     public abstract class Manager<T> where T : INamedElement
     {
         #region Fields
+
         /// <summary>
-        /// The collection of the elements (writable).
+        ///     The collection of the elements (writable).
         /// </summary>
         protected Dictionary<string, T> InternalItems = new Dictionary<string, T>();
+
         #endregion
 
         #region Properties
+
         /// <summary>
-        /// The collection of the elements.
+        ///     The collection of the elements.
         /// </summary>
         public IReadOnlyDictionary<string, T> Items
         {
             get { return InternalItems; }
         }
+
         #endregion
 
         #region Methods
+
         #region DisableAll
+
         /// <summary>
-        /// Disables all items in the manager.
+        ///     Disables all items in the manager.
         /// </summary>
         public void DisableAll()
         {
@@ -45,10 +51,13 @@ namespace Binarysharp.MemoryManagement.Internals
                 item.Value.Disable();
             }
         }
+
         #endregion
+
         #region EnableAll
+
         /// <summary>
-        /// Enables all items in the manager.
+        ///     Enables all items in the manager.
         /// </summary>
         public void EnableAll()
         {
@@ -57,10 +66,13 @@ namespace Binarysharp.MemoryManagement.Internals
                 item.Value.Enable();
             }
         }
+
         #endregion
+
         #region Remove
+
         /// <summary>
-        /// Removes an element by its name in the manager.
+        ///     Removes an element by its name in the manager.
         /// </summary>
         /// <param name="name">The name of the element to remove.</param>
         public void Remove(string name)
@@ -80,18 +92,22 @@ namespace Binarysharp.MemoryManagement.Internals
                 }
             }
         }
+
         /// <summary>
-        /// Remove a given element.
+        ///     Remove a given element.
         /// </summary>
         /// <param name="item">The element to remove.</param>
         public void Remove(T item)
         {
             Remove(item.Name);
         }
+
         #endregion
+
         #region RemoveAll
+
         /// <summary>
-        /// Removes all the elements in the manager.
+        ///     Removes all the elements in the manager.
         /// </summary>
         public void RemoveAll()
         {
@@ -104,7 +120,9 @@ namespace Binarysharp.MemoryManagement.Internals
             // Clear the dictionary
             InternalItems.Clear();
         }
+
         #endregion
+
         #endregion
     }
 }
