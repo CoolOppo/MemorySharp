@@ -1,6 +1,6 @@
-﻿using System;
-using Binarysharp.MemoryManagement.Internals;
+﻿using Binarysharp.MemoryManagement.Internals;
 using Binarysharp.MemoryManagement.Native;
+using System;
 
 namespace Binarysharp.MemoryManagement.Memory
 {
@@ -18,7 +18,7 @@ namespace Binarysharp.MemoryManagement.Memory
         /// </summary>
         public bool IsDisposed { get; private set; }
 
-        #endregion
+        #endregion IsDisposed (implementation of IDisposableState)
 
         #region MustBeDisposed (implementation of IDisposableState)
 
@@ -27,9 +27,9 @@ namespace Binarysharp.MemoryManagement.Memory
         /// </summary>
         public bool MustBeDisposed { get; set; }
 
-        #endregion
+        #endregion MustBeDisposed (implementation of IDisposableState)
 
-        #endregion
+        #endregion Properties
 
         #region Constructor/Destructor
 
@@ -62,7 +62,7 @@ namespace Binarysharp.MemoryManagement.Memory
             }
         }
 
-        #endregion
+        #endregion Constructor/Destructor
 
         #region Methods
 
@@ -84,13 +84,13 @@ namespace Binarysharp.MemoryManagement.Memory
                 MemorySharp.Memory.Deallocate(this);
                 // Remove the pointer
                 BaseAddress = IntPtr.Zero;
-                // Avoid the finalizer 
+                // Avoid the finalizer
                 GC.SuppressFinalize(this);
             }
         }
 
-        #endregion
+        #endregion Dispose (implementation of IDisposableState)
 
-        #endregion
+        #endregion Methods
     }
 }

@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Binarysharp.MemoryManagement.Native;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Binarysharp.MemoryManagement.Native;
 
 namespace Binarysharp.MemoryManagement.Windows.Keyboard
 {
@@ -23,7 +23,7 @@ namespace Binarysharp.MemoryManagement.Windows.Keyboard
         /// </summary>
         protected readonly RemoteWindow Window;
 
-        #endregion
+        #endregion Fields
 
         #region Constructor
 
@@ -37,7 +37,7 @@ namespace Binarysharp.MemoryManagement.Windows.Keyboard
             Window = window;
         }
 
-        #endregion
+        #endregion Constructor
 
         #region Abstract Methods
 
@@ -53,7 +53,7 @@ namespace Binarysharp.MemoryManagement.Windows.Keyboard
         /// <param name="character">The character to write.</param>
         public abstract void Write(char character);
 
-        #endregion
+        #endregion Abstract Methods
 
         #region Virtual Methods
 
@@ -75,9 +75,9 @@ namespace Binarysharp.MemoryManagement.Windows.Keyboard
             }
         }
 
-        #endregion
+        #endregion Release
 
-        #endregion
+        #endregion Virtual Methods
 
         #region Extended Methods
 
@@ -115,7 +115,7 @@ namespace Binarysharp.MemoryManagement.Windows.Keyboard
                            });
         }
 
-        #endregion
+        #endregion Press
 
         #region PressRelease
 
@@ -130,7 +130,7 @@ namespace Binarysharp.MemoryManagement.Windows.Keyboard
             Release(key);
         }
 
-        #endregion
+        #endregion PressRelease
 
         #region Write
 
@@ -148,8 +148,8 @@ namespace Binarysharp.MemoryManagement.Windows.Keyboard
             }
         }
 
-        #endregion
+        #endregion Write
 
-        #endregion
+        #endregion Extended Methods
     }
 }

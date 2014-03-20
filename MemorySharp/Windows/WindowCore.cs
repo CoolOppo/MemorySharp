@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Binarysharp.MemoryManagement.Helpers;
+using Binarysharp.MemoryManagement.Internals;
+using Binarysharp.MemoryManagement.Native;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
-using Binarysharp.MemoryManagement.Helpers;
-using Binarysharp.MemoryManagement.Internals;
-using Binarysharp.MemoryManagement.Native;
 
 namespace Binarysharp.MemoryManagement.Windows
 {
@@ -36,7 +36,7 @@ namespace Binarysharp.MemoryManagement.Windows
             return stringBuilder.ToString();
         }
 
-        #endregion
+        #endregion GetClassName
 
         #region GetForegroundWindow
 
@@ -52,7 +52,7 @@ namespace Binarysharp.MemoryManagement.Windows
             return NativeMethods.GetForegroundWindow();
         }
 
-        #endregion
+        #endregion GetForegroundWindow
 
         #region GetSystemMetrics
 
@@ -72,7 +72,7 @@ namespace Binarysharp.MemoryManagement.Windows
                 "The call of GetSystemMetrics failed. Unfortunately, GetLastError code doesn't provide more information.");
         }
 
-        #endregion
+        #endregion GetSystemMetrics
 
         #region GetWindowText
 
@@ -103,7 +103,7 @@ namespace Binarysharp.MemoryManagement.Windows
             return stringBuilder.ToString();
         }
 
-        #endregion
+        #endregion GetWindowText
 
         #region GetWindowPlacement
 
@@ -122,7 +122,7 @@ namespace Binarysharp.MemoryManagement.Windows
 
             // Allocate a WindowPlacement structure
             WindowPlacement placement;
-            placement.Length = Marshal.SizeOf(typeof (WindowPlacement));
+            placement.Length = Marshal.SizeOf(typeof(WindowPlacement));
 
             // Get the window placement
             if (!NativeMethods.GetWindowPlacement(windowHandle, out placement))
@@ -132,7 +132,7 @@ namespace Binarysharp.MemoryManagement.Windows
             return placement;
         }
 
-        #endregion
+        #endregion GetWindowPlacement
 
         #region GetWindowProcessId
 
@@ -152,7 +152,7 @@ namespace Binarysharp.MemoryManagement.Windows
             return processId;
         }
 
-        #endregion
+        #endregion GetWindowProcessId
 
         #region GetWindowThreadId
 
@@ -171,7 +171,7 @@ namespace Binarysharp.MemoryManagement.Windows
             return NativeMethods.GetWindowThreadProcessId(windowHandle, out trash);
         }
 
-        #endregion
+        #endregion GetWindowThreadId
 
         #region EnumAllWindows
 
@@ -197,7 +197,7 @@ namespace Binarysharp.MemoryManagement.Windows
             return list;
         }
 
-        #endregion
+        #endregion EnumAllWindows
 
         #region EnumChildWindows
 
@@ -223,7 +223,7 @@ namespace Binarysharp.MemoryManagement.Windows
             return list.ToArray();
         }
 
-        #endregion
+        #endregion EnumChildWindows
 
         #region EnumTopLevelWindows
 
@@ -237,7 +237,7 @@ namespace Binarysharp.MemoryManagement.Windows
             return EnumChildWindows(IntPtr.Zero);
         }
 
-        #endregion
+        #endregion EnumTopLevelWindows
 
         #region FlashWindow
 
@@ -261,7 +261,7 @@ namespace Binarysharp.MemoryManagement.Windows
             return NativeMethods.FlashWindow(windowHandle, true);
         }
 
-        #endregion
+        #endregion FlashWindow
 
         #region FlashWindowEx
 
@@ -280,7 +280,7 @@ namespace Binarysharp.MemoryManagement.Windows
             // Create the data structure
             var flashInfo = new FlashInfo
                             {
-                                Size = Marshal.SizeOf(typeof (FlashInfo)),
+                                Size = Marshal.SizeOf(typeof(FlashInfo)),
                                 Hwnd = windowHandle,
                                 Flags = flags,
                                 Count = count,
@@ -314,7 +314,7 @@ namespace Binarysharp.MemoryManagement.Windows
             FlashWindowEx(windowHandle, flags, 0);
         }
 
-        #endregion
+        #endregion FlashWindowEx
 
         #region MapVirtualKey
 
@@ -360,10 +360,10 @@ namespace Binarysharp.MemoryManagement.Windows
         /// </returns>
         public static uint MapVirtualKey(Keys key, TranslationTypes translation)
         {
-            return MapVirtualKey((uint) key, translation);
+            return MapVirtualKey((uint)key, translation);
         }
 
-        #endregion
+        #endregion MapVirtualKey
 
         #region PostMessage
 
@@ -403,10 +403,10 @@ namespace Binarysharp.MemoryManagement.Windows
         /// <param name="lParam">Additional message-specific information.</param>
         public static void PostMessage(IntPtr windowHandle, WindowsMessages message, UIntPtr wParam, UIntPtr lParam)
         {
-            PostMessage(windowHandle, (uint) message, wParam, lParam);
+            PostMessage(windowHandle, (uint)message, wParam, lParam);
         }
 
-        #endregion
+        #endregion PostMessage
 
         #region SendInput
 
@@ -445,7 +445,7 @@ namespace Binarysharp.MemoryManagement.Windows
                       });
         }
 
-        #endregion
+        #endregion SendInput
 
         #region SendMessage
 
@@ -480,10 +480,10 @@ namespace Binarysharp.MemoryManagement.Windows
         /// <returns>The return value specifies the result of the message processing; it depends on the message sent.</returns>
         public static IntPtr SendMessage(IntPtr windowHandle, WindowsMessages message, UIntPtr wParam, IntPtr lParam)
         {
-            return SendMessage(windowHandle, (uint) message, wParam, lParam);
+            return SendMessage(windowHandle, (uint)message, wParam, lParam);
         }
 
-        #endregion
+        #endregion SendMessage
 
         #region SetForegroundWindow
 
@@ -517,7 +517,7 @@ namespace Binarysharp.MemoryManagement.Windows
             }
         }
 
-        #endregion
+        #endregion SetForegroundWindow
 
         #region SetWindowPlacement
 
@@ -573,7 +573,7 @@ namespace Binarysharp.MemoryManagement.Windows
             }
         }
 
-        #endregion
+        #endregion SetWindowPlacement
 
         #region SetWindowText
 
@@ -594,7 +594,7 @@ namespace Binarysharp.MemoryManagement.Windows
             }
         }
 
-        #endregion
+        #endregion SetWindowText
 
         #region ShowWindow
 
@@ -616,6 +616,6 @@ namespace Binarysharp.MemoryManagement.Windows
             return NativeMethods.ShowWindow(windowHandle, state);
         }
 
-        #endregion
+        #endregion ShowWindow
     }
 }

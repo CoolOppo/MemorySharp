@@ -10,17 +10,6 @@ namespace Binarysharp.MemoryManagement.Assembly.CallingConvention
     public class StdcallCallingConvention : ICallingConvention
     {
         /// <summary>
-        ///     The name of the calling convention.
-        /// </summary>
-        public string Name
-        {
-            get
-            {
-                return "Stdcall";
-            }
-        }
-
-        /// <summary>
         ///     Defines which function performs the clean-up task.
         /// </summary>
         public CleanupTypes Cleanup
@@ -32,21 +21,14 @@ namespace Binarysharp.MemoryManagement.Assembly.CallingConvention
         }
 
         /// <summary>
-        ///     Formats the given parameters to call a function.
+        ///     The name of the calling convention.
         /// </summary>
-        /// <param name="parameters">An array of parameters.</param>
-        /// <returns>The mnemonics to pass the parameters.</returns>
-        public string FormatParameters(IntPtr[] parameters)
+        public string Name
         {
-            // Declare a var to store the mnemonics
-            var ret = new StringBuilder();
-            // For each parameters (in reverse order)
-            foreach (var parameter in parameters.Reverse())
+            get
             {
-                ret.AppendLine("push " + parameter);
+                return "Stdcall";
             }
-            // Return the mnemonics
-            return ret.ToString();
         }
 
         /// <summary>
@@ -67,6 +49,24 @@ namespace Binarysharp.MemoryManagement.Assembly.CallingConvention
         public string FormatCleaning(int nbParameters)
         {
             return String.Empty;
+        }
+
+        /// <summary>
+        ///     Formats the given parameters to call a function.
+        /// </summary>
+        /// <param name="parameters">An array of parameters.</param>
+        /// <returns>The mnemonics to pass the parameters.</returns>
+        public string FormatParameters(IntPtr[] parameters)
+        {
+            // Declare a var to store the mnemonics
+            var ret = new StringBuilder();
+            // For each parameters (in reverse order)
+            foreach (var parameter in parameters.Reverse())
+            {
+                ret.AppendLine("push " + parameter);
+            }
+            // Return the mnemonics
+            return ret.ToString();
         }
     }
 }

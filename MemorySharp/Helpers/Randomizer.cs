@@ -11,17 +11,17 @@ namespace Binarysharp.MemoryManagement.Helpers
         #region Fields
 
         /// <summary>
-        ///     Provides random engine.
-        /// </summary>
-        static readonly Random Random = new Random();
-
-        /// <summary>
         ///     Allowed characters in random strings.
         /// </summary>
-        static readonly char[] AllowedChars =
+        private static readonly char[] AllowedChars =
             "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".ToCharArray();
 
-        #endregion
+        /// <summary>
+        ///     Provides random engine.
+        /// </summary>
+        private static readonly Random Random = new Random();
+
+        #endregion Fields
 
         #region GenerateNumber
 
@@ -61,7 +61,7 @@ namespace Binarysharp.MemoryManagement.Helpers
             return Random.Next();
         }
 
-        #endregion
+        #endregion GenerateNumber
 
         #region GenerateString
 
@@ -84,7 +84,7 @@ namespace Binarysharp.MemoryManagement.Helpers
             return builder.ToString();
         }
 
-        #endregion
+        #endregion GenerateString
 
         #region GenerateGuid
 
@@ -97,6 +97,6 @@ namespace Binarysharp.MemoryManagement.Helpers
             return Guid.NewGuid();
         }
 
-        #endregion
+        #endregion GenerateGuid
     }
 }

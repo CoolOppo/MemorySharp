@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Binarysharp.MemoryManagement.Internals;
+using System;
 using System.Runtime.InteropServices;
-using Binarysharp.MemoryManagement.Internals;
 
 namespace Binarysharp.MemoryManagement.Native
 {
-
     #region FlashInfo
 
     /// <summary>
@@ -20,7 +19,7 @@ namespace Binarysharp.MemoryManagement.Native
         public int Timeout;
     }
 
-    #endregion
+    #endregion FlashInfo
 
     #region HardwareInput
 
@@ -46,7 +45,7 @@ namespace Binarysharp.MemoryManagement.Native
         public short WParamH;
     }
 
-    #endregion
+    #endregion HardwareInput
 
     #region Input
 
@@ -61,7 +60,8 @@ namespace Binarysharp.MemoryManagement.Native
         ///     Constructor that specifies a type.
         /// </summary>
         /// <param name="type">The type if the input event.</param>
-        public Input(InputTypes type) : this()
+        public Input(InputTypes type)
+            : this()
         {
             Type = type;
         }
@@ -69,25 +69,29 @@ namespace Binarysharp.MemoryManagement.Native
         /// <summary>
         ///     The type of the input event.
         /// </summary>
-        [FieldOffset(0)] public InputTypes Type;
+        [FieldOffset(0)]
+        public InputTypes Type;
 
         /// <summary>
         ///     The information about a simulated mouse event.
         /// </summary>
-        [FieldOffset(sizeof (int))] public MouseInput Mouse;
+        [FieldOffset(sizeof(int))]
+        public MouseInput Mouse;
 
         /// <summary>
         ///     The information about a simulated keyboard event.
         /// </summary>
-        [FieldOffset(sizeof (int))] public KeyboardInput Keyboard;
+        [FieldOffset(sizeof(int))]
+        public KeyboardInput Keyboard;
 
         /// <summary>
         ///     The information about a simulated hardware event.
         /// </summary>
-        [FieldOffset(sizeof (int))] public HardwareInput Hardware;
+        [FieldOffset(sizeof(int))]
+        public HardwareInput Hardware;
     }
 
-    #endregion
+    #endregion Input
 
     #region KeyboardInput
 
@@ -127,7 +131,7 @@ namespace Binarysharp.MemoryManagement.Native
         public IntPtr ExtraInfo;
     }
 
-    #endregion
+    #endregion KeyboardInput
 
     #region LdtEntry
 
@@ -170,7 +174,7 @@ namespace Binarysharp.MemoryManagement.Native
         public byte BaseHi;
     }
 
-    #endregion
+    #endregion LdtEntry
 
     #region MemoryBasicInformation
 
@@ -220,7 +224,7 @@ namespace Binarysharp.MemoryManagement.Native
         public MemoryTypeFlags Type;
     }
 
-    #endregion
+    #endregion MemoryBasicInformation
 
     #region MouseInput
 
@@ -293,7 +297,7 @@ namespace Binarysharp.MemoryManagement.Native
         public IntPtr ExtraInfo;
     }
 
-    #endregion
+    #endregion MouseInput
 
     #region Point
 
@@ -322,7 +326,7 @@ namespace Binarysharp.MemoryManagement.Native
         }
     }
 
-    #endregion
+    #endregion Point
 
     #region ProcessBasicInformation
 
@@ -373,7 +377,7 @@ namespace Binarysharp.MemoryManagement.Native
         }
     }
 
-    #endregion
+    #endregion ProcessBasicInformation
 
     #region ThreadBasicInformation
 
@@ -419,7 +423,7 @@ namespace Binarysharp.MemoryManagement.Native
         public uint BasePriority;
     }
 
-    #endregion
+    #endregion ThreadBasicInformation
 
     #region ThreadContext
 
@@ -482,7 +486,8 @@ namespace Binarysharp.MemoryManagement.Native
         ///     This is specified/returned if <see cref="ContextFlags" /> contains the flag
         ///     <see cref="ThreadContextFlags.FloatingPoint" />.
         /// </summary>
-        [MarshalAs(UnmanagedType.Struct)] public FloatingSaveArea FloatingSave;
+        [MarshalAs(UnmanagedType.Struct)]
+        public FloatingSaveArea FloatingSave;
 
         /// <summary>
         ///     This is specified/returned if <see cref="ContextFlags" /> contains the flag
@@ -585,10 +590,11 @@ namespace Binarysharp.MemoryManagement.Native
         ///     <see cref="ThreadContextFlags.ExtendedRegisters" />.
         ///     The format and contexts are processor specific.
         /// </summary>
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 512)] public byte[] ExtendedRegisters;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 512)]
+        public byte[] ExtendedRegisters;
     }
 
-    #endregion
+    #endregion ThreadContext
 
     #region FloatingSaveArea
 
@@ -605,11 +611,14 @@ namespace Binarysharp.MemoryManagement.Native
         public uint ErrorSelector;
         public uint DataOffset;
         public uint DataSelector;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 80)] public byte[] RegisterArea;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 80)]
+        public byte[] RegisterArea;
+
         public uint Cr0NpxState;
     }
 
-    #endregion
+    #endregion FloatingSaveArea
 
     #region Rectangle
 
@@ -679,7 +688,7 @@ namespace Binarysharp.MemoryManagement.Native
         }
     }
 
-    #endregion
+    #endregion Rectangle
 
     #region WindowPlacement
 
@@ -721,5 +730,5 @@ namespace Binarysharp.MemoryManagement.Native
         public Rectangle NormalPosition;
     }
 
-    #endregion
+    #endregion WindowPlacement
 }

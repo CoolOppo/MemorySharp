@@ -24,7 +24,7 @@ namespace Binarysharp.MemoryManagement.Native
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool CloseHandle(IntPtr hObject);
 
-        #endregion
+        #endregion CloseHandle
 
         #region CreateRemoteThread
 
@@ -77,7 +77,7 @@ namespace Binarysharp.MemoryManagement.Native
                                                                  ThreadCreationFlags dwCreationFlags,
                                                                  out int lpThreadId);
 
-        #endregion
+        #endregion CreateRemoteThread
 
         #region FreeLibrary
 
@@ -99,7 +99,7 @@ namespace Binarysharp.MemoryManagement.Native
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool FreeLibrary(IntPtr hModule);
 
-        #endregion
+        #endregion FreeLibrary
 
         #region GetClassName
 
@@ -122,7 +122,7 @@ namespace Binarysharp.MemoryManagement.Native
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         public static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
 
-        #endregion
+        #endregion GetClassName
 
         #region GetForegroundWindow
 
@@ -138,7 +138,7 @@ namespace Binarysharp.MemoryManagement.Native
         [DllImport("user32.dll")]
         public static extern IntPtr GetForegroundWindow();
 
-        #endregion
+        #endregion GetForegroundWindow
 
         #region GetExitCodeThread
 
@@ -163,7 +163,7 @@ namespace Binarysharp.MemoryManagement.Native
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern bool GetExitCodeThread(SafeMemoryHandle hThread, out IntPtr lpExitCode);
 
-        #endregion
+        #endregion GetExitCodeThread
 
         #region GetProcAddress
 
@@ -188,7 +188,7 @@ namespace Binarysharp.MemoryManagement.Native
         [DllImport("kernel32", SetLastError = true, CharSet = CharSet.Ansi)]
         public static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
 
-        #endregion
+        #endregion GetProcAddress
 
         #region GetProcessId
 
@@ -208,7 +208,7 @@ namespace Binarysharp.MemoryManagement.Native
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern int GetProcessId(SafeMemoryHandle hProcess);
 
-        #endregion
+        #endregion GetProcessId
 
         #region GetSystemMetrics
 
@@ -225,7 +225,7 @@ namespace Binarysharp.MemoryManagement.Native
         [DllImport("user32.dll", SetLastError = true)]
         public static extern int GetSystemMetrics(SystemMetrics metric);
 
-        #endregion
+        #endregion GetSystemMetrics
 
         #region GetThreadContext
 
@@ -256,7 +256,7 @@ namespace Binarysharp.MemoryManagement.Native
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern bool GetThreadContext(SafeMemoryHandle hThread, ref ThreadContext lpContext);
 
-        #endregion
+        #endregion GetThreadContext
 
         #region GetThreadSelectorEntry
 
@@ -285,7 +285,7 @@ namespace Binarysharp.MemoryManagement.Native
                                                          uint dwSelector,
                                                          out LdtEntry lpSelectorEntry);
 
-        #endregion
+        #endregion GetThreadSelectorEntry
 
         #region GetThreadId
 
@@ -305,7 +305,7 @@ namespace Binarysharp.MemoryManagement.Native
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern int GetThreadId(SafeMemoryHandle hThread);
 
-        #endregion
+        #endregion GetThreadId
 
         #region GetWindowPlacement
 
@@ -326,7 +326,7 @@ namespace Binarysharp.MemoryManagement.Native
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetWindowPlacement(IntPtr hWnd, out WindowPlacement lpwndpl);
 
-        #endregion
+        #endregion GetWindowPlacement
 
         #region GetWindowText
 
@@ -353,7 +353,7 @@ namespace Binarysharp.MemoryManagement.Native
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         public static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
 
-        #endregion
+        #endregion GetWindowText
 
         #region GetWindowTextLength
 
@@ -371,7 +371,7 @@ namespace Binarysharp.MemoryManagement.Native
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         public static extern int GetWindowTextLength(IntPtr hWnd);
 
-        #endregion
+        #endregion GetWindowTextLength
 
         #region GetWindowThreadProcessId
 
@@ -389,7 +389,7 @@ namespace Binarysharp.MemoryManagement.Native
         [DllImport("user32.dll")]
         public static extern int GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
 
-        #endregion
+        #endregion GetWindowThreadProcessId
 
         #region EnumChildWindows
 
@@ -416,7 +416,7 @@ namespace Binarysharp.MemoryManagement.Native
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool EnumChildWindows(IntPtr hwndParent, EnumWindowsProc lpEnumFunc, IntPtr lParam);
 
-        #endregion
+        #endregion EnumChildWindows
 
         #region FlashWindow
 
@@ -441,7 +441,7 @@ namespace Binarysharp.MemoryManagement.Native
         [DllImport("user32.dll")]
         public static extern bool FlashWindow(IntPtr hwnd, bool bInvert);
 
-        #endregion
+        #endregion FlashWindow
 
         #region FlashWindowEx
 
@@ -458,7 +458,7 @@ namespace Binarysharp.MemoryManagement.Native
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool FlashWindowEx(ref FlashInfo pwfi);
 
-        #endregion
+        #endregion FlashWindowEx
 
         #region LoadLibrary
 
@@ -490,7 +490,7 @@ namespace Binarysharp.MemoryManagement.Native
         [DllImport("kernel32", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern IntPtr LoadLibrary(string lpFileName);
 
-        #endregion
+        #endregion LoadLibrary
 
         #region MapVirtualKey
 
@@ -515,7 +515,7 @@ namespace Binarysharp.MemoryManagement.Native
         [DllImport("user32")]
         public static extern uint MapVirtualKey(uint key, TranslationTypes translation);
 
-        #endregion
+        #endregion MapVirtualKey
 
         #region NtQueryInformationProcess
 
@@ -543,7 +543,7 @@ namespace Binarysharp.MemoryManagement.Native
                                                            int length,
                                                            IntPtr bytesread);
 
-        #endregion
+        #endregion NtQueryInformationProcess
 
         #region NtQueryInformationThread
 
@@ -586,7 +586,7 @@ namespace Binarysharp.MemoryManagement.Native
                                                            int length,
                                                            IntPtr bytesread);
 
-        #endregion
+        #endregion NtQueryInformationThread
 
         #region OpenProcess
 
@@ -614,7 +614,7 @@ namespace Binarysharp.MemoryManagement.Native
                                                           [MarshalAs(UnmanagedType.Bool)] bool bInheritHandle,
                                                           int dwProcessId);
 
-        #endregion
+        #endregion OpenProcess
 
         #region OpenThread
 
@@ -642,7 +642,7 @@ namespace Binarysharp.MemoryManagement.Native
                                                          [MarshalAs(UnmanagedType.Bool)] bool bInheritHandle,
                                                          int dwThreadId);
 
-        #endregion
+        #endregion OpenThread
 
         #region PostMessage
 
@@ -668,7 +668,7 @@ namespace Binarysharp.MemoryManagement.Native
         [DllImport("user32.dll", SetLastError = true)]
         public static extern bool PostMessage(IntPtr hWnd, uint msg, UIntPtr wParam, UIntPtr lParam);
 
-        #endregion
+        #endregion PostMessage
 
         #region ReadProcessMemory
 
@@ -708,7 +708,7 @@ namespace Binarysharp.MemoryManagement.Native
                                                     int dwSize,
                                                     out int lpNumberOfBytesRead);
 
-        #endregion
+        #endregion ReadProcessMemory
 
         #region ResumeThread
 
@@ -729,7 +729,7 @@ namespace Binarysharp.MemoryManagement.Native
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern uint ResumeThread(SafeMemoryHandle hThread);
 
-        #endregion
+        #endregion ResumeThread
 
         #region SendInput
 
@@ -756,7 +756,7 @@ namespace Binarysharp.MemoryManagement.Native
         [DllImport("user32.dll", SetLastError = true)]
         public static extern int SendInput(int nInputs, Input[] pInputs, int cbSize);
 
-        #endregion
+        #endregion SendInput
 
         #region SendMessage
 
@@ -773,7 +773,7 @@ namespace Binarysharp.MemoryManagement.Native
         [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, UIntPtr wParam, IntPtr lParam);
 
-        #endregion
+        #endregion SendMessage
 
         #region SetForegroundWindow
 
@@ -792,7 +792,7 @@ namespace Binarysharp.MemoryManagement.Native
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetForegroundWindow(IntPtr hWnd);
 
-        #endregion
+        #endregion SetForegroundWindow
 
         #region SetThreadContext
 
@@ -823,7 +823,7 @@ namespace Binarysharp.MemoryManagement.Native
         public static extern bool SetThreadContext(SafeMemoryHandle hThread,
                                                    [MarshalAs(UnmanagedType.Struct)] ref ThreadContext lpContext);
 
-        #endregion
+        #endregion SetThreadContext
 
         #region SetWindowPlacement
 
@@ -844,7 +844,7 @@ namespace Binarysharp.MemoryManagement.Native
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetWindowPlacement(IntPtr hWnd, [In] ref WindowPlacement lpwndpl);
 
-        #endregion
+        #endregion SetWindowPlacement
 
         #region SetWindowText
 
@@ -863,7 +863,7 @@ namespace Binarysharp.MemoryManagement.Native
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         public static extern bool SetWindowText(IntPtr hwnd, string lpString);
 
-        #endregion
+        #endregion SetWindowText
 
         #region ShowWindow
 
@@ -887,7 +887,7 @@ namespace Binarysharp.MemoryManagement.Native
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool ShowWindow(IntPtr hWnd, WindowStates nCmdShow);
 
-        #endregion
+        #endregion ShowWindow
 
         #region SuspendThread
 
@@ -907,7 +907,7 @@ namespace Binarysharp.MemoryManagement.Native
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern uint SuspendThread(SafeMemoryHandle hThread);
 
-        #endregion
+        #endregion SuspendThread
 
         #region TerminateThread
 
@@ -931,7 +931,7 @@ namespace Binarysharp.MemoryManagement.Native
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern bool TerminateThread(SafeMemoryHandle hThread, int dwExitCode);
 
-        #endregion
+        #endregion TerminateThread
 
         #region VirtualAllocEx
 
@@ -976,7 +976,7 @@ namespace Binarysharp.MemoryManagement.Native
                                                    MemoryAllocationFlags flAllocationType,
                                                    MemoryProtectionFlags flProtect);
 
-        #endregion
+        #endregion VirtualAllocEx
 
         #region VirtualFreeEx
 
@@ -1020,7 +1020,7 @@ namespace Binarysharp.MemoryManagement.Native
                                                 int dwSize,
                                                 MemoryReleaseFlags dwFreeType);
 
-        #endregion
+        #endregion VirtualFreeEx
 
         #region VirtualProtectEx
 
@@ -1068,7 +1068,7 @@ namespace Binarysharp.MemoryManagement.Native
                                                    MemoryProtectionFlags flNewProtect,
                                                    out MemoryProtectionFlags lpflOldProtect);
 
-        #endregion
+        #endregion VirtualProtectEx
 
         #region VirtualQueryEx
 
@@ -1104,7 +1104,7 @@ namespace Binarysharp.MemoryManagement.Native
                                                 out MemoryBasicInformation lpBuffer,
                                                 int dwLength);
 
-        #endregion
+        #endregion VirtualQueryEx
 
         #region WaitForSingleObject
 
@@ -1130,7 +1130,7 @@ namespace Binarysharp.MemoryManagement.Native
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern WaitValues WaitForSingleObject(SafeMemoryHandle hHandle, uint dwMilliseconds);
 
-        #endregion
+        #endregion WaitForSingleObject
 
         #region WriteProcessMemory
 
@@ -1170,7 +1170,7 @@ namespace Binarysharp.MemoryManagement.Native
                                                      int nSize,
                                                      out int lpNumberOfBytesWritten);
 
-        #endregion
+        #endregion WriteProcessMemory
     }
 
     #region Delegate EnumWindowsProc
@@ -1189,5 +1189,5 @@ namespace Binarysharp.MemoryManagement.Native
     /// </returns>
     public delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
 
-    #endregion
+    #endregion Delegate EnumWindowsProc
 }

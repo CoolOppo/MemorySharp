@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Binarysharp.MemoryManagement.Internals;
+using System;
 using System.Text;
-using Binarysharp.MemoryManagement.Internals;
 
 namespace Binarysharp.MemoryManagement.Assembly
 {
@@ -27,7 +27,7 @@ namespace Binarysharp.MemoryManagement.Assembly
         /// </summary>
         protected StringBuilder Mnemonics;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
@@ -38,7 +38,7 @@ namespace Binarysharp.MemoryManagement.Assembly
         /// </summary>
         public IntPtr Address { get; private set; }
 
-        #endregion
+        #endregion Address
 
         #region IsAutoExecuted
 
@@ -47,9 +47,9 @@ namespace Binarysharp.MemoryManagement.Assembly
         /// </summary>
         public bool IsAutoExecuted { get; set; }
 
-        #endregion
+        #endregion IsAutoExecuted
 
-        #endregion
+        #endregion Properties
 
         #region Constructors
 
@@ -79,7 +79,7 @@ namespace Binarysharp.MemoryManagement.Assembly
         {
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Methods
 
@@ -95,7 +95,7 @@ namespace Binarysharp.MemoryManagement.Assembly
             Mnemonics.AppendLine(String.Format(asm, args));
         }
 
-        #endregion
+        #endregion AddLine
 
         #region Assemble
 
@@ -108,7 +108,7 @@ namespace Binarysharp.MemoryManagement.Assembly
             return MemorySharp.Assembly.Assembler.Assemble(Mnemonics.ToString());
         }
 
-        #endregion
+        #endregion Assemble
 
         #region Clear
 
@@ -120,7 +120,7 @@ namespace Binarysharp.MemoryManagement.Assembly
             Mnemonics.Clear();
         }
 
-        #endregion
+        #endregion Clear
 
         #region Dispose (implementation of IDisposable)
 
@@ -137,7 +137,7 @@ namespace Binarysharp.MemoryManagement.Assembly
                 {
                     ExitCode = MemorySharp.Assembly.InjectAndExecute<IntPtr>(Mnemonics.ToString(), Address);
                 }
-                    // Else the assembly code is just injected
+                // Else the assembly code is just injected
                 else
                 {
                     MemorySharp.Assembly.Inject(Mnemonics.ToString(), Address);
@@ -151,7 +151,7 @@ namespace Binarysharp.MemoryManagement.Assembly
             }
         }
 
-        #endregion
+        #endregion Dispose (implementation of IDisposable)
 
         #region GetExitCode
 
@@ -163,7 +163,7 @@ namespace Binarysharp.MemoryManagement.Assembly
             return MarshalType<T>.PtrToObject(MemorySharp, ExitCode);
         }
 
-        #endregion
+        #endregion GetExitCode
 
         #region InsertLine
 
@@ -178,8 +178,8 @@ namespace Binarysharp.MemoryManagement.Assembly
             Mnemonics.Insert(index, String.Format(asm, args));
         }
 
-        #endregion
+        #endregion InsertLine
 
-        #endregion
+        #endregion Methods
     }
 }

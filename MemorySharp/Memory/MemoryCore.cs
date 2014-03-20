@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using Binarysharp.MemoryManagement.Helpers;
+﻿using Binarysharp.MemoryManagement.Helpers;
 using Binarysharp.MemoryManagement.Internals;
 using Binarysharp.MemoryManagement.Native;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Binarysharp.MemoryManagement.Memory
 {
@@ -43,7 +43,7 @@ namespace Binarysharp.MemoryManagement.Memory
             throw new Win32Exception(string.Format("Couldn't allocate memory of {0} byte(s).", size));
         }
 
-        #endregion
+        #endregion Allocate
 
         #region CloseHandle
 
@@ -63,7 +63,7 @@ namespace Binarysharp.MemoryManagement.Memory
             }
         }
 
-        #endregion
+        #endregion CloseHandle
 
         #region Free
 
@@ -86,7 +86,7 @@ namespace Binarysharp.MemoryManagement.Memory
             }
         }
 
-        #endregion
+        #endregion Free
 
         #region NtQueryInformationProcess
 
@@ -121,7 +121,7 @@ namespace Binarysharp.MemoryManagement.Memory
                 string.Format("Couldn't get the information from the process, error code '{0}'.", ret));
         }
 
-        #endregion
+        #endregion NtQueryInformationProcess
 
         #region OpenProcess
 
@@ -146,7 +146,7 @@ namespace Binarysharp.MemoryManagement.Memory
             throw new Win32Exception(string.Format("Couldn't open the process {0}.", processId));
         }
 
-        #endregion
+        #endregion OpenProcess
 
         #region ReadBytes
 
@@ -178,7 +178,7 @@ namespace Binarysharp.MemoryManagement.Memory
             throw new Win32Exception(string.Format("Couldn't read {0} byte(s) from 0x{1}.", size, address.ToString("X")));
         }
 
-        #endregion
+        #endregion ReadBytes
 
         #region ChangeProtection
 
@@ -220,7 +220,7 @@ namespace Binarysharp.MemoryManagement.Memory
                               protection));
         }
 
-        #endregion
+        #endregion ChangeProtection
 
         #region Query
 
@@ -303,7 +303,7 @@ namespace Binarysharp.MemoryManagement.Memory
             } while (numberFrom < numberTo && ret != 0);
         }
 
-        #endregion
+        #endregion Query
 
         #region WriteBytes
 
@@ -339,6 +339,6 @@ namespace Binarysharp.MemoryManagement.Memory
                                                    address.ToString("X")));
         }
 
-        #endregion
+        #endregion WriteBytes
     }
 }

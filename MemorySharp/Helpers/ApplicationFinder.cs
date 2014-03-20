@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Binarysharp.MemoryManagement.Windows;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Binarysharp.MemoryManagement.Windows;
 
 namespace Binarysharp.MemoryManagement.Helpers
 {
@@ -24,7 +24,7 @@ namespace Binarysharp.MemoryManagement.Helpers
             }
         }
 
-        #endregion
+        #endregion Property TopLevelWindows
 
         #region Property Windows
 
@@ -39,7 +39,7 @@ namespace Binarysharp.MemoryManagement.Helpers
             }
         }
 
-        #endregion
+        #endregion Property Windows
 
         #region FromProcessId
 
@@ -56,7 +56,7 @@ namespace Binarysharp.MemoryManagement.Helpers
             return Process.GetProcessById(processId);
         }
 
-        #endregion
+        #endregion FromProcessId
 
         #region FromProcessName
 
@@ -74,7 +74,7 @@ namespace Binarysharp.MemoryManagement.Helpers
             return Process.GetProcessesByName(processName);
         }
 
-        #endregion
+        #endregion FromProcessName
 
         #region FromWindowClassName
 
@@ -92,7 +92,7 @@ namespace Binarysharp.MemoryManagement.Helpers
             return Windows.Where(window => WindowCore.GetClassName(window) == className).Select(FromWindowHandle);
         }
 
-        #endregion
+        #endregion FromWindowClassName
 
         #region FromWindowHandle
 
@@ -109,7 +109,7 @@ namespace Binarysharp.MemoryManagement.Helpers
             return FromProcessId(WindowCore.GetWindowProcessId(windowHandle));
         }
 
-        #endregion
+        #endregion FromWindowHandle
 
         #region FromWindowTitle
 
@@ -127,7 +127,7 @@ namespace Binarysharp.MemoryManagement.Helpers
             return Windows.Where(window => WindowCore.GetWindowText(window) == windowTitle).Select(FromWindowHandle);
         }
 
-        #endregion
+        #endregion FromWindowTitle
 
         #region FromWindowTitleContains
 
@@ -146,6 +146,6 @@ namespace Binarysharp.MemoryManagement.Helpers
                 Windows.Where(window => WindowCore.GetWindowText(window).Contains(windowTitle)).Select(FromWindowHandle);
         }
 
-        #endregion
+        #endregion FromWindowTitleContains
     }
 }

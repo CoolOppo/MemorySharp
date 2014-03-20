@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Binarysharp.MemoryManagement.Native;
+﻿using Binarysharp.MemoryManagement.Native;
 using Binarysharp.MemoryManagement.Threading;
 using Binarysharp.MemoryManagement.Windows.Keyboard;
 using Binarysharp.MemoryManagement.Windows.Mouse;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Binarysharp.MemoryManagement.Windows
 {
@@ -20,7 +20,7 @@ namespace Binarysharp.MemoryManagement.Windows
         /// </summary>
         protected readonly MemorySharp MemorySharp;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
@@ -37,7 +37,7 @@ namespace Binarysharp.MemoryManagement.Windows
             }
         }
 
-        #endregion
+        #endregion Children
 
         #region ChildHandles (protected)
 
@@ -52,7 +52,7 @@ namespace Binarysharp.MemoryManagement.Windows
             }
         }
 
-        #endregion
+        #endregion ChildHandles (protected)
 
         #region ClassName
 
@@ -67,7 +67,7 @@ namespace Binarysharp.MemoryManagement.Windows
             }
         }
 
-        #endregion
+        #endregion ClassName
 
         #region Handle
 
@@ -82,7 +82,7 @@ namespace Binarysharp.MemoryManagement.Windows
         /// </remarks>
         public IntPtr Handle { get; private set; }
 
-        #endregion
+        #endregion Handle
 
         #region Height
 
@@ -103,7 +103,7 @@ namespace Binarysharp.MemoryManagement.Windows
             }
         }
 
-        #endregion
+        #endregion Height
 
         #region IsActivated
 
@@ -118,7 +118,7 @@ namespace Binarysharp.MemoryManagement.Windows
             }
         }
 
-        #endregion
+        #endregion IsActivated
 
         #region IsMainWindow
 
@@ -133,7 +133,7 @@ namespace Binarysharp.MemoryManagement.Windows
             }
         }
 
-        #endregion
+        #endregion IsMainWindow
 
         #region Keyboard
 
@@ -142,7 +142,7 @@ namespace Binarysharp.MemoryManagement.Windows
         /// </summary>
         public BaseKeyboard Keyboard { get; set; }
 
-        #endregion
+        #endregion Keyboard
 
         #region Mouse
 
@@ -151,7 +151,7 @@ namespace Binarysharp.MemoryManagement.Windows
         /// </summary>
         public BaseMouse Mouse { get; set; }
 
-        #endregion
+        #endregion Mouse
 
         #region Placement (internal)
 
@@ -170,7 +170,7 @@ namespace Binarysharp.MemoryManagement.Windows
             }
         }
 
-        #endregion
+        #endregion Placement (internal)
 
         #region State
 
@@ -189,7 +189,7 @@ namespace Binarysharp.MemoryManagement.Windows
             }
         }
 
-        #endregion
+        #endregion State
 
         #region Title
 
@@ -208,7 +208,7 @@ namespace Binarysharp.MemoryManagement.Windows
             }
         }
 
-        #endregion
+        #endregion Title
 
         #region Thread
 
@@ -223,7 +223,7 @@ namespace Binarysharp.MemoryManagement.Windows
             }
         }
 
-        #endregion
+        #endregion Thread
 
         #region Width
 
@@ -244,7 +244,7 @@ namespace Binarysharp.MemoryManagement.Windows
             }
         }
 
-        #endregion
+        #endregion Width
 
         #region X
 
@@ -266,7 +266,7 @@ namespace Binarysharp.MemoryManagement.Windows
             }
         }
 
-        #endregion
+        #endregion X
 
         #region Y
 
@@ -288,9 +288,9 @@ namespace Binarysharp.MemoryManagement.Windows
             }
         }
 
-        #endregion
+        #endregion Y
 
-        #endregion
+        #endregion Properties
 
         #region Constructor
 
@@ -309,7 +309,7 @@ namespace Binarysharp.MemoryManagement.Windows
             Mouse = new SendInputMouse(this);
         }
 
-        #endregion
+        #endregion Constructor
 
         #region Methods
 
@@ -323,7 +323,7 @@ namespace Binarysharp.MemoryManagement.Windows
             WindowCore.SetForegroundWindow(Handle);
         }
 
-        #endregion
+        #endregion Activate
 
         #region Close
 
@@ -335,7 +335,7 @@ namespace Binarysharp.MemoryManagement.Windows
             PostMessage(WindowsMessages.Close, UIntPtr.Zero, UIntPtr.Zero);
         }
 
-        #endregion
+        #endregion Close
 
         #region Equals (override)
 
@@ -372,10 +372,10 @@ namespace Binarysharp.MemoryManagement.Windows
             {
                 return false;
             }
-            return Equals((RemoteWindow) obj);
+            return Equals((RemoteWindow)obj);
         }
 
-        #endregion
+        #endregion Equals (override)
 
         #region Flash
 
@@ -398,7 +398,7 @@ namespace Binarysharp.MemoryManagement.Windows
             WindowCore.FlashWindowEx(Handle, flags, count, timeout);
         }
 
-        #endregion
+        #endregion Flash
 
         #region GetHashCode (override)
 
@@ -410,26 +410,26 @@ namespace Binarysharp.MemoryManagement.Windows
             unchecked
             {
                 var hashCode = (MemorySharp != null ? MemorySharp.GetHashCode() : 0);
-                hashCode = (hashCode*397) ^ Handle.GetHashCode();
+                hashCode = (hashCode * 397) ^ Handle.GetHashCode();
                 return hashCode;
             }
         }
 
-        #endregion
+        #endregion GetHashCode (override)
 
         #region Operator (override)
-
-        public static bool operator ==(RemoteWindow left, RemoteWindow right)
-        {
-            return Equals(left, right);
-        }
 
         public static bool operator !=(RemoteWindow left, RemoteWindow right)
         {
             return !Equals(left, right);
         }
 
-        #endregion
+        public static bool operator ==(RemoteWindow left, RemoteWindow right)
+        {
+            return Equals(left, right);
+        }
+
+        #endregion Operator (override)
 
         #region PostMessage
 
@@ -457,7 +457,7 @@ namespace Binarysharp.MemoryManagement.Windows
             WindowCore.PostMessage(Handle, message, wParam, lParam);
         }
 
-        #endregion
+        #endregion PostMessage
 
         #region SendMessage
 
@@ -489,7 +489,7 @@ namespace Binarysharp.MemoryManagement.Windows
             return WindowCore.SendMessage(Handle, message, wParam, lParam);
         }
 
-        #endregion
+        #endregion SendMessage
 
         #region ToString (override)
 
@@ -501,8 +501,8 @@ namespace Binarysharp.MemoryManagement.Windows
             return string.Format("Title = {0} ClassName = {1}", Title, ClassName);
         }
 
-        #endregion
+        #endregion ToString (override)
 
-        #endregion
+        #endregion Methods
     }
 }

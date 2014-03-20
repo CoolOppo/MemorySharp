@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Binarysharp.MemoryManagement.Internals;
+using System;
 using System.Diagnostics;
 using System.Linq;
-using Binarysharp.MemoryManagement.Internals;
 
 namespace Binarysharp.MemoryManagement.Modules
 {
@@ -19,7 +19,7 @@ namespace Binarysharp.MemoryManagement.Modules
         /// </summary>
         public bool IsDisposed { get; private set; }
 
-        #endregion
+        #endregion IsDisposed (implementation of IDisposableState)
 
         #region MustBeDisposed (implementation of IDisposableState)
 
@@ -28,9 +28,9 @@ namespace Binarysharp.MemoryManagement.Modules
         /// </summary>
         public bool MustBeDisposed { get; set; }
 
-        #endregion
+        #endregion MustBeDisposed (implementation of IDisposableState)
 
-        #endregion
+        #endregion Properties
 
         #region Constructor/Destructor
 
@@ -58,7 +58,7 @@ namespace Binarysharp.MemoryManagement.Modules
             }
         }
 
-        #endregion
+        #endregion Constructor/Destructor
 
         #region Methods
 
@@ -75,12 +75,12 @@ namespace Binarysharp.MemoryManagement.Modules
                 IsDisposed = true;
                 // Eject the module
                 MemorySharp.Modules.Eject(this);
-                // Avoid the finalizer 
+                // Avoid the finalizer
                 GC.SuppressFinalize(this);
             }
         }
 
-        #endregion
+        #endregion Dispose (implementation of IDisposableState)
 
         #region InternalInject (internal)
 
@@ -109,8 +109,8 @@ namespace Binarysharp.MemoryManagement.Modules
             return null;
         }
 
-        #endregion
+        #endregion InternalInject (internal)
 
-        #endregion
+        #endregion Methods
     }
 }

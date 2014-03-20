@@ -1,5 +1,5 @@
-﻿using System;
-using Binarysharp.MemoryManagement.Helpers;
+﻿using Binarysharp.MemoryManagement.Helpers;
+using System;
 
 namespace Binarysharp.MemoryManagement.Assembly.CallingConvention
 {
@@ -19,12 +19,16 @@ namespace Binarysharp.MemoryManagement.Assembly.CallingConvention
             {
                 case CallingConventions.Cdecl:
                     return Singleton<CdeclCallingConvention>.Instance;
+
                 case CallingConventions.Stdcall:
                     return Singleton<StdcallCallingConvention>.Instance;
+
                 case CallingConventions.Fastcall:
                     return Singleton<FastcallCallingConvention>.Instance;
+
                 case CallingConventions.Thiscall:
                     return Singleton<ThiscallCallingConvention>.Instance;
+
                 default:
                     throw new ApplicationException("Unsupported calling convention.");
             }

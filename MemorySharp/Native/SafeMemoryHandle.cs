@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32.SafeHandles;
+using System;
 using System.Runtime.ConstrainedExecution;
 using System.Security.Permissions;
-using Microsoft.Win32.SafeHandles;
 
 namespace Binarysharp.MemoryManagement.Native
 {
@@ -14,7 +14,8 @@ namespace Binarysharp.MemoryManagement.Native
         /// <summary>
         ///     Parameterless constructor for handles built by the system (like <see cref="NativeMethods.OpenProcess" />).
         /// </summary>
-        public SafeMemoryHandle() : base(true)
+        public SafeMemoryHandle()
+            : base(true)
         {
         }
 
@@ -22,7 +23,8 @@ namespace Binarysharp.MemoryManagement.Native
         ///     Initializes a new instance of the <see cref="SafeMemoryHandle" /> class, specifying the handle to keep in safe.
         /// </summary>
         /// <param name="handle">The handle to keep in safe.</param>
-        public SafeMemoryHandle(IntPtr handle) : base(true)
+        public SafeMemoryHandle(IntPtr handle)
+            : base(true)
         {
             SetHandle(handle);
         }

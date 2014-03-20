@@ -1,5 +1,5 @@
-﻿using System;
-using Binarysharp.MemoryManagement.Memory;
+﻿using Binarysharp.MemoryManagement.Memory;
+using System;
 
 namespace Binarysharp.MemoryManagement.Modules
 {
@@ -15,17 +15,18 @@ namespace Binarysharp.MemoryManagement.Modules
         /// </summary>
         public string Name { get; private set; }
 
-        #endregion
+        #endregion Properties
 
         #region Constructor
 
-        public RemoteFunction(MemorySharp memorySharp, IntPtr address, string functionName) : base(memorySharp, address)
+        public RemoteFunction(MemorySharp memorySharp, IntPtr address, string functionName)
+            : base(memorySharp, address)
         {
             // Save the parameter
             Name = functionName;
         }
 
-        #endregion
+        #endregion Constructor
 
         #region Methods
 
@@ -39,8 +40,8 @@ namespace Binarysharp.MemoryManagement.Modules
             return string.Format("BaseAddress = 0x{0:X} Name = {1}", BaseAddress.ToInt64(), Name);
         }
 
-        #endregion
+        #endregion ToString (override)
 
-        #endregion
+        #endregion Methods
     }
 }

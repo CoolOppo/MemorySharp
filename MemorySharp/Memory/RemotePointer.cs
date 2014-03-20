@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Binarysharp.MemoryManagement.Assembly.CallingConvention;
+using Binarysharp.MemoryManagement.Native;
+using System;
 using System.Text;
 using System.Threading.Tasks;
-using Binarysharp.MemoryManagement.Assembly.CallingConvention;
-using Binarysharp.MemoryManagement.Native;
 
 namespace Binarysharp.MemoryManagement.Memory
 {
@@ -20,7 +20,7 @@ namespace Binarysharp.MemoryManagement.Memory
         /// </summary>
         public IntPtr BaseAddress { get; protected set; }
 
-        #endregion
+        #endregion BaseAddress
 
         #region IsValid
 
@@ -35,7 +35,7 @@ namespace Binarysharp.MemoryManagement.Memory
             }
         }
 
-        #endregion
+        #endregion IsValid
 
         #region MemorySharp
 
@@ -44,9 +44,9 @@ namespace Binarysharp.MemoryManagement.Memory
         /// </summary>
         public MemorySharp MemorySharp { get; protected set; }
 
-        #endregion
+        #endregion MemorySharp
 
-        #endregion
+        #endregion Properties
 
         #region Constructor
 
@@ -62,7 +62,7 @@ namespace Binarysharp.MemoryManagement.Memory
             BaseAddress = address;
         }
 
-        #endregion
+        #endregion Constructor
 
         #region Methods
 
@@ -83,7 +83,7 @@ namespace Binarysharp.MemoryManagement.Memory
             return new MemoryProtection(MemorySharp, BaseAddress, size, protection, mustBeDisposed);
         }
 
-        #endregion
+        #endregion ChangeProtection
 
         #region Equals (override)
 
@@ -113,10 +113,10 @@ namespace Binarysharp.MemoryManagement.Memory
             {
                 return true;
             }
-            return obj.GetType() == GetType() && Equals((RemotePointer) obj);
+            return obj.GetType() == GetType() && Equals((RemotePointer)obj);
         }
 
-        #endregion
+        #endregion Equals (override)
 
         #region Execute
 
@@ -180,7 +180,7 @@ namespace Binarysharp.MemoryManagement.Memory
             return Execute<IntPtr>(callingConvention, parameters);
         }
 
-        #endregion
+        #endregion Execute
 
         #region ExecuteAsync
 
@@ -262,7 +262,7 @@ namespace Binarysharp.MemoryManagement.Memory
             return ExecuteAsync<IntPtr>(callingConvention, parameters);
         }
 
-        #endregion
+        #endregion ExecuteAsync
 
         #region GetHashCode (override)
 
@@ -274,21 +274,21 @@ namespace Binarysharp.MemoryManagement.Memory
             return BaseAddress.GetHashCode() ^ MemorySharp.GetHashCode();
         }
 
-        #endregion
+        #endregion GetHashCode (override)
 
         #region Operator (override)
-
-        public static bool operator ==(RemotePointer left, RemotePointer right)
-        {
-            return Equals(left, right);
-        }
 
         public static bool operator !=(RemotePointer left, RemotePointer right)
         {
             return !Equals(left, right);
         }
 
-        #endregion
+        public static bool operator ==(RemotePointer left, RemotePointer right)
+        {
+            return Equals(left, right);
+        }
+
+        #endregion Operator (override)
 
         #region Read
 
@@ -348,7 +348,7 @@ namespace Binarysharp.MemoryManagement.Memory
             return Read<T>(Convert.ToInt32(offset), count);
         }
 
-        #endregion
+        #endregion Read
 
         #region ReadString
 
@@ -424,7 +424,7 @@ namespace Binarysharp.MemoryManagement.Memory
             return ReadString(Convert.ToInt32(offset), maxLength);
         }
 
-        #endregion
+        #endregion ReadString
 
         #region ToString (override)
 
@@ -436,7 +436,7 @@ namespace Binarysharp.MemoryManagement.Memory
             return string.Format("BaseAddress = 0x{0:X}", BaseAddress.ToInt64());
         }
 
-        #endregion
+        #endregion ToString (override)
 
         #region Write
 
@@ -504,7 +504,7 @@ namespace Binarysharp.MemoryManagement.Memory
             Write(0, array);
         }
 
-        #endregion
+        #endregion Write
 
         #region WriteString
 
@@ -569,8 +569,8 @@ namespace Binarysharp.MemoryManagement.Memory
             WriteString(0, text);
         }
 
-        #endregion
+        #endregion WriteString
 
-        #endregion
+        #endregion Methods
     }
 }

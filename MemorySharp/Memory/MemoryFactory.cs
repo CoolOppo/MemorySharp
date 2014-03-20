@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Binarysharp.MemoryManagement.Internals;
+using Binarysharp.MemoryManagement.Native;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Binarysharp.MemoryManagement.Internals;
-using Binarysharp.MemoryManagement.Native;
 
 namespace Binarysharp.MemoryManagement.Memory
 {
@@ -23,7 +23,7 @@ namespace Binarysharp.MemoryManagement.Memory
         /// </summary>
         protected readonly MemorySharp MemorySharp;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
@@ -40,7 +40,7 @@ namespace Binarysharp.MemoryManagement.Memory
             }
         }
 
-        #endregion
+        #endregion RemoteAllocations
 
         #region Regions
 
@@ -62,9 +62,9 @@ namespace Binarysharp.MemoryManagement.Memory
             }
         }
 
-        #endregion
+        #endregion Regions
 
-        #endregion
+        #endregion Properties
 
         #region Constructor/Destructor
 
@@ -88,7 +88,7 @@ namespace Binarysharp.MemoryManagement.Memory
             Dispose();
         }
 
-        #endregion
+        #endregion Constructor/Destructor
 
         #region Methods
 
@@ -112,7 +112,7 @@ namespace Binarysharp.MemoryManagement.Memory
             return memory;
         }
 
-        #endregion
+        #endregion Allocate
 
         #region Deallocate
 
@@ -134,7 +134,7 @@ namespace Binarysharp.MemoryManagement.Memory
             }
         }
 
-        #endregion
+        #endregion Deallocate
 
         #region Dispose (implementation of IFactory)
 
@@ -152,8 +152,8 @@ namespace Binarysharp.MemoryManagement.Memory
             GC.SuppressFinalize(this);
         }
 
-        #endregion
+        #endregion Dispose (implementation of IFactory)
 
-        #endregion
+        #endregion Methods
     }
 }

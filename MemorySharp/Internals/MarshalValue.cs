@@ -1,5 +1,5 @@
-﻿using System;
-using Binarysharp.MemoryManagement.Memory;
+﻿using Binarysharp.MemoryManagement.Memory;
+using System;
 
 namespace Binarysharp.MemoryManagement.Internals
 {
@@ -39,14 +39,9 @@ namespace Binarysharp.MemoryManagement.Internals
         /// </summary>
         protected readonly MemorySharp MemorySharp;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
-
-        /// <summary>
-        ///     The initial value.
-        /// </summary>
-        public T Value { get; private set; }
 
         /// <summary>
         ///     The memory allocated where the value is fully written if needed. It can be unused.
@@ -58,7 +53,12 @@ namespace Binarysharp.MemoryManagement.Internals
         /// </summary>
         public IntPtr Reference { get; private set; }
 
-        #endregion
+        /// <summary>
+        ///     The initial value.
+        /// </summary>
+        public T Value { get; private set; }
+
+        #endregion Properties
 
         #region Constructor/Destructor
 
@@ -84,7 +84,7 @@ namespace Binarysharp.MemoryManagement.Internals
             Dispose();
         }
 
-        #endregion
+        #endregion Constructor/Destructor
 
         #region Methods
 
@@ -106,17 +106,17 @@ namespace Binarysharp.MemoryManagement.Internals
             GC.SuppressFinalize(this);
         }
 
-        #endregion
+        #endregion Dispose (implementation of IDisposable)
 
         #region Marshal (private)
 
         /// <summary>
         ///     Marshals the value into the remote process.
         /// </summary>
-        void Marshal()
+        private void Marshal()
         {
             // If the type is string, it's a special case
-            if (typeof (T) == typeof (string))
+            if (typeof(T) == typeof(string))
             {
                 var text = Value.ToString();
                 // Allocate memory in the remote process (string + '\0')
@@ -153,8 +153,8 @@ namespace Binarysharp.MemoryManagement.Internals
             }
         }
 
-        #endregion
+        #endregion Marshal (private)
 
-        #endregion
+        #endregion Methods
     }
 }

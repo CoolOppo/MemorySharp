@@ -1,11 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Binarysharp.MemoryManagement.Assembly.Assembler;
+﻿using Binarysharp.MemoryManagement.Assembly.Assembler;
 using Binarysharp.MemoryManagement.Assembly.CallingConvention;
 using Binarysharp.MemoryManagement.Internals;
 using Binarysharp.MemoryManagement.Memory;
 using Binarysharp.MemoryManagement.Threading;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Binarysharp.MemoryManagement.Assembly
 {
@@ -21,7 +21,7 @@ namespace Binarysharp.MemoryManagement.Assembly
         /// </summary>
         protected readonly MemorySharp MemorySharp;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
@@ -32,9 +32,9 @@ namespace Binarysharp.MemoryManagement.Assembly
         /// </summary>
         public IAssembler Assembler { get; set; }
 
-        #endregion
+        #endregion Assembler
 
-        #endregion
+        #endregion Properties
 
         #region Constructor
 
@@ -50,7 +50,7 @@ namespace Binarysharp.MemoryManagement.Assembly
             Assembler = new Fasm32Assembler();
         }
 
-        #endregion
+        #endregion Constructor
 
         #region Methods
 
@@ -77,7 +77,7 @@ namespace Binarysharp.MemoryManagement.Assembly
             return new AssemblyTransaction(MemorySharp, autoExecute);
         }
 
-        #endregion
+        #endregion BeginTransaction
 
         #region Dispose (implementation of IFactory)
 
@@ -89,7 +89,7 @@ namespace Binarysharp.MemoryManagement.Assembly
             // Nothing to dispose... yet
         }
 
-        #endregion
+        #endregion Dispose (implementation of IFactory)
 
         #region Execute
 
@@ -193,7 +193,7 @@ namespace Binarysharp.MemoryManagement.Assembly
             return Execute<IntPtr>(address, callingConvention, parameters);
         }
 
-        #endregion
+        #endregion Execute
 
         #region ExecuteAsync
 
@@ -234,7 +234,7 @@ namespace Binarysharp.MemoryManagement.Assembly
         /// </returns>
         public Task<T> ExecuteAsync<T>(IntPtr address, dynamic parameter)
         {
-            return Task.Run(() => (Task<T>) Execute<T>(address, parameter));
+            return Task.Run(() => (Task<T>)Execute<T>(address, parameter));
         }
 
         /// <summary>
@@ -283,7 +283,7 @@ namespace Binarysharp.MemoryManagement.Assembly
             return ExecuteAsync<IntPtr>(address, callingConvention, parameters);
         }
 
-        #endregion
+        #endregion ExecuteAsync
 
         #region Inject
 
@@ -334,7 +334,7 @@ namespace Binarysharp.MemoryManagement.Assembly
             return Inject(String.Join("\n", asm));
         }
 
-        #endregion
+        #endregion Inject
 
         #region InjectAndExecute
 
@@ -430,7 +430,7 @@ namespace Binarysharp.MemoryManagement.Assembly
             return InjectAndExecute<IntPtr>(asm);
         }
 
-        #endregion
+        #endregion InjectAndExecute
 
         #region InjectAndExecuteAsync
 
@@ -542,8 +542,8 @@ namespace Binarysharp.MemoryManagement.Assembly
             return InjectAndExecuteAsync<IntPtr>(asm);
         }
 
-        #endregion
+        #endregion InjectAndExecuteAsync
 
-        #endregion
+        #endregion Methods
     }
 }

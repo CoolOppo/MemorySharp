@@ -1,5 +1,5 @@
-﻿using System;
-using Binarysharp.MemoryManagement.Memory;
+﻿using Binarysharp.MemoryManagement.Memory;
+using System;
 
 namespace Binarysharp.MemoryManagement.Native
 {
@@ -10,27 +10,75 @@ namespace Binarysharp.MemoryManagement.Native
     {
         #region Properties
 
-        public byte InheritedAddressSpace
+        public IntPtr ActivationContextData
         {
             get
             {
-                return Read<byte>(PebStructure.InheritedAddressSpace);
+                return Read<IntPtr>(PebStructure.ActivationContextData);
             }
             set
             {
-                Write(PebStructure.InheritedAddressSpace, value);
+                Write(PebStructure.ActivationContextData, value);
             }
         }
 
-        public byte ReadImageFileExecOptions
+        public IntPtr AnsiCodePageData
         {
             get
             {
-                return Read<byte>(PebStructure.ReadImageFileExecOptions);
+                return Read<IntPtr>(PebStructure.AnsiCodePageData);
             }
             set
             {
-                Write(PebStructure.ReadImageFileExecOptions, value);
+                Write(PebStructure.AnsiCodePageData, value);
+            }
+        }
+
+        public long AppCompatFlags
+        {
+            get
+            {
+                return Read<long>(PebStructure.AppCompatFlags);
+            }
+            set
+            {
+                Write(PebStructure.AppCompatFlags, value);
+            }
+        }
+
+        public long AppCompatFlagsUser
+        {
+            get
+            {
+                return Read<long>(PebStructure.AppCompatFlagsUser);
+            }
+            set
+            {
+                Write(PebStructure.AppCompatFlagsUser, value);
+            }
+        }
+
+        public IntPtr AppCompatInfo
+        {
+            get
+            {
+                return Read<IntPtr>(PebStructure.AppCompatInfo);
+            }
+            set
+            {
+                Write(PebStructure.AppCompatInfo, value);
+            }
+        }
+
+        public int AtlThunkSListPtr32
+        {
+            get
+            {
+                return Read<int>(PebStructure.AtlThunkSListPtr32);
+            }
+            set
+            {
+                Write(PebStructure.AtlThunkSListPtr32, value);
             }
         }
 
@@ -46,75 +94,39 @@ namespace Binarysharp.MemoryManagement.Native
             }
         }
 
-        public byte SpareBool
+        public long CriticalSectionTimeout
         {
             get
             {
-                return Read<byte>(PebStructure.SpareBool);
+                return Read<long>(PebStructure.CriticalSectionTimeout);
             }
             set
             {
-                Write(PebStructure.SpareBool, value);
+                Write(PebStructure.CriticalSectionTimeout, value);
             }
         }
 
-        public IntPtr Mutant
+        public long CsdVersion
         {
             get
             {
-                return Read<IntPtr>(PebStructure.Mutant);
+                return Read<long>(PebStructure.CsdVersion);
             }
             set
             {
-                Write(PebStructure.Mutant, value);
+                Write(PebStructure.CsdVersion, value);
             }
         }
 
-        public IntPtr Ldr
+        public IntPtr EnvironmentUpdateCount
         {
             get
             {
-                return Read<IntPtr>(PebStructure.Ldr);
+                return Read<IntPtr>(PebStructure.EnvironmentUpdateCount);
             }
             set
             {
-                Write(PebStructure.Ldr, value);
-            }
-        }
-
-        public IntPtr ProcessParameters
-        {
-            get
-            {
-                return Read<IntPtr>(PebStructure.ProcessParameters);
-            }
-            set
-            {
-                Write(PebStructure.ProcessParameters, value);
-            }
-        }
-
-        public IntPtr SubSystemData
-        {
-            get
-            {
-                return Read<IntPtr>(PebStructure.SubSystemData);
-            }
-            set
-            {
-                Write(PebStructure.SubSystemData, value);
-            }
-        }
-
-        public IntPtr ProcessHeap
-        {
-            get
-            {
-                return Read<IntPtr>(PebStructure.ProcessHeap);
-            }
-            set
-            {
-                Write(PebStructure.ProcessHeap, value);
+                Write(PebStructure.EnvironmentUpdateCount, value);
             }
         }
 
@@ -154,54 +166,6 @@ namespace Binarysharp.MemoryManagement.Native
             }
         }
 
-        public IntPtr EnvironmentUpdateCount
-        {
-            get
-            {
-                return Read<IntPtr>(PebStructure.EnvironmentUpdateCount);
-            }
-            set
-            {
-                Write(PebStructure.EnvironmentUpdateCount, value);
-            }
-        }
-
-        public IntPtr KernelCallbackTable
-        {
-            get
-            {
-                return Read<IntPtr>(PebStructure.KernelCallbackTable);
-            }
-            set
-            {
-                Write(PebStructure.KernelCallbackTable, value);
-            }
-        }
-
-        public int SystemReserved
-        {
-            get
-            {
-                return Read<int>(PebStructure.SystemReserved);
-            }
-            set
-            {
-                Write(PebStructure.SystemReserved, value);
-            }
-        }
-
-        public int AtlThunkSListPtr32
-        {
-            get
-            {
-                return Read<int>(PebStructure.AtlThunkSListPtr32);
-            }
-            set
-            {
-                Write(PebStructure.AtlThunkSListPtr32, value);
-            }
-        }
-
         public IntPtr FreeList
         {
             get
@@ -211,258 +175,6 @@ namespace Binarysharp.MemoryManagement.Native
             set
             {
                 Write(PebStructure.FreeList, value);
-            }
-        }
-
-        public IntPtr TlsExpansionCounter
-        {
-            get
-            {
-                return Read<IntPtr>(PebStructure.TlsExpansionCounter);
-            }
-            set
-            {
-                Write(PebStructure.TlsExpansionCounter, value);
-            }
-        }
-
-        public IntPtr TlsBitmap
-        {
-            get
-            {
-                return Read<IntPtr>(PebStructure.TlsBitmap);
-            }
-            set
-            {
-                Write(PebStructure.TlsBitmap, value);
-            }
-        }
-
-        public long TlsBitmapBits
-        {
-            get
-            {
-                return Read<long>(PebStructure.TlsBitmapBits);
-            }
-            set
-            {
-                Write(PebStructure.TlsBitmapBits, value);
-            }
-        }
-
-        public IntPtr ReadOnlySharedMemoryBase
-        {
-            get
-            {
-                return Read<IntPtr>(PebStructure.ReadOnlySharedMemoryBase);
-            }
-            set
-            {
-                Write(PebStructure.ReadOnlySharedMemoryBase, value);
-            }
-        }
-
-        public IntPtr ReadOnlySharedMemoryHeap
-        {
-            get
-            {
-                return Read<IntPtr>(PebStructure.ReadOnlySharedMemoryHeap);
-            }
-            set
-            {
-                Write(PebStructure.ReadOnlySharedMemoryHeap, value);
-            }
-        }
-
-        public IntPtr ReadOnlyStaticServerData
-        {
-            get
-            {
-                return Read<IntPtr>(PebStructure.ReadOnlyStaticServerData);
-            }
-            set
-            {
-                Write(PebStructure.ReadOnlyStaticServerData, value);
-            }
-        }
-
-        public IntPtr AnsiCodePageData
-        {
-            get
-            {
-                return Read<IntPtr>(PebStructure.AnsiCodePageData);
-            }
-            set
-            {
-                Write(PebStructure.AnsiCodePageData, value);
-            }
-        }
-
-        public IntPtr OemCodePageData
-        {
-            get
-            {
-                return Read<IntPtr>(PebStructure.OemCodePageData);
-            }
-            set
-            {
-                Write(PebStructure.OemCodePageData, value);
-            }
-        }
-
-        public IntPtr UnicodeCaseTableData
-        {
-            get
-            {
-                return Read<IntPtr>(PebStructure.UnicodeCaseTableData);
-            }
-            set
-            {
-                Write(PebStructure.UnicodeCaseTableData, value);
-            }
-        }
-
-        public int NumberOfProcessors
-        {
-            get
-            {
-                return Read<int>(PebStructure.NumberOfProcessors);
-            }
-            set
-            {
-                Write(PebStructure.NumberOfProcessors, value);
-            }
-        }
-
-        public long NtGlobalFlag
-        {
-            get
-            {
-                return Read<long>(PebStructure.NtGlobalFlag);
-            }
-            set
-            {
-                Write(PebStructure.NtGlobalFlag, value);
-            }
-        }
-
-        public long CriticalSectionTimeout
-        {
-            get
-            {
-                return Read<long>(PebStructure.CriticalSectionTimeout);
-            }
-            set
-            {
-                Write(PebStructure.CriticalSectionTimeout, value);
-            }
-        }
-
-        public IntPtr HeapSegmentReserve
-        {
-            get
-            {
-                return Read<IntPtr>(PebStructure.HeapSegmentReserve);
-            }
-            set
-            {
-                Write(PebStructure.HeapSegmentReserve, value);
-            }
-        }
-
-        public IntPtr HeapSegmentCommit
-        {
-            get
-            {
-                return Read<IntPtr>(PebStructure.HeapSegmentCommit);
-            }
-            set
-            {
-                Write(PebStructure.HeapSegmentCommit, value);
-            }
-        }
-
-        public IntPtr HeapDeCommitTotalFreeThreshold
-        {
-            get
-            {
-                return Read<IntPtr>(PebStructure.HeapDeCommitTotalFreeThreshold);
-            }
-            set
-            {
-                Write(PebStructure.HeapDeCommitTotalFreeThreshold, value);
-            }
-        }
-
-        public IntPtr HeapDeCommitFreeBlockThreshold
-        {
-            get
-            {
-                return Read<IntPtr>(PebStructure.HeapDeCommitFreeBlockThreshold);
-            }
-            set
-            {
-                Write(PebStructure.HeapDeCommitFreeBlockThreshold, value);
-            }
-        }
-
-        public int NumberOfHeaps
-        {
-            get
-            {
-                return Read<int>(PebStructure.NumberOfHeaps);
-            }
-            set
-            {
-                Write(PebStructure.NumberOfHeaps, value);
-            }
-        }
-
-        public int MaximumNumberOfHeaps
-        {
-            get
-            {
-                return Read<int>(PebStructure.MaximumNumberOfHeaps);
-            }
-            set
-            {
-                Write(PebStructure.MaximumNumberOfHeaps, value);
-            }
-        }
-
-        public IntPtr ProcessHeaps
-        {
-            get
-            {
-                return Read<IntPtr>(PebStructure.ProcessHeaps);
-            }
-            set
-            {
-                Write(PebStructure.ProcessHeaps, value);
-            }
-        }
-
-        public IntPtr GdiSharedHandleTable
-        {
-            get
-            {
-                return Read<IntPtr>(PebStructure.GdiSharedHandleTable);
-            }
-            set
-            {
-                Write(PebStructure.GdiSharedHandleTable, value);
-            }
-        }
-
-        public IntPtr ProcessStarterHelper
-        {
-            get
-            {
-                return Read<IntPtr>(PebStructure.ProcessStarterHelper);
-            }
-            set
-            {
-                Write(PebStructure.ProcessStarterHelper, value);
             }
         }
 
@@ -478,75 +190,87 @@ namespace Binarysharp.MemoryManagement.Native
             }
         }
 
-        public IntPtr LoaderLock
+        public IntPtr[] GdiHandleBuffer
         {
             get
             {
-                return Read<IntPtr>(PebStructure.LoaderLock);
+                return Read<IntPtr>(PebStructure.GdiHandleBuffer, 0x22);
             }
             set
             {
-                Write(PebStructure.LoaderLock, value);
+                Write(PebStructure.GdiHandleBuffer, value);
             }
         }
 
-        public int OsMajorVersion
+        public IntPtr GdiSharedHandleTable
         {
             get
             {
-                return Read<int>(PebStructure.OsMajorVersion);
+                return Read<IntPtr>(PebStructure.GdiSharedHandleTable);
             }
             set
             {
-                Write(PebStructure.OsMajorVersion, value);
+                Write(PebStructure.GdiSharedHandleTable, value);
             }
         }
 
-        public int OsMinorVersion
+        public IntPtr HeapDeCommitFreeBlockThreshold
         {
             get
             {
-                return Read<int>(PebStructure.OsMinorVersion);
+                return Read<IntPtr>(PebStructure.HeapDeCommitFreeBlockThreshold);
             }
             set
             {
-                Write(PebStructure.OsMinorVersion, value);
+                Write(PebStructure.HeapDeCommitFreeBlockThreshold, value);
             }
         }
 
-        public ushort OsBuildNumber
+        public IntPtr HeapDeCommitTotalFreeThreshold
         {
             get
             {
-                return Read<ushort>(PebStructure.OsBuildNumber);
+                return Read<IntPtr>(PebStructure.HeapDeCommitTotalFreeThreshold);
             }
             set
             {
-                Write(PebStructure.OsBuildNumber, value);
+                Write(PebStructure.HeapDeCommitTotalFreeThreshold, value);
             }
         }
 
-        public ushort OsCsdVersion
+        public IntPtr HeapSegmentCommit
         {
             get
             {
-                return Read<ushort>(PebStructure.OsCsdVersion);
+                return Read<IntPtr>(PebStructure.HeapSegmentCommit);
             }
             set
             {
-                Write(PebStructure.OsCsdVersion, value);
+                Write(PebStructure.HeapSegmentCommit, value);
             }
         }
 
-        public int OsPlatformId
+        public IntPtr HeapSegmentReserve
         {
             get
             {
-                return Read<int>(PebStructure.OsPlatformId);
+                return Read<IntPtr>(PebStructure.HeapSegmentReserve);
             }
             set
             {
-                Write(PebStructure.OsPlatformId, value);
+                Write(PebStructure.HeapSegmentReserve, value);
+            }
+        }
+
+        public IntPtr ImageProcessAffinityMask
+        {
+            get
+            {
+                return Read<IntPtr>(PebStructure.ImageProcessAffinityMask);
+            }
+            set
+            {
+                Write(PebStructure.ImageProcessAffinityMask, value);
             }
         }
 
@@ -586,27 +310,195 @@ namespace Binarysharp.MemoryManagement.Native
             }
         }
 
-        public IntPtr ImageProcessAffinityMask
+        public byte InheritedAddressSpace
         {
             get
             {
-                return Read<IntPtr>(PebStructure.ImageProcessAffinityMask);
+                return Read<byte>(PebStructure.InheritedAddressSpace);
             }
             set
             {
-                Write(PebStructure.ImageProcessAffinityMask, value);
+                Write(PebStructure.InheritedAddressSpace, value);
             }
         }
 
-        public IntPtr[] GdiHandleBuffer
+        public IntPtr KernelCallbackTable
         {
             get
             {
-                return Read<IntPtr>(PebStructure.GdiHandleBuffer, 0x22);
+                return Read<IntPtr>(PebStructure.KernelCallbackTable);
             }
             set
             {
-                Write(PebStructure.GdiHandleBuffer, value);
+                Write(PebStructure.KernelCallbackTable, value);
+            }
+        }
+
+        public IntPtr Ldr
+        {
+            get
+            {
+                return Read<IntPtr>(PebStructure.Ldr);
+            }
+            set
+            {
+                Write(PebStructure.Ldr, value);
+            }
+        }
+
+        public IntPtr LoaderLock
+        {
+            get
+            {
+                return Read<IntPtr>(PebStructure.LoaderLock);
+            }
+            set
+            {
+                Write(PebStructure.LoaderLock, value);
+            }
+        }
+
+        public int MaximumNumberOfHeaps
+        {
+            get
+            {
+                return Read<int>(PebStructure.MaximumNumberOfHeaps);
+            }
+            set
+            {
+                Write(PebStructure.MaximumNumberOfHeaps, value);
+            }
+        }
+
+        public IntPtr MinimumStackCommit
+        {
+            get
+            {
+                return Read<IntPtr>(PebStructure.MinimumStackCommit);
+            }
+            set
+            {
+                Write(PebStructure.MinimumStackCommit, value);
+            }
+        }
+
+        public IntPtr Mutant
+        {
+            get
+            {
+                return Read<IntPtr>(PebStructure.Mutant);
+            }
+            set
+            {
+                Write(PebStructure.Mutant, value);
+            }
+        }
+
+        public long NtGlobalFlag
+        {
+            get
+            {
+                return Read<long>(PebStructure.NtGlobalFlag);
+            }
+            set
+            {
+                Write(PebStructure.NtGlobalFlag, value);
+            }
+        }
+
+        public int NumberOfHeaps
+        {
+            get
+            {
+                return Read<int>(PebStructure.NumberOfHeaps);
+            }
+            set
+            {
+                Write(PebStructure.NumberOfHeaps, value);
+            }
+        }
+
+        public int NumberOfProcessors
+        {
+            get
+            {
+                return Read<int>(PebStructure.NumberOfProcessors);
+            }
+            set
+            {
+                Write(PebStructure.NumberOfProcessors, value);
+            }
+        }
+
+        public IntPtr OemCodePageData
+        {
+            get
+            {
+                return Read<IntPtr>(PebStructure.OemCodePageData);
+            }
+            set
+            {
+                Write(PebStructure.OemCodePageData, value);
+            }
+        }
+
+        public ushort OsBuildNumber
+        {
+            get
+            {
+                return Read<ushort>(PebStructure.OsBuildNumber);
+            }
+            set
+            {
+                Write(PebStructure.OsBuildNumber, value);
+            }
+        }
+
+        public ushort OsCsdVersion
+        {
+            get
+            {
+                return Read<ushort>(PebStructure.OsCsdVersion);
+            }
+            set
+            {
+                Write(PebStructure.OsCsdVersion, value);
+            }
+        }
+
+        public int OsMajorVersion
+        {
+            get
+            {
+                return Read<int>(PebStructure.OsMajorVersion);
+            }
+            set
+            {
+                Write(PebStructure.OsMajorVersion, value);
+            }
+        }
+
+        public int OsMinorVersion
+        {
+            get
+            {
+                return Read<int>(PebStructure.OsMinorVersion);
+            }
+            set
+            {
+                Write(PebStructure.OsMinorVersion, value);
+            }
+        }
+
+        public int OsPlatformId
+        {
+            get
+            {
+                return Read<int>(PebStructure.OsPlatformId);
+            }
+            set
+            {
+                Write(PebStructure.OsPlatformId, value);
             }
         }
 
@@ -619,6 +511,222 @@ namespace Binarysharp.MemoryManagement.Native
             set
             {
                 Write(PebStructure.PostProcessInitRoutine, value);
+            }
+        }
+
+        public IntPtr ProcessAssemblyStorageMap
+        {
+            get
+            {
+                return Read<IntPtr>(PebStructure.ProcessAssemblyStorageMap);
+            }
+            set
+            {
+                Write(PebStructure.ProcessAssemblyStorageMap, value);
+            }
+        }
+
+        public IntPtr ProcessHeap
+        {
+            get
+            {
+                return Read<IntPtr>(PebStructure.ProcessHeap);
+            }
+            set
+            {
+                Write(PebStructure.ProcessHeap, value);
+            }
+        }
+
+        public IntPtr ProcessHeaps
+        {
+            get
+            {
+                return Read<IntPtr>(PebStructure.ProcessHeaps);
+            }
+            set
+            {
+                Write(PebStructure.ProcessHeaps, value);
+            }
+        }
+
+        public IntPtr ProcessParameters
+        {
+            get
+            {
+                return Read<IntPtr>(PebStructure.ProcessParameters);
+            }
+            set
+            {
+                Write(PebStructure.ProcessParameters, value);
+            }
+        }
+
+        public IntPtr ProcessStarterHelper
+        {
+            get
+            {
+                return Read<IntPtr>(PebStructure.ProcessStarterHelper);
+            }
+            set
+            {
+                Write(PebStructure.ProcessStarterHelper, value);
+            }
+        }
+
+        public byte ReadImageFileExecOptions
+        {
+            get
+            {
+                return Read<byte>(PebStructure.ReadImageFileExecOptions);
+            }
+            set
+            {
+                Write(PebStructure.ReadImageFileExecOptions, value);
+            }
+        }
+
+        public IntPtr ReadOnlySharedMemoryBase
+        {
+            get
+            {
+                return Read<IntPtr>(PebStructure.ReadOnlySharedMemoryBase);
+            }
+            set
+            {
+                Write(PebStructure.ReadOnlySharedMemoryBase, value);
+            }
+        }
+
+        public IntPtr ReadOnlySharedMemoryHeap
+        {
+            get
+            {
+                return Read<IntPtr>(PebStructure.ReadOnlySharedMemoryHeap);
+            }
+            set
+            {
+                Write(PebStructure.ReadOnlySharedMemoryHeap, value);
+            }
+        }
+
+        public IntPtr ReadOnlyStaticServerData
+        {
+            get
+            {
+                return Read<IntPtr>(PebStructure.ReadOnlyStaticServerData);
+            }
+            set
+            {
+                Write(PebStructure.ReadOnlyStaticServerData, value);
+            }
+        }
+
+        public IntPtr SessionId
+        {
+            get
+            {
+                return Read<IntPtr>(PebStructure.SessionId);
+            }
+            set
+            {
+                Write(PebStructure.SessionId, value);
+            }
+        }
+
+        public IntPtr ShimData
+        {
+            get
+            {
+                return Read<IntPtr>(PebStructure.ShimData);
+            }
+            set
+            {
+                Write(PebStructure.ShimData, value);
+            }
+        }
+
+        public byte SpareBool
+        {
+            get
+            {
+                return Read<byte>(PebStructure.SpareBool);
+            }
+            set
+            {
+                Write(PebStructure.SpareBool, value);
+            }
+        }
+
+        public IntPtr SubSystemData
+        {
+            get
+            {
+                return Read<IntPtr>(PebStructure.SubSystemData);
+            }
+            set
+            {
+                Write(PebStructure.SubSystemData, value);
+            }
+        }
+
+        public IntPtr SystemAssemblyStorageMap
+        {
+            get
+            {
+                return Read<IntPtr>(PebStructure.SystemAssemblyStorageMap);
+            }
+            set
+            {
+                Write(PebStructure.SystemAssemblyStorageMap, value);
+            }
+        }
+
+        public IntPtr SystemDefaultActivationContextData
+        {
+            get
+            {
+                return Read<IntPtr>(PebStructure.SystemDefaultActivationContextData);
+            }
+            set
+            {
+                Write(PebStructure.SystemDefaultActivationContextData, value);
+            }
+        }
+
+        public int SystemReserved
+        {
+            get
+            {
+                return Read<int>(PebStructure.SystemReserved);
+            }
+            set
+            {
+                Write(PebStructure.SystemReserved, value);
+            }
+        }
+
+        public IntPtr TlsBitmap
+        {
+            get
+            {
+                return Read<IntPtr>(PebStructure.TlsBitmap);
+            }
+            set
+            {
+                Write(PebStructure.TlsBitmap, value);
+            }
+        }
+
+        public long TlsBitmapBits
+        {
+            get
+            {
+                return Read<long>(PebStructure.TlsBitmapBits);
+            }
+            set
+            {
+                Write(PebStructure.TlsBitmapBits, value);
             }
         }
 
@@ -646,139 +754,31 @@ namespace Binarysharp.MemoryManagement.Native
             }
         }
 
-        public IntPtr SessionId
+        public IntPtr TlsExpansionCounter
         {
             get
             {
-                return Read<IntPtr>(PebStructure.SessionId);
+                return Read<IntPtr>(PebStructure.TlsExpansionCounter);
             }
             set
             {
-                Write(PebStructure.SessionId, value);
+                Write(PebStructure.TlsExpansionCounter, value);
             }
         }
 
-        public long AppCompatFlags
+        public IntPtr UnicodeCaseTableData
         {
             get
             {
-                return Read<long>(PebStructure.AppCompatFlags);
+                return Read<IntPtr>(PebStructure.UnicodeCaseTableData);
             }
             set
             {
-                Write(PebStructure.AppCompatFlags, value);
+                Write(PebStructure.UnicodeCaseTableData, value);
             }
         }
 
-        public long AppCompatFlagsUser
-        {
-            get
-            {
-                return Read<long>(PebStructure.AppCompatFlagsUser);
-            }
-            set
-            {
-                Write(PebStructure.AppCompatFlagsUser, value);
-            }
-        }
-
-        public IntPtr ShimData
-        {
-            get
-            {
-                return Read<IntPtr>(PebStructure.ShimData);
-            }
-            set
-            {
-                Write(PebStructure.ShimData, value);
-            }
-        }
-
-        public IntPtr AppCompatInfo
-        {
-            get
-            {
-                return Read<IntPtr>(PebStructure.AppCompatInfo);
-            }
-            set
-            {
-                Write(PebStructure.AppCompatInfo, value);
-            }
-        }
-
-        public long CsdVersion
-        {
-            get
-            {
-                return Read<long>(PebStructure.CsdVersion);
-            }
-            set
-            {
-                Write(PebStructure.CsdVersion, value);
-            }
-        }
-
-        public IntPtr ActivationContextData
-        {
-            get
-            {
-                return Read<IntPtr>(PebStructure.ActivationContextData);
-            }
-            set
-            {
-                Write(PebStructure.ActivationContextData, value);
-            }
-        }
-
-        public IntPtr ProcessAssemblyStorageMap
-        {
-            get
-            {
-                return Read<IntPtr>(PebStructure.ProcessAssemblyStorageMap);
-            }
-            set
-            {
-                Write(PebStructure.ProcessAssemblyStorageMap, value);
-            }
-        }
-
-        public IntPtr SystemDefaultActivationContextData
-        {
-            get
-            {
-                return Read<IntPtr>(PebStructure.SystemDefaultActivationContextData);
-            }
-            set
-            {
-                Write(PebStructure.SystemDefaultActivationContextData, value);
-            }
-        }
-
-        public IntPtr SystemAssemblyStorageMap
-        {
-            get
-            {
-                return Read<IntPtr>(PebStructure.SystemAssemblyStorageMap);
-            }
-            set
-            {
-                Write(PebStructure.SystemAssemblyStorageMap, value);
-            }
-        }
-
-        public IntPtr MinimumStackCommit
-        {
-            get
-            {
-                return Read<IntPtr>(PebStructure.MinimumStackCommit);
-            }
-            set
-            {
-                Write(PebStructure.MinimumStackCommit, value);
-            }
-        }
-
-        #endregion
+        #endregion Properties
 
         #region Constructor
 
@@ -787,11 +787,12 @@ namespace Binarysharp.MemoryManagement.Native
         /// </summary>
         /// <param name="memorySharp">The reference of the <see cref="MemorySharp" /> object.</param>
         /// <param name="address">The location of the peb.</param>
-        internal ManagedPeb(MemorySharp memorySharp, IntPtr address) : base(memorySharp, address)
+        internal ManagedPeb(MemorySharp memorySharp, IntPtr address)
+            : base(memorySharp, address)
         {
         }
 
-        #endregion
+        #endregion Constructor
 
         #region Methods
 
@@ -805,6 +806,6 @@ namespace Binarysharp.MemoryManagement.Native
             return MemoryCore.NtQueryInformationProcess(processHandle).PebBaseAddress;
         }
 
-        #endregion
+        #endregion Methods
     }
 }

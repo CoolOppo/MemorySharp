@@ -13,11 +13,12 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
         ///     Initializes a new instance of a child of the <see cref="SendInputMouse" /> class.
         /// </summary>
         /// <param name="window">The reference of the <see cref="RemoteWindow" /> object.</param>
-        public SendInputMouse(RemoteWindow window) : base(window)
+        public SendInputMouse(RemoteWindow window)
+            : base(window)
         {
         }
 
-        #endregion
+        #endregion Constructor
 
         #region Overridden methods
 
@@ -38,7 +39,7 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
             WindowCore.SendInput(input);
         }
 
-        #endregion
+        #endregion MoveToAbsolute
 
         #region PressLeft
 
@@ -52,7 +53,7 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
             WindowCore.SendInput(input);
         }
 
-        #endregion
+        #endregion PressLeft
 
         #region PressMiddle
 
@@ -66,7 +67,7 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
             WindowCore.SendInput(input);
         }
 
-        #endregion
+        #endregion PressMiddle
 
         #region PressRight
 
@@ -80,7 +81,7 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
             WindowCore.SendInput(input);
         }
 
-        #endregion
+        #endregion PressRight
 
         #region ReleaseLeft
 
@@ -94,7 +95,7 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
             WindowCore.SendInput(input);
         }
 
-        #endregion
+        #endregion ReleaseLeft
 
         #region ReleaseMiddle
 
@@ -108,7 +109,7 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
             WindowCore.SendInput(input);
         }
 
-        #endregion
+        #endregion ReleaseMiddle
 
         #region ReleaseRight
 
@@ -122,7 +123,7 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
             WindowCore.SendInput(input);
         }
 
-        #endregion
+        #endregion ReleaseRight
 
         #region ScrollHorizontally
 
@@ -138,7 +139,7 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
             WindowCore.SendInput(input);
         }
 
-        #endregion
+        #endregion ScrollHorizontally
 
         #region ScrollVertically
 
@@ -154,44 +155,44 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
             WindowCore.SendInput(input);
         }
 
-        #endregion
+        #endregion ScrollVertically
 
-        #endregion
+        #endregion Overridden methods
 
         #region CalculateAbsoluteCoordinateX
 
         /// <summary>
         ///     Calculates the x-coordinate with the system metric.
         /// </summary>
-        int CalculateAbsoluteCoordinateX(int x)
+        private int CalculateAbsoluteCoordinateX(int x)
         {
-            return (x*65536)/NativeMethods.GetSystemMetrics(SystemMetrics.CxScreen);
+            return (x * 65536) / NativeMethods.GetSystemMetrics(SystemMetrics.CxScreen);
         }
 
-        #endregion
+        #endregion CalculateAbsoluteCoordinateX
 
         #region CalculateAbsoluteCoordinateY
 
         /// <summary>
         ///     Calculates the y-coordinate with the system metric.
         /// </summary>
-        int CalculateAbsoluteCoordinateY(int y)
+        private int CalculateAbsoluteCoordinateY(int y)
         {
-            return (y*65536)/NativeMethods.GetSystemMetrics(SystemMetrics.CyScreen);
+            return (y * 65536) / NativeMethods.GetSystemMetrics(SystemMetrics.CyScreen);
         }
 
-        #endregion
+        #endregion CalculateAbsoluteCoordinateY
 
         #region CreateInput
 
         /// <summary>
         ///     Create an <see cref="Input" /> structure for mouse event.
         /// </summary>
-        Input CreateInput()
+        private Input CreateInput()
         {
             return new Input(InputTypes.Mouse);
         }
 
-        #endregion
+        #endregion CreateInput
     }
 }

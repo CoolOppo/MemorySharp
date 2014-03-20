@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
-using Binarysharp.MemoryManagement.Assembly;
+﻿using Binarysharp.MemoryManagement.Assembly;
 using Binarysharp.MemoryManagement.Helpers;
 using Binarysharp.MemoryManagement.Internals;
 using Binarysharp.MemoryManagement.Memory;
@@ -10,6 +6,10 @@ using Binarysharp.MemoryManagement.Modules;
 using Binarysharp.MemoryManagement.Native;
 using Binarysharp.MemoryManagement.Threading;
 using Binarysharp.MemoryManagement.Windows;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Text;
 
 namespace Binarysharp.MemoryManagement
 {
@@ -25,7 +25,7 @@ namespace Binarysharp.MemoryManagement
         /// </summary>
         public event EventHandler OnDispose;
 
-        #endregion
+        #endregion Events
 
         #region Fields
 
@@ -34,7 +34,7 @@ namespace Binarysharp.MemoryManagement
         /// </summary>
         protected List<IFactory> Factories;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
@@ -45,7 +45,7 @@ namespace Binarysharp.MemoryManagement
         /// </summary>
         public AssemblyFactory Assembly { get; protected set; }
 
-        #endregion
+        #endregion Assembly
 
         #region IsDebugged
 
@@ -64,7 +64,7 @@ namespace Binarysharp.MemoryManagement
             }
         }
 
-        #endregion
+        #endregion IsDebugged
 
         #region IsRunning
 
@@ -79,7 +79,7 @@ namespace Binarysharp.MemoryManagement
             }
         }
 
-        #endregion
+        #endregion IsRunning
 
         #region Handle
 
@@ -88,7 +88,7 @@ namespace Binarysharp.MemoryManagement
         /// </summary>
         public SafeMemoryHandle Handle { get; private set; }
 
-        #endregion
+        #endregion Handle
 
         #region Memory
 
@@ -97,7 +97,7 @@ namespace Binarysharp.MemoryManagement
         /// </summary>
         public MemoryFactory Memory { get; protected set; }
 
-        #endregion
+        #endregion Memory
 
         #region Modules
 
@@ -106,7 +106,7 @@ namespace Binarysharp.MemoryManagement
         /// </summary>
         public ModuleFactory Modules { get; protected set; }
 
-        #endregion
+        #endregion Modules
 
         #region Native
 
@@ -115,7 +115,7 @@ namespace Binarysharp.MemoryManagement
         /// </summary>
         public Process Native { get; private set; }
 
-        #endregion
+        #endregion Native
 
         #region Peb
 
@@ -124,7 +124,7 @@ namespace Binarysharp.MemoryManagement
         /// </summary>
         public ManagedPeb Peb { get; private set; }
 
-        #endregion
+        #endregion Peb
 
         #region Pid
 
@@ -139,7 +139,7 @@ namespace Binarysharp.MemoryManagement
             }
         }
 
-        #endregion
+        #endregion Pid
 
         #region This
 
@@ -170,7 +170,7 @@ namespace Binarysharp.MemoryManagement
             }
         }
 
-        #endregion
+        #endregion This
 
         #region Threads
 
@@ -179,7 +179,7 @@ namespace Binarysharp.MemoryManagement
         /// </summary>
         public ThreadFactory Threads { get; protected set; }
 
-        #endregion
+        #endregion Threads
 
         #region Windows
 
@@ -188,9 +188,9 @@ namespace Binarysharp.MemoryManagement
         /// </summary>
         public WindowFactory Windows { get; protected set; }
 
-        #endregion
+        #endregion Windows
 
-        #endregion
+        #endregion Properties
 
         #region Constructors/Destructor
 
@@ -222,7 +222,8 @@ namespace Binarysharp.MemoryManagement
         ///     Initializes a new instance of the <see cref="MemorySharp" /> class.
         /// </summary>
         /// <param name="processId">Process id of the process to open.</param>
-        public MemorySharp(int processId) : this(ApplicationFinder.FromProcessId(processId))
+        public MemorySharp(int processId)
+            : this(ApplicationFinder.FromProcessId(processId))
         {
         }
 
@@ -234,7 +235,7 @@ namespace Binarysharp.MemoryManagement
             Dispose();
         }
 
-        #endregion
+        #endregion Constructors/Destructor
 
         #region Methods
 
@@ -261,7 +262,7 @@ namespace Binarysharp.MemoryManagement
             GC.SuppressFinalize(this);
         }
 
-        #endregion
+        #endregion Dispose (implementation of IDisposable)
 
         #region Equals (override)
 
@@ -290,10 +291,10 @@ namespace Binarysharp.MemoryManagement
             {
                 return true;
             }
-            return obj.GetType() == GetType() && Equals((MemorySharp) obj);
+            return obj.GetType() == GetType() && Equals((MemorySharp)obj);
         }
 
-        #endregion
+        #endregion Equals (override)
 
         #region GetHashCode (override)
 
@@ -305,7 +306,7 @@ namespace Binarysharp.MemoryManagement
             return Handle.GetHashCode();
         }
 
-        #endregion
+        #endregion GetHashCode (override)
 
         #region MakeAbsolute
 
@@ -326,7 +327,7 @@ namespace Binarysharp.MemoryManagement
             return new IntPtr(Modules.MainModule.BaseAddress.ToInt64() + address.ToInt64());
         }
 
-        #endregion
+        #endregion MakeAbsolute
 
         #region MakeRelative
 
@@ -347,21 +348,21 @@ namespace Binarysharp.MemoryManagement
             return new IntPtr(address.ToInt64() - Modules.MainModule.BaseAddress.ToInt64());
         }
 
-        #endregion
+        #endregion MakeRelative
 
         #region Operator (override)
-
-        public static bool operator ==(MemorySharp left, MemorySharp right)
-        {
-            return Equals(left, right);
-        }
 
         public static bool operator !=(MemorySharp left, MemorySharp right)
         {
             return !Equals(left, right);
         }
 
-        #endregion
+        public static bool operator ==(MemorySharp left, MemorySharp right)
+        {
+            return Equals(left, right);
+        }
+
+        #endregion Operator (override)
 
         #region Read
 
@@ -404,7 +405,7 @@ namespace Binarysharp.MemoryManagement
             // Read the array in the remote process
             for (var i = 0; i < count; i++)
             {
-                array[i] = Read<T>(address + MarshalType<T>.Size*i, isRelative);
+                array[i] = Read<T>(address + MarshalType<T>.Size * i, isRelative);
             }
             return array;
         }
@@ -422,7 +423,7 @@ namespace Binarysharp.MemoryManagement
             return Read<T>(new IntPtr(Convert.ToInt64(address)), count, isRelative);
         }
 
-        #endregion
+        #endregion Read
 
         #region ReadBytes (protected)
 
@@ -438,7 +439,7 @@ namespace Binarysharp.MemoryManagement
             return MemoryCore.ReadBytes(Handle, isRelative ? MakeAbsolute(address) : address, count);
         }
 
-        #endregion
+        #endregion ReadBytes (protected)
 
         #region ReadString
 
@@ -509,7 +510,7 @@ namespace Binarysharp.MemoryManagement
             return ReadString(new IntPtr(Convert.ToInt64(address)), isRelative, maxLength);
         }
 
-        #endregion
+        #endregion ReadString
 
         #region Write
 
@@ -549,7 +550,7 @@ namespace Binarysharp.MemoryManagement
             // Write the array in the remote process
             for (var i = 0; i < array.Length; i++)
             {
-                Write(address + MarshalType<T>.Size*i, array[i], isRelative);
+                Write(address + MarshalType<T>.Size * i, array[i], isRelative);
             }
         }
 
@@ -565,7 +566,7 @@ namespace Binarysharp.MemoryManagement
             Write(new IntPtr(Convert.ToInt64(address)), array, isRelative);
         }
 
-        #endregion
+        #endregion Write
 
         #region WriteBytes (protected)
 
@@ -581,14 +582,14 @@ namespace Binarysharp.MemoryManagement
             using (
                 new MemoryProtection(this,
                                      isRelative ? MakeAbsolute(address) : address,
-                                     MarshalType<byte>.Size*byteArray.Length))
+                                     MarshalType<byte>.Size * byteArray.Length))
             {
                 // Write the byte array
                 MemoryCore.WriteBytes(Handle, isRelative ? MakeAbsolute(address) : address, byteArray);
             }
         }
 
-        #endregion
+        #endregion WriteBytes (protected)
 
         #region WriteString
 
@@ -639,8 +640,8 @@ namespace Binarysharp.MemoryManagement
             WriteString(new IntPtr(Convert.ToInt64(address)), text, isRelative);
         }
 
-        #endregion
+        #endregion WriteString
 
-        #endregion
+        #endregion Methods
     }
 }

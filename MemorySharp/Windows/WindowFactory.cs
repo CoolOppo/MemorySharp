@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Binarysharp.MemoryManagement.Internals;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Binarysharp.MemoryManagement.Internals;
 
 namespace Binarysharp.MemoryManagement.Windows
 {
@@ -15,9 +15,9 @@ namespace Binarysharp.MemoryManagement.Windows
         /// <summary>
         ///     The reference of the <see cref="MemorySharp" /> object.
         /// </summary>
-        readonly MemorySharp _memorySharp;
+        private readonly MemorySharp _memorySharp;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
@@ -34,7 +34,7 @@ namespace Binarysharp.MemoryManagement.Windows
             }
         }
 
-        #endregion
+        #endregion ChildWindows
 
         #region ChildWindowHandles (internal)
 
@@ -49,7 +49,7 @@ namespace Binarysharp.MemoryManagement.Windows
             }
         }
 
-        #endregion
+        #endregion ChildWindowHandles (internal)
 
         #region MainWindow
 
@@ -64,7 +64,7 @@ namespace Binarysharp.MemoryManagement.Windows
             }
         }
 
-        #endregion
+        #endregion MainWindow
 
         #region MainWindowHandle (internal)
 
@@ -79,7 +79,7 @@ namespace Binarysharp.MemoryManagement.Windows
             }
         }
 
-        #endregion
+        #endregion MainWindowHandle (internal)
 
         #region This
 
@@ -96,7 +96,7 @@ namespace Binarysharp.MemoryManagement.Windows
             }
         }
 
-        #endregion
+        #endregion This
 
         #region Windows
 
@@ -111,7 +111,7 @@ namespace Binarysharp.MemoryManagement.Windows
             }
         }
 
-        #endregion
+        #endregion Windows
 
         #region WindowHandles (internal)
 
@@ -129,9 +129,9 @@ namespace Binarysharp.MemoryManagement.Windows
             }
         }
 
-        #endregion
+        #endregion WindowHandles (internal)
 
-        #endregion
+        #endregion Properties
 
         #region Constructor
 
@@ -145,7 +145,7 @@ namespace Binarysharp.MemoryManagement.Windows
             _memorySharp = memorySharp;
         }
 
-        #endregion
+        #endregion Constructor
 
         #region Methods
 
@@ -159,7 +159,7 @@ namespace Binarysharp.MemoryManagement.Windows
             // Nothing to dispose... yet
         }
 
-        #endregion
+        #endregion Dispose (implementation of IFactory)
 
         #region GetWindowsByClassName
 
@@ -175,7 +175,7 @@ namespace Binarysharp.MemoryManagement.Windows
                              .Select(handle => new RemoteWindow(_memorySharp, handle));
         }
 
-        #endregion
+        #endregion GetWindowsByClassName
 
         #region GetWindowsByTitle
 
@@ -191,7 +191,7 @@ namespace Binarysharp.MemoryManagement.Windows
                              .Select(handle => new RemoteWindow(_memorySharp, handle));
         }
 
-        #endregion
+        #endregion GetWindowsByTitle
 
         #region GetWindowsByTitleContains
 
@@ -207,8 +207,8 @@ namespace Binarysharp.MemoryManagement.Windows
                              .Select(handle => new RemoteWindow(_memorySharp, handle));
         }
 
-        #endregion
+        #endregion GetWindowsByTitleContains
 
-        #endregion
+        #endregion Methods
     }
 }

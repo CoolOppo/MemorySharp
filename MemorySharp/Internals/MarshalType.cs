@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Binarysharp.MemoryManagement.Memory;
+using System;
 using System.Runtime.InteropServices;
 using System.Text;
-using Binarysharp.MemoryManagement.Memory;
 
 namespace Binarysharp.MemoryManagement.Internals
 {
@@ -38,7 +38,7 @@ namespace Binarysharp.MemoryManagement.Internals
         /// </summary>
         public static TypeCode TypeCode { get; private set; }
 
-        #endregion
+        #endregion Properties
 
         #region Constructor
 
@@ -48,8 +48,8 @@ namespace Binarysharp.MemoryManagement.Internals
         static MarshalType()
         {
             // Gather information related to the provided type
-            IsIntPtr = typeof (T) == typeof (IntPtr);
-            RealType = typeof (T);
+            IsIntPtr = typeof(T) == typeof(IntPtr);
+            RealType = typeof(T);
             Size = TypeCode == TypeCode.Boolean ? 1 : Marshal.SizeOf(RealType);
             TypeCode = Type.GetTypeCode(RealType);
             // Check if the type can be stored in registers
@@ -58,14 +58,14 @@ namespace Binarysharp.MemoryManagement.Internals
                 TypeCode == TypeCode.Int64 ||
                 TypeCode == TypeCode.UInt64 ||
 #endif
-                                     TypeCode == TypeCode.Boolean || TypeCode == TypeCode.Byte ||
+ TypeCode == TypeCode.Boolean || TypeCode == TypeCode.Byte ||
                                      TypeCode == TypeCode.Char || TypeCode == TypeCode.Int16 ||
                                      TypeCode == TypeCode.Int32 || TypeCode == TypeCode.Int64 ||
                                      TypeCode == TypeCode.SByte || TypeCode == TypeCode.Single ||
                                      TypeCode == TypeCode.UInt16 || TypeCode == TypeCode.UInt32;
         }
 
-        #endregion
+        #endregion Constructor
 
         #region Methods
 
@@ -88,37 +88,48 @@ namespace Binarysharp.MemoryManagement.Internals
                         switch (Size)
                         {
                             case 4:
-                                return BitConverter.GetBytes(((IntPtr) (object) obj).ToInt32());
+                                return BitConverter.GetBytes(((IntPtr)(object)obj).ToInt32());
+
                             case 8:
-                                return BitConverter.GetBytes(((IntPtr) (object) obj).ToInt64());
+                                return BitConverter.GetBytes(((IntPtr)(object)obj).ToInt64());
                         }
                     }
                     break;
+
                 case TypeCode.Boolean:
-                    return BitConverter.GetBytes((bool) (object) obj);
+                    return BitConverter.GetBytes((bool)(object)obj);
+
                 case TypeCode.Char:
                     return Encoding.UTF8.GetBytes(new[]
                                                   {
                                                       (char) (object) obj
                                                   });
+
                 case TypeCode.Double:
-                    return BitConverter.GetBytes((double) (object) obj);
+                    return BitConverter.GetBytes((double)(object)obj);
+
                 case TypeCode.Int16:
-                    return BitConverter.GetBytes((short) (object) obj);
+                    return BitConverter.GetBytes((short)(object)obj);
+
                 case TypeCode.Int32:
-                    return BitConverter.GetBytes((int) (object) obj);
+                    return BitConverter.GetBytes((int)(object)obj);
+
                 case TypeCode.Int64:
-                    return BitConverter.GetBytes((long) (object) obj);
+                    return BitConverter.GetBytes((long)(object)obj);
+
                 case TypeCode.Single:
-                    return BitConverter.GetBytes((float) (object) obj);
+                    return BitConverter.GetBytes((float)(object)obj);
+
                 case TypeCode.String:
                     throw new InvalidCastException("This method doesn't support string conversion.");
                 case TypeCode.UInt16:
-                    return BitConverter.GetBytes((ushort) (object) obj);
+                    return BitConverter.GetBytes((ushort)(object)obj);
+
                 case TypeCode.UInt32:
-                    return BitConverter.GetBytes((uint) (object) obj);
+                    return BitConverter.GetBytes((uint)(object)obj);
+
                 case TypeCode.UInt64:
-                    return BitConverter.GetBytes((ulong) (object) obj);
+                    return BitConverter.GetBytes((ulong)(object)obj);
             }
             // Check if it's not a common type
             // Allocate a block of unmanaged memory
@@ -131,7 +142,7 @@ namespace Binarysharp.MemoryManagement.Internals
             }
         }
 
-        #endregion
+        #endregion ObjectToByteArray
 
         #region ByteArrayToObject
 
@@ -152,7 +163,7 @@ namespace Binarysharp.MemoryManagement.Internals
                         switch (byteArray.Length)
                         {
                             case 1:
-                                return (T) (object) new IntPtr(BitConverter.ToInt32(new byte[]
+                                return (T)(object)new IntPtr(BitConverter.ToInt32(new byte[]
                                                                                     {
                                                                                         byteArray[0],
                                                                                         0x0,
@@ -160,8 +171,9 @@ namespace Binarysharp.MemoryManagement.Internals
                                                                                         0x0
                                                                                     },
                                                                                     0));
+
                             case 2:
-                                return (T) (object) new IntPtr(BitConverter.ToInt32(new byte[]
+                                return (T)(object)new IntPtr(BitConverter.ToInt32(new byte[]
                                                                                     {
                                                                                         byteArray[0],
                                                                                         byteArray[1],
@@ -169,37 +181,49 @@ namespace Binarysharp.MemoryManagement.Internals
                                                                                         0x0
                                                                                     },
                                                                                     0));
+
                             case 4:
-                                return (T) (object) new IntPtr(BitConverter.ToInt32(byteArray, 0));
+                                return (T)(object)new IntPtr(BitConverter.ToInt32(byteArray, 0));
+
                             case 8:
-                                return (T) (object) new IntPtr(BitConverter.ToInt64(byteArray, 0));
+                                return (T)(object)new IntPtr(BitConverter.ToInt64(byteArray, 0));
                         }
                     }
                     break;
+
                 case TypeCode.Boolean:
-                    return (T) (object) BitConverter.ToBoolean(byteArray, 0);
+                    return (T)(object)BitConverter.ToBoolean(byteArray, 0);
+
                 case TypeCode.Byte:
-                    return (T) (object) byteArray[0];
+                    return (T)(object)byteArray[0];
+
                 case TypeCode.Char:
-                    return (T) (object) Encoding.UTF8.GetChars(byteArray)[0]; //BitConverter.ToChar(byteArray, 0);
+                    return (T)(object)Encoding.UTF8.GetChars(byteArray)[0]; //BitConverter.ToChar(byteArray, 0);
                 case TypeCode.Double:
-                    return (T) (object) BitConverter.ToDouble(byteArray, 0);
+                    return (T)(object)BitConverter.ToDouble(byteArray, 0);
+
                 case TypeCode.Int16:
-                    return (T) (object) BitConverter.ToInt16(byteArray, 0);
+                    return (T)(object)BitConverter.ToInt16(byteArray, 0);
+
                 case TypeCode.Int32:
-                    return (T) (object) BitConverter.ToInt32(byteArray, 0);
+                    return (T)(object)BitConverter.ToInt32(byteArray, 0);
+
                 case TypeCode.Int64:
-                    return (T) (object) BitConverter.ToInt64(byteArray, 0);
+                    return (T)(object)BitConverter.ToInt64(byteArray, 0);
+
                 case TypeCode.Single:
-                    return (T) (object) BitConverter.ToSingle(byteArray, 0);
+                    return (T)(object)BitConverter.ToSingle(byteArray, 0);
+
                 case TypeCode.String:
                     throw new InvalidCastException("This method doesn't support string conversion.");
                 case TypeCode.UInt16:
-                    return (T) (object) BitConverter.ToUInt16(byteArray, 0);
+                    return (T)(object)BitConverter.ToUInt16(byteArray, 0);
+
                 case TypeCode.UInt32:
-                    return (T) (object) BitConverter.ToUInt32(byteArray, 0);
+                    return (T)(object)BitConverter.ToUInt32(byteArray, 0);
+
                 case TypeCode.UInt64:
-                    return (T) (object) BitConverter.ToUInt64(byteArray, 0);
+                    return (T)(object)BitConverter.ToUInt64(byteArray, 0);
             }
             // Check if it's not a common type
             // Allocate a block of unmanaged memory
@@ -212,7 +236,7 @@ namespace Binarysharp.MemoryManagement.Internals
             }
         }
 
-        #endregion
+        #endregion ByteArrayToObject
 
         #region PtrToObject
 
@@ -231,8 +255,8 @@ namespace Binarysharp.MemoryManagement.Internals
                                       : memorySharp.Read<byte>(pointer, Size, false));
         }
 
-        #endregion
+        #endregion PtrToObject
 
-        #endregion
+        #endregion Methods
     }
 }

@@ -1,6 +1,5 @@
 ﻿namespace Binarysharp.MemoryManagement.Threading
 {
-
     #region SegmentRegisters
 
     /// <summary>
@@ -39,5 +38,5 @@
         Ss
     }
 
-    #endregion
+    #endregion SegmentRegisters
 }

@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Binarysharp.MemoryManagement.Internals;
+using Binarysharp.MemoryManagement.Memory;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using Binarysharp.MemoryManagement.Internals;
-using Binarysharp.MemoryManagement.Memory;
 
 namespace Binarysharp.MemoryManagement.Modules
 {
@@ -25,7 +25,7 @@ namespace Binarysharp.MemoryManagement.Modules
         /// </summary>
         protected readonly MemorySharp MemorySharp;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
@@ -42,7 +42,7 @@ namespace Binarysharp.MemoryManagement.Modules
             }
         }
 
-        #endregion
+        #endregion InjectedModules
 
         #region MainModule
 
@@ -57,7 +57,7 @@ namespace Binarysharp.MemoryManagement.Modules
             }
         }
 
-        #endregion
+        #endregion MainModule
 
         #region RemoteModules
 
@@ -73,7 +73,7 @@ namespace Binarysharp.MemoryManagement.Modules
             }
         }
 
-        #endregion
+        #endregion RemoteModules
 
         #region NativeModules (internal)
 
@@ -88,7 +88,7 @@ namespace Binarysharp.MemoryManagement.Modules
             }
         }
 
-        #endregion
+        #endregion NativeModules (internal)
 
         #region This
 
@@ -118,9 +118,9 @@ namespace Binarysharp.MemoryManagement.Modules
             }
         }
 
-        #endregion
+        #endregion This
 
-        #endregion
+        #endregion Properties
 
         #region Constructor/Destructor
 
@@ -144,7 +144,7 @@ namespace Binarysharp.MemoryManagement.Modules
             Dispose();
         }
 
-        #endregion
+        #endregion Constructor/Destructor
 
         #region Methods
 
@@ -172,7 +172,7 @@ namespace Binarysharp.MemoryManagement.Modules
             GC.SuppressFinalize(this);
         }
 
-        #endregion
+        #endregion Dispose (implementation of IFactory)
 
         #region Eject
 
@@ -214,7 +214,7 @@ namespace Binarysharp.MemoryManagement.Modules
             }
         }
 
-        #endregion
+        #endregion Eject
 
         #region FetchModule (protected)
 
@@ -245,12 +245,12 @@ namespace Binarysharp.MemoryManagement.Modules
         /// </summary>
         /// <param name="module">A module in the remote process.</param>
         /// <returns>A new instance of a <see cref="RemoteModule" /> class.</returns>
-        RemoteModule FetchModule(ProcessModule module)
+        private RemoteModule FetchModule(ProcessModule module)
         {
             return FetchModule(module.ModuleName);
         }
 
-        #endregion
+        #endregion FetchModule (protected)
 
         #region Inject
 
@@ -273,8 +273,8 @@ namespace Binarysharp.MemoryManagement.Modules
             return module;
         }
 
-        #endregion
+        #endregion Inject
 
-        #endregion
+        #endregion Methods
     }
 }

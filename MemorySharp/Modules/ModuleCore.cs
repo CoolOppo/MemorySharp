@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Binarysharp.MemoryManagement.Native;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using Binarysharp.MemoryManagement.Native;
 
 namespace Binarysharp.MemoryManagement.Modules
 {
@@ -60,7 +60,7 @@ namespace Binarysharp.MemoryManagement.Modules
             return GetProcAddress(module.ModuleName, functionName);
         }
 
-        #endregion
+        #endregion GetProcAddress
 
         #region FreeLibrary
 
@@ -100,7 +100,7 @@ namespace Binarysharp.MemoryManagement.Modules
             FreeLibrary(module.ModuleName);
         }
 
-        #endregion
+        #endregion FreeLibrary
 
         #region LoadLibrary
 
@@ -131,6 +131,6 @@ namespace Binarysharp.MemoryManagement.Modules
             return Process.GetCurrentProcess().Modules.Cast<ProcessModule>().First(m => m.FileName == libraryPath);
         }
 
-        #endregion
+        #endregion LoadLibrary
     }
 }

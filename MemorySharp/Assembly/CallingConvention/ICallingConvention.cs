@@ -8,21 +8,14 @@ namespace Binarysharp.MemoryManagement.Assembly.CallingConvention
     public interface ICallingConvention
     {
         /// <summary>
-        ///     The name of the calling convention.
-        /// </summary>
-        string Name { get; }
-
-        /// <summary>
         ///     Defines which function performs the clean-up task.
         /// </summary>
         CleanupTypes Cleanup { get; }
 
         /// <summary>
-        ///     Formats the given parameters to call a function.
+        ///     The name of the calling convention.
         /// </summary>
-        /// <param name="parameters">An array of parameters.</param>
-        /// <returns>The mnemonics to pass the parameters.</returns>
-        string FormatParameters(IntPtr[] parameters);
+        string Name { get; }
 
         /// <summary>
         ///     Formats the call of a given function.
@@ -37,5 +30,12 @@ namespace Binarysharp.MemoryManagement.Assembly.CallingConvention
         /// <param name="nbParameters">The number of parameters to clean.</param>
         /// <returns>The mnemonics to clean a given number of parameters.</returns>
         string FormatCleaning(int nbParameters);
+
+        /// <summary>
+        ///     Formats the given parameters to call a function.
+        /// </summary>
+        /// <param name="parameters">An array of parameters.</param>
+        /// <returns>The mnemonics to pass the parameters.</returns>
+        string FormatParameters(IntPtr[] parameters);
     }
 }

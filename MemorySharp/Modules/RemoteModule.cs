@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Binarysharp.MemoryManagement.Memory;
+using Binarysharp.MemoryManagement.Native;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Binarysharp.MemoryManagement.Memory;
-using Binarysharp.MemoryManagement.Native;
 
 namespace Binarysharp.MemoryManagement.Modules
 {
@@ -20,7 +20,7 @@ namespace Binarysharp.MemoryManagement.Modules
         internal static readonly IDictionary<Tuple<string, SafeMemoryHandle>, RemoteFunction> CachedFunctions =
             new Dictionary<Tuple<string, SafeMemoryHandle>, RemoteFunction>();
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
@@ -37,7 +37,7 @@ namespace Binarysharp.MemoryManagement.Modules
             }
         }
 
-        #endregion
+        #endregion IsMainModule
 
         #region IsValid
 
@@ -54,7 +54,7 @@ namespace Binarysharp.MemoryManagement.Modules
             }
         }
 
-        #endregion
+        #endregion IsValid
 
         #region Name
 
@@ -69,7 +69,7 @@ namespace Binarysharp.MemoryManagement.Modules
             }
         }
 
-        #endregion
+        #endregion Name
 
         #region Native
 
@@ -78,7 +78,7 @@ namespace Binarysharp.MemoryManagement.Modules
         /// </summary>
         public ProcessModule Native { get; private set; }
 
-        #endregion
+        #endregion Native
 
         #region Path
 
@@ -93,7 +93,7 @@ namespace Binarysharp.MemoryManagement.Modules
             }
         }
 
-        #endregion
+        #endregion Path
 
         #region Size
 
@@ -108,7 +108,7 @@ namespace Binarysharp.MemoryManagement.Modules
             }
         }
 
-        #endregion
+        #endregion Size
 
         #region This
 
@@ -125,9 +125,9 @@ namespace Binarysharp.MemoryManagement.Modules
             }
         }
 
-        #endregion
+        #endregion This
 
-        #endregion
+        #endregion Properties
 
         #region Constructor
 
@@ -136,13 +136,14 @@ namespace Binarysharp.MemoryManagement.Modules
         /// </summary>
         /// <param name="memorySharp">The reference of the <see cref="MemorySharp" /> object.</param>
         /// <param name="module">The native <see cref="ProcessModule" /> object corresponding to this module.</param>
-        internal RemoteModule(MemorySharp memorySharp, ProcessModule module) : base(memorySharp, module.BaseAddress)
+        internal RemoteModule(MemorySharp memorySharp, ProcessModule module)
+            : base(memorySharp, module.BaseAddress)
         {
             // Save the parameter
             Native = module;
         }
 
-        #endregion
+        #endregion Constructor
 
         #region Methods
 
@@ -159,7 +160,7 @@ namespace Binarysharp.MemoryManagement.Modules
             BaseAddress = IntPtr.Zero;
         }
 
-        #endregion
+        #endregion Eject
 
         #region FindFunction
 
@@ -223,7 +224,7 @@ namespace Binarysharp.MemoryManagement.Modules
             }
         }
 
-        #endregion
+        #endregion FindFunction
 
         #region InternalEject (internal)
 
@@ -238,7 +239,7 @@ namespace Binarysharp.MemoryManagement.Modules
             memorySharp.Threads.CreateAndJoin(memorySharp["kernel32"]["FreeLibrary"].BaseAddress, module.BaseAddress);
         }
 
-        #endregion
+        #endregion InternalEject (internal)
 
         #region ToString (override)
 
@@ -250,8 +251,8 @@ namespace Binarysharp.MemoryManagement.Modules
             return string.Format("BaseAddress = 0x{0:X} Name = {1}", BaseAddress.ToInt64(), Name);
         }
 
-        #endregion
+        #endregion ToString (override)
 
-        #endregion
+        #endregion Methods
     }
 }

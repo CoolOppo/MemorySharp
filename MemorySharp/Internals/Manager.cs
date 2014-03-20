@@ -14,7 +14,7 @@ namespace Binarysharp.MemoryManagement.Internals
         /// </summary>
         protected Dictionary<string, T> InternalItems = new Dictionary<string, T>();
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
@@ -29,7 +29,7 @@ namespace Binarysharp.MemoryManagement.Internals
             }
         }
 
-        #endregion
+        #endregion Properties
 
         #region Methods
 
@@ -46,7 +46,7 @@ namespace Binarysharp.MemoryManagement.Internals
             }
         }
 
-        #endregion
+        #endregion DisableAll
 
         #region EnableAll
 
@@ -61,7 +61,7 @@ namespace Binarysharp.MemoryManagement.Internals
             }
         }
 
-        #endregion
+        #endregion EnableAll
 
         #region Remove
 
@@ -96,7 +96,7 @@ namespace Binarysharp.MemoryManagement.Internals
             Remove(item.Name);
         }
 
-        #endregion
+        #endregion Remove
 
         #region RemoveAll
 
@@ -115,8 +115,8 @@ namespace Binarysharp.MemoryManagement.Internals
             InternalItems.Clear();
         }
 
-        #endregion
+        #endregion RemoveAll
 
-        #endregion
+        #endregion Methods
     }
 }

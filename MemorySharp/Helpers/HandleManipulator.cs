@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Binarysharp.MemoryManagement.Native;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using Binarysharp.MemoryManagement.Native;
 
 namespace Binarysharp.MemoryManagement.Helpers
 {
@@ -29,7 +29,7 @@ namespace Binarysharp.MemoryManagement.Helpers
             }
         }
 
-        #endregion
+        #endregion CloseHandle
 
         #region HandleToProcess
 
@@ -44,7 +44,7 @@ namespace Binarysharp.MemoryManagement.Helpers
             return Process.GetProcesses().First(p => p.Id == HandleToProcessId(processHandle));
         }
 
-        #endregion
+        #endregion HandleToProcess
 
         #region HandleToProcessId
 
@@ -71,7 +71,7 @@ namespace Binarysharp.MemoryManagement.Helpers
             throw new Win32Exception("Couldn't find the process id of the specified handle.");
         }
 
-        #endregion
+        #endregion HandleToProcessId
 
         #region HandleToThread
 
@@ -97,7 +97,7 @@ namespace Binarysharp.MemoryManagement.Helpers
             throw new InvalidOperationException("Sequence contains no matching element");
         }
 
-        #endregion
+        #endregion HandleToThread
 
         #region HandleToThreadId
 
@@ -124,7 +124,7 @@ namespace Binarysharp.MemoryManagement.Helpers
             throw new Win32Exception("Couldn't find the thread id of the specified handle.");
         }
 
-        #endregion
+        #endregion HandleToThreadId
 
         #region ValidateAsArgument
 
@@ -168,6 +168,6 @@ namespace Binarysharp.MemoryManagement.Helpers
             }
         }
 
-        #endregion
+        #endregion ValidateAsArgument
     }
 }

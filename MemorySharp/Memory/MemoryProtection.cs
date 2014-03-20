@@ -1,5 +1,5 @@
-﻿using System;
-using Binarysharp.MemoryManagement.Native;
+﻿using Binarysharp.MemoryManagement.Native;
+using System;
 
 namespace Binarysharp.MemoryManagement.Memory
 {
@@ -13,9 +13,9 @@ namespace Binarysharp.MemoryManagement.Memory
         /// <summary>
         ///     The reference of the <see cref="MemorySharp" /> object.
         /// </summary>
-        readonly MemorySharp _memorySharp;
+        private readonly MemorySharp _memorySharp;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
@@ -26,7 +26,7 @@ namespace Binarysharp.MemoryManagement.Memory
         /// </summary>
         public IntPtr BaseAddress { get; private set; }
 
-        #endregion
+        #endregion BaseAddress
 
         #region MustBedisposed
 
@@ -35,7 +35,7 @@ namespace Binarysharp.MemoryManagement.Memory
         /// </summary>
         public bool MustBeDisposed { get; set; }
 
-        #endregion
+        #endregion MustBedisposed
 
         #region NewProtection
 
@@ -44,7 +44,7 @@ namespace Binarysharp.MemoryManagement.Memory
         /// </summary>
         public MemoryProtectionFlags NewProtection { get; private set; }
 
-        #endregion
+        #endregion NewProtection
 
         #region OldProtection
 
@@ -53,7 +53,7 @@ namespace Binarysharp.MemoryManagement.Memory
         /// </summary>
         public MemoryProtectionFlags OldProtection { get; private set; }
 
-        #endregion
+        #endregion OldProtection
 
         #region Size
 
@@ -62,9 +62,9 @@ namespace Binarysharp.MemoryManagement.Memory
         /// </summary>
         public int Size { get; private set; }
 
-        #endregion
+        #endregion Size
 
-        #endregion
+        #endregion Properties
 
         #region Constructor/Destructor
 
@@ -104,7 +104,7 @@ namespace Binarysharp.MemoryManagement.Memory
             }
         }
 
-        #endregion
+        #endregion Constructor/Destructor
 
         #region Methods
 
@@ -117,11 +117,11 @@ namespace Binarysharp.MemoryManagement.Memory
         {
             // Restore the memory protection
             MemoryCore.ChangeProtection(_memorySharp.Handle, BaseAddress, Size, OldProtection);
-            // Avoid the finalizer 
+            // Avoid the finalizer
             GC.SuppressFinalize(this);
         }
 
-        #endregion
+        #endregion Dispose (implementation of IDisposable)
 
         #region ToString (override)
 
@@ -136,8 +136,8 @@ namespace Binarysharp.MemoryManagement.Memory
                                  OldProtection);
         }
 
-        #endregion
+        #endregion ToString (override)
 
-        #endregion
+        #endregion Methods
     }
 }

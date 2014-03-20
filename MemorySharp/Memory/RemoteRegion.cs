@@ -1,5 +1,5 @@
-﻿using System;
-using Binarysharp.MemoryManagement.Native;
+﻿using Binarysharp.MemoryManagement.Native;
+using System;
 
 namespace Binarysharp.MemoryManagement.Memory
 {
@@ -23,7 +23,7 @@ namespace Binarysharp.MemoryManagement.Memory
             }
         }
 
-        #endregion
+        #endregion Information
 
         #region IsValid
 
@@ -38,9 +38,9 @@ namespace Binarysharp.MemoryManagement.Memory
             }
         }
 
-        #endregion
+        #endregion IsValid
 
-        #endregion
+        #endregion Properties
 
         #region Constructor
 
@@ -49,11 +49,12 @@ namespace Binarysharp.MemoryManagement.Memory
         /// </summary>
         /// <param name="memorySharp">The reference of the <see cref="MemorySharp" /> object.</param>
         /// <param name="baseAddress">The base address of the memory region.</param>
-        internal RemoteRegion(MemorySharp memorySharp, IntPtr baseAddress) : base(memorySharp, baseAddress)
+        internal RemoteRegion(MemorySharp memorySharp, IntPtr baseAddress)
+            : base(memorySharp, baseAddress)
         {
         }
 
-        #endregion
+        #endregion Constructor
 
         #region Methods
 
@@ -72,7 +73,7 @@ namespace Binarysharp.MemoryManagement.Memory
             return new MemoryProtection(MemorySharp, BaseAddress, Information.RegionSize, protection, mustBeDisposed);
         }
 
-        #endregion
+        #endregion ChangeProtection
 
         #region Equals (override)
 
@@ -103,10 +104,10 @@ namespace Binarysharp.MemoryManagement.Memory
             {
                 return true;
             }
-            return obj.GetType() == GetType() && Equals((RemoteRegion) obj);
+            return obj.GetType() == GetType() && Equals((RemoteRegion)obj);
         }
 
-        #endregion
+        #endregion Equals (override)
 
         #region GetHashCode (override)
 
@@ -118,21 +119,21 @@ namespace Binarysharp.MemoryManagement.Memory
             return BaseAddress.GetHashCode() ^ MemorySharp.GetHashCode() ^ Information.RegionSize.GetHashCode();
         }
 
-        #endregion
+        #endregion GetHashCode (override)
 
         #region Operator (override)
-
-        public static bool operator ==(RemoteRegion left, RemoteRegion right)
-        {
-            return Equals(left, right);
-        }
 
         public static bool operator !=(RemoteRegion left, RemoteRegion right)
         {
             return !Equals(left, right);
         }
 
-        #endregion
+        public static bool operator ==(RemoteRegion left, RemoteRegion right)
+        {
+            return Equals(left, right);
+        }
+
+        #endregion Operator (override)
 
         #region Release
 
@@ -147,7 +148,7 @@ namespace Binarysharp.MemoryManagement.Memory
             BaseAddress = IntPtr.Zero;
         }
 
-        #endregion
+        #endregion Release
 
         #region ToString (override)
 
@@ -162,8 +163,8 @@ namespace Binarysharp.MemoryManagement.Memory
                                  Information.Protect);
         }
 
-        #endregion
+        #endregion ToString (override)
 
-        #endregion
+        #endregion Methods
     }
 }

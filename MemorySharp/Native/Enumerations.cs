@@ -3,7 +3,6 @@ using System.Runtime.InteropServices;
 
 namespace Binarysharp.MemoryManagement.Native
 {
-
     #region FlashWindowFlags
 
     /// <summary>
@@ -44,7 +43,7 @@ namespace Binarysharp.MemoryManagement.Native
         Tray = 0x2
     }
 
-    #endregion
+    #endregion FlashWindowFlags
 
     #region InputTypes
 
@@ -58,7 +57,7 @@ namespace Binarysharp.MemoryManagement.Native
         Hardware = 2
     }
 
-    #endregion
+    #endregion InputTypes
 
     #region KeyboardFlags
 
@@ -92,7 +91,7 @@ namespace Binarysharp.MemoryManagement.Native
         Unicode = 4
     }
 
-    #endregion
+    #endregion KeyboardFlags
 
     #region Keys
 
@@ -298,7 +297,7 @@ namespace Binarysharp.MemoryManagement.Native
         Zoom = 0xfb
     }
 
-    #endregion
+    #endregion Keys
 
     #region MemoryAllocationFlags
 
@@ -381,7 +380,7 @@ namespace Binarysharp.MemoryManagement.Native
         TopDown = 0x00100000
     }
 
-    #endregion
+    #endregion MemoryAllocationFlags
 
     #region MemoryProtectionFlags
 
@@ -498,7 +497,7 @@ namespace Binarysharp.MemoryManagement.Native
         WriteCombine = 0x400
     }
 
-    #endregion
+    #endregion MemoryProtectionFlags
 
     #region MemoryReleaseFlags
 
@@ -530,7 +529,7 @@ namespace Binarysharp.MemoryManagement.Native
         Release = 0x8000
     }
 
-    #endregion
+    #endregion MemoryReleaseFlags
 
     #region MemoryStateFlags
 
@@ -560,7 +559,7 @@ namespace Binarysharp.MemoryManagement.Native
         Reserve = 0x2000
     }
 
-    #endregion
+    #endregion MemoryStateFlags
 
     #region MemoryTypeFlags
 
@@ -591,7 +590,7 @@ namespace Binarysharp.MemoryManagement.Native
         Private = 0x20000
     }
 
-    #endregion
+    #endregion MemoryTypeFlags
 
     #region MouseFlags
 
@@ -678,7 +677,7 @@ namespace Binarysharp.MemoryManagement.Native
         XUp = 0x100
     }
 
-    #endregion
+    #endregion MouseFlags
 
     #region PebStructure
 
@@ -698,6 +697,7 @@ namespace Binarysharp.MemoryManagement.Native
         ///     Gets if the process is being debugged.
         /// </summary>
         BeingDebugged = 0x2,
+
         SpareBool = 0x3,
         Mutant = 0x4,
         ImageBaseAddress = 0x8,
@@ -720,6 +720,7 @@ namespace Binarysharp.MemoryManagement.Native
         ///     Length: 8 bytes.
         /// </summary>
         TlsBitmapBits = 0x44,
+
         ReadOnlySharedMemoryBase = 0x4C,
         ReadOnlySharedMemoryHeap = 0x50,
         ReadOnlyStaticServerData = 0x54,
@@ -737,6 +738,7 @@ namespace Binarysharp.MemoryManagement.Native
         ///     Length: 8 bytes (LARGE_INTEGER type).
         /// </summary>
         CriticalSectionTimeout = 0x70,
+
         HeapSegmentReserve = 0x78,
         HeapSegmentCommit = 0x7C,
         HeapDeCommitTotalFreeThreshold = 0x80,
@@ -760,6 +762,7 @@ namespace Binarysharp.MemoryManagement.Native
         ///     Length: 2 bytes.
         /// </summary>
         OsCsdVersion = 0xAE,
+
         OsPlatformId = 0xB0,
         ImageSubsystem = 0xB4,
         ImageSubsystemMajorVersion = 0xB8,
@@ -770,6 +773,7 @@ namespace Binarysharp.MemoryManagement.Native
         ///     Length: 0x88 bytes (0x22 * sizeof(IntPtr)).
         /// </summary>
         GdiHandleBuffer = 0xC4,
+
         PostProcessInitRoutine = 0x14C,
         TlsExpansionBitmap = 0x150,
 
@@ -777,6 +781,7 @@ namespace Binarysharp.MemoryManagement.Native
         ///     Length: 0x80 bytes (0x20 * sizeof(IntPtr))
         /// </summary>
         TlsExpansionBitmapBits = 0x154,
+
         SessionId = 0x1D4,
 
         /// <summary>
@@ -788,6 +793,7 @@ namespace Binarysharp.MemoryManagement.Native
         ///     Length: 8 bytes (LARGE_INTEGER type).
         /// </summary>
         AppCompatFlagsUser = 0x1E0,
+
         ShimData = 0x1E8,
         AppCompatInfo = 0x1EC,
 
@@ -795,6 +801,7 @@ namespace Binarysharp.MemoryManagement.Native
         ///     Length: 8 bytes (UNICODE_STRING type).
         /// </summary>
         CsdVersion = 0x1F0,
+
         ActivationContextData = 0x1F8,
         ProcessAssemblyStorageMap = 0x1FC,
         SystemDefaultActivationContextData = 0x200,
@@ -802,7 +809,7 @@ namespace Binarysharp.MemoryManagement.Native
         MinimumStackCommit = 0x208
     }
 
-    #endregion
+    #endregion PebStructure
 
     #region ProcessAccessFlags
 
@@ -887,7 +894,7 @@ namespace Binarysharp.MemoryManagement.Native
         Synchronize = 0x00100000
     }
 
-    #endregion
+    #endregion ProcessAccessFlags
 
     #region ProcessInformationClass
 
@@ -921,7 +928,7 @@ namespace Binarysharp.MemoryManagement.Native
         ProcessImageFileName = 0x1B
     }
 
-    #endregion
+    #endregion ProcessInformationClass
 
     #region SystemMetrics
 
@@ -934,7 +941,7 @@ namespace Binarysharp.MemoryManagement.Native
         CyScreen = 1
     }
 
-    #endregion
+    #endregion SystemMetrics
 
     #region TebStructure
 
@@ -1177,7 +1184,7 @@ namespace Binarysharp.MemoryManagement.Native
         ThreadErrorMode = 0xF28
     }
 
-    #endregion
+    #endregion TebStructure
 
     #region ThreadAccessFlags
 
@@ -1258,7 +1265,7 @@ namespace Binarysharp.MemoryManagement.Native
         Terminate = 0x0001
     }
 
-    #endregion
+    #endregion ThreadAccessFlags
 
     #region ThreadContextFlags
 
@@ -1320,7 +1327,7 @@ namespace Binarysharp.MemoryManagement.Native
         All = Control | Integer | Segments | FloatingPoint | DebugRegisters | ExtendedRegisters
     }
 
-    #endregion
+    #endregion ThreadContextFlags
 
     #region ThreadCreationFlags
 
@@ -1348,7 +1355,7 @@ namespace Binarysharp.MemoryManagement.Native
         StackSizeParamIsAReservation = 0x10000
     }
 
-    #endregion
+    #endregion ThreadCreationFlags
 
     #region TranslationTypes
 
@@ -1388,7 +1395,7 @@ namespace Binarysharp.MemoryManagement.Native
         ScanCodeToVirtualKeyEx = 3
     }
 
-    #endregion
+    #endregion TranslationTypes
 
     #region WaitReturnValues
 
@@ -1421,7 +1428,7 @@ namespace Binarysharp.MemoryManagement.Native
         Failed = 0xFFFFFFFF
     }
 
-    #endregion
+    #endregion WaitReturnValues
 
     #region WindowsMessages
 
@@ -1756,7 +1763,8 @@ namespace Binarysharp.MemoryManagement.Native
         /// <summary>
         ///     WM_COMMNOTIFY is Obsolete for Win32-Based Applications
         /// </summary>
-        [Obsolete] CommNotify = 0x0044,
+        [Obsolete]
+        CommNotify = 0x0044,
 
         /// <summary>
         ///     The WM_WINDOWPOSCHANGING message is sent to a window whose size, position, or place in the Z order is about to
@@ -1775,7 +1783,8 @@ namespace Binarysharp.MemoryManagement.Native
         ///     mode.
         ///     Use: POWERBROADCAST
         /// </summary>
-        [Obsolete] Power = 0x0048,
+        [Obsolete]
+        Power = 0x0048,
 
         /// <summary>
         ///     An application sends the WM_COPYDATA message to pass data to another application.
@@ -2635,6 +2644,7 @@ namespace Binarysharp.MemoryManagement.Native
         ///     The WM_WTSSESSION_CHANGE message notifies applications of changes in session state.
         /// </summary>
         WtsSessionChange = 0x02B1,
+
         TabletFirst = 0x02c0,
         TabletLast = 0x02df,
 
@@ -2878,7 +2888,7 @@ namespace Binarysharp.MemoryManagement.Native
         SysTimer = 0x118
     }
 
-    #endregion
+    #endregion WindowsMessages
 
     #region WindowStates
 
@@ -2961,5 +2971,5 @@ namespace Binarysharp.MemoryManagement.Native
         ForceMinimized = 11
     }
 
-    #endregion
+    #endregion WindowStates
 }

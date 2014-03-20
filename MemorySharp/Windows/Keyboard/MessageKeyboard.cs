@@ -1,5 +1,5 @@
-﻿using System;
-using Binarysharp.MemoryManagement.Native;
+﻿using Binarysharp.MemoryManagement.Native;
+using System;
 
 namespace Binarysharp.MemoryManagement.Windows.Keyboard
 {
@@ -10,11 +10,12 @@ namespace Binarysharp.MemoryManagement.Windows.Keyboard
     {
         #region Constructor
 
-        public MessageKeyboard(RemoteWindow window) : base(window)
+        public MessageKeyboard(RemoteWindow window)
+            : base(window)
         {
         }
 
-        #endregion
+        #endregion Constructor
 
         #region Overridden Methods
 
@@ -26,10 +27,10 @@ namespace Binarysharp.MemoryManagement.Windows.Keyboard
         /// <param name="key">The virtual key to press.</param>
         public override void Press(Keys key)
         {
-            Window.PostMessage(WindowsMessages.KeyDown, new UIntPtr((uint) key), MakeKeyParameter(key, false));
+            Window.PostMessage(WindowsMessages.KeyDown, new UIntPtr((uint)key), MakeKeyParameter(key, false));
         }
 
-        #endregion
+        #endregion Press
 
         #region Release
 
@@ -41,10 +42,10 @@ namespace Binarysharp.MemoryManagement.Windows.Keyboard
         {
             // Call the base function
             base.Release(key);
-            Window.PostMessage(WindowsMessages.KeyUp, new UIntPtr((uint) key), MakeKeyParameter(key, true));
+            Window.PostMessage(WindowsMessages.KeyUp, new UIntPtr((uint)key), MakeKeyParameter(key, true));
         }
 
-        #endregion
+        #endregion Release
 
         #region Write
 
@@ -57,9 +58,9 @@ namespace Binarysharp.MemoryManagement.Windows.Keyboard
             Window.PostMessage(WindowsMessages.Char, new UIntPtr(character), UIntPtr.Zero);
         }
 
-        #endregion
+        #endregion Write
 
-        #endregion
+        #endregion Overridden Methods
 
         #region MakeKeyParameter (private)
 
@@ -99,7 +100,7 @@ namespace Binarysharp.MemoryManagement.Windows.Keyboard
         ///     KeyDown resources: http://msdn.microsoft.com/en-us/library/windows/desktop/ms646280%28v=vs.85%29.aspx
         ///     KeyUp resources:  http://msdn.microsoft.com/en-us/library/windows/desktop/ms646281%28v=vs.85%29.aspx
         /// </remarks>
-        UIntPtr MakeKeyParameter(Keys key, bool keyUp, bool fRepeat, uint cRepeat, bool altDown, bool fExtended)
+        private UIntPtr MakeKeyParameter(Keys key, bool keyUp, bool fRepeat, uint cRepeat, bool altDown, bool fExtended)
         {
             // Create the result and assign it with the repeat count
             var result = cRepeat;
@@ -138,11 +139,11 @@ namespace Binarysharp.MemoryManagement.Windows.Keyboard
         ///     The value is always 1 for a <see cref="WindowsMessages.KeyUp" /> message.
         /// </param>
         /// <returns>The return value is the lParam when posting or sending a message regarding key press.</returns>
-        UIntPtr MakeKeyParameter(Keys key, bool keyUp)
+        private UIntPtr MakeKeyParameter(Keys key, bool keyUp)
         {
             return MakeKeyParameter(key, keyUp, keyUp, 1, false, false);
         }
 
-        #endregion
+        #endregion MakeKeyParameter (private)
     }
 }

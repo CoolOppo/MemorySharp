@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Binarysharp.MemoryManagement.Internals;
+using Binarysharp.MemoryManagement.Native;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Binarysharp.MemoryManagement.Internals;
-using Binarysharp.MemoryManagement.Native;
 
 namespace Binarysharp.MemoryManagement.Threading
 {
@@ -19,7 +19,7 @@ namespace Binarysharp.MemoryManagement.Threading
         /// </summary>
         protected readonly MemorySharp MemorySharp;
 
-        #endregion
+        #endregion Fields
 
         #region Properties
 
@@ -39,7 +39,7 @@ namespace Binarysharp.MemoryManagement.Threading
             }
         }
 
-        #endregion
+        #endregion MainThread
 
         #region NativeThreads (internal)
 
@@ -57,7 +57,7 @@ namespace Binarysharp.MemoryManagement.Threading
             }
         }
 
-        #endregion
+        #endregion NativeThreads (internal)
 
         #region RemoteThreads
 
@@ -72,7 +72,7 @@ namespace Binarysharp.MemoryManagement.Threading
             }
         }
 
-        #endregion
+        #endregion RemoteThreads
 
         #region This
 
@@ -89,9 +89,9 @@ namespace Binarysharp.MemoryManagement.Threading
             }
         }
 
-        #endregion
+        #endregion This
 
-        #endregion
+        #endregion Properties
 
         #region Constructor
 
@@ -105,7 +105,7 @@ namespace Binarysharp.MemoryManagement.Threading
             MemorySharp = memorySharp;
         }
 
-        #endregion
+        #endregion Constructor
 
         #region Method
 
@@ -176,7 +176,7 @@ namespace Binarysharp.MemoryManagement.Threading
             return result;
         }
 
-        #endregion
+        #endregion Create
 
         #region CreateAndJoin
 
@@ -217,7 +217,7 @@ namespace Binarysharp.MemoryManagement.Threading
             return ret;
         }
 
-        #endregion
+        #endregion CreateAndJoin
 
         #region Dispose (implementation of IFactory)
 
@@ -229,7 +229,7 @@ namespace Binarysharp.MemoryManagement.Threading
             // Nothing to dispose... yet
         }
 
-        #endregion
+        #endregion Dispose (implementation of IFactory)
 
         #region GetThreadById
 
@@ -243,7 +243,7 @@ namespace Binarysharp.MemoryManagement.Threading
             return new RemoteThread(MemorySharp, NativeThreads.First(t => t.Id == id));
         }
 
-        #endregion
+        #endregion GetThreadById
 
         #region ResumeAll
 
@@ -258,7 +258,7 @@ namespace Binarysharp.MemoryManagement.Threading
             }
         }
 
-        #endregion
+        #endregion ResumeAll
 
         #region SuspendAll
 
@@ -273,8 +273,8 @@ namespace Binarysharp.MemoryManagement.Threading
             }
         }
 
-        #endregion
+        #endregion SuspendAll
 
-        #endregion
+        #endregion Method
     }
 }

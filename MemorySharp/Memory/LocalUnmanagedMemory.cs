@@ -20,7 +20,7 @@ namespace Binarysharp.MemoryManagement.Memory
         /// </summary>
         public int Size { get; private set; }
 
-        #endregion
+        #endregion Properties
 
         #region Constructor/Destructor
 
@@ -44,7 +44,7 @@ namespace Binarysharp.MemoryManagement.Memory
             Dispose();
         }
 
-        #endregion
+        #endregion Constructor/Destructor
 
         #region Methods
 
@@ -63,7 +63,7 @@ namespace Binarysharp.MemoryManagement.Memory
             GC.SuppressFinalize(this);
         }
 
-        #endregion
+        #endregion Dispose (implementation of IDisposable)
 
         #region Read
 
@@ -75,7 +75,7 @@ namespace Binarysharp.MemoryManagement.Memory
         public T Read<T>()
         {
             // Marshal data from the block of memory to a new allocated managed object
-            return (T) Marshal.PtrToStructure(Address, typeof (T));
+            return (T)Marshal.PtrToStructure(Address, typeof(T));
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace Binarysharp.MemoryManagement.Memory
             return bytes;
         }
 
-        #endregion
+        #endregion Read
 
         #region ToString (override)
 
@@ -104,7 +104,7 @@ namespace Binarysharp.MemoryManagement.Memory
             return string.Format("Size = {0:X}", Size);
         }
 
-        #endregion
+        #endregion ToString (override)
 
         #region Write
 
@@ -129,8 +129,8 @@ namespace Binarysharp.MemoryManagement.Memory
             Marshal.StructureToPtr(data, Address, false);
         }
 
-        #endregion
+        #endregion Write
 
-        #endregion
+        #endregion Methods
     }
 }

@@ -14,7 +14,7 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
         /// </summary>
         protected readonly RemoteWindow Window;
 
-        #endregion
+        #endregion Fields
 
         #region Constructor
 
@@ -28,16 +28,9 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
             Window = window;
         }
 
-        #endregion
+        #endregion Constructor
 
         #region Abstract Methods
-
-        /// <summary>
-        ///     Moves the cursor at the specified coordinate.
-        /// </summary>
-        /// <param name="x">The x-coordinate.</param>
-        /// <param name="y">The y-coordinate.</param>
-        protected abstract void MoveToAbsolute(int x, int y);
 
         /// <summary>
         ///     Presses the left button of the mouse at the current cursor position.
@@ -81,7 +74,14 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
         /// <param name="delta">The amount of wheel movement.</param>
         public abstract void ScrollVertically(int delta = 120);
 
-        #endregion
+        /// <summary>
+        ///     Moves the cursor at the specified coordinate.
+        /// </summary>
+        /// <param name="x">The x-coordinate.</param>
+        /// <param name="y">The y-coordinate.</param>
+        protected abstract void MoveToAbsolute(int x, int y);
+
+        #endregion Abstract Methods
 
         #region Extended Methods
 
@@ -96,7 +96,7 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
             ReleaseLeft();
         }
 
-        #endregion
+        #endregion ClickLeft
 
         #region ClickMiddle
 
@@ -109,7 +109,7 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
             ReleaseMiddle();
         }
 
-        #endregion
+        #endregion ClickMiddle
 
         #region ClickRight
 
@@ -122,7 +122,7 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
             ReleaseRight();
         }
 
-        #endregion
+        #endregion ClickRight
 
         #region DoubleClickLeft
 
@@ -136,7 +136,7 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
             ClickLeft();
         }
 
-        #endregion
+        #endregion DoubleClickLeft
 
         #region MoveTo
 
@@ -150,8 +150,8 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
             MoveToAbsolute(Window.X + x, Window.Y + y);
         }
 
-        #endregion
+        #endregion MoveTo
 
-        #endregion
+        #endregion Extended Methods
     }
 }

@@ -1,8 +1,8 @@
-﻿using System;
-using System.ComponentModel;
-using Binarysharp.MemoryManagement.Helpers;
+﻿using Binarysharp.MemoryManagement.Helpers;
 using Binarysharp.MemoryManagement.Internals;
 using Binarysharp.MemoryManagement.Native;
+using System;
+using System.ComponentModel;
 
 namespace Binarysharp.MemoryManagement.Threading
 {
@@ -53,7 +53,7 @@ namespace Binarysharp.MemoryManagement.Threading
             throw new Win32Exception(string.Format("Couldn't create the thread at 0x{0}.", startAddress.ToString("X")));
         }
 
-        #endregion
+        #endregion CreateRemoteThread
 
         #region GetExitCodeThread
 
@@ -87,7 +87,7 @@ namespace Binarysharp.MemoryManagement.Threading
             return exitCode;
         }
 
-        #endregion
+        #endregion GetExitCodeThread
 
         #region GetThreadContext
 
@@ -121,7 +121,7 @@ namespace Binarysharp.MemoryManagement.Threading
             throw new Win32Exception("Couldn't get the thread context.");
         }
 
-        #endregion
+        #endregion GetThreadContext
 
         #region GetThreadSelectorEntry
 
@@ -147,7 +147,7 @@ namespace Binarysharp.MemoryManagement.Threading
             throw new Win32Exception(string.Format("Couldn't get the selector entry for this selector: {0}.", selector));
         }
 
-        #endregion
+        #endregion GetThreadSelectorEntry
 
         #region OpenThread
 
@@ -172,7 +172,7 @@ namespace Binarysharp.MemoryManagement.Threading
             throw new Win32Exception(string.Format("Couldn't open the thread #{0}.", threadId));
         }
 
-        #endregion
+        #endregion OpenThread
 
         #region NtQueryInformationThread
 
@@ -207,7 +207,7 @@ namespace Binarysharp.MemoryManagement.Threading
                 string.Format("Couldn't get the information from the thread, error code '{0}'.", ret));
         }
 
-        #endregion
+        #endregion NtQueryInformationThread
 
         #region ResumeThread
 
@@ -233,7 +233,7 @@ namespace Binarysharp.MemoryManagement.Threading
             return ret;
         }
 
-        #endregion
+        #endregion ResumeThread
 
         #region SetThreadContext
 
@@ -257,7 +257,7 @@ namespace Binarysharp.MemoryManagement.Threading
             }
         }
 
-        #endregion
+        #endregion SetThreadContext
 
         #region SuspendThread
 
@@ -282,7 +282,7 @@ namespace Binarysharp.MemoryManagement.Threading
             return ret;
         }
 
-        #endregion
+        #endregion SuspendThread
 
         #region TerminateThread
 
@@ -306,7 +306,7 @@ namespace Binarysharp.MemoryManagement.Threading
             }
         }
 
-        #endregion
+        #endregion TerminateThread
 
         #region WaitForSingleObject
 
@@ -359,6 +359,6 @@ namespace Binarysharp.MemoryManagement.Threading
             return ret;
         }
 
-        #endregion
+        #endregion WaitForSingleObject
     }
 }
