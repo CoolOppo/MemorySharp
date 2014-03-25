@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("MemorySharp")]
 [assembly:
     AssemblyDescription(
-        "MemorySharp is a C# based memory editing library targeting Windows applications, offering various functions to extract and inject data and codes into remote processes to allow interoperability."
+        ""
         )]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Binarysharp")]
