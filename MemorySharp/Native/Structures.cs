@@ -1,9 +1,10 @@
-﻿using Binarysharp.MemoryManagement.Internals;
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
+using Binarysharp.MemoryManagement.Internals;
 
 namespace Binarysharp.MemoryManagement.Native
 {
+
     #region FlashInfo
 
     /// <summary>
@@ -60,8 +61,7 @@ namespace Binarysharp.MemoryManagement.Native
         ///     Constructor that specifies a type.
         /// </summary>
         /// <param name="type">The type if the input event.</param>
-        public Input(InputTypes type)
-            : this()
+        public Input(InputTypes type) : this()
         {
             Type = type;
         }
@@ -75,19 +75,19 @@ namespace Binarysharp.MemoryManagement.Native
         /// <summary>
         ///     The information about a simulated mouse event.
         /// </summary>
-        [FieldOffset(sizeof(int))]
+        [FieldOffset(sizeof (int))]
         public MouseInput Mouse;
 
         /// <summary>
         ///     The information about a simulated keyboard event.
         /// </summary>
-        [FieldOffset(sizeof(int))]
+        [FieldOffset(sizeof (int))]
         public KeyboardInput Keyboard;
 
         /// <summary>
         ///     The information about a simulated hardware event.
         /// </summary>
-        [FieldOffset(sizeof(int))]
+        [FieldOffset(sizeof (int))]
         public HardwareInput Hardware;
     }
 
@@ -370,10 +370,7 @@ namespace Binarysharp.MemoryManagement.Native
         /// </summary>
         public int Size
         {
-            get
-            {
-                return MarshalType<ProcessBasicInformation>.Size;
-            }
+            get { return MarshalType<ProcessBasicInformation>.Size; }
         }
     }
 
@@ -654,14 +651,8 @@ namespace Binarysharp.MemoryManagement.Native
         /// </summary>
         public int Height
         {
-            get
-            {
-                return Bottom - Top;
-            }
-            set
-            {
-                Bottom = Top + value;
-            }
+            get { return Bottom - Top; }
+            set { Bottom = Top + value; }
         }
 
         /// <summary>
@@ -669,14 +660,8 @@ namespace Binarysharp.MemoryManagement.Native
         /// </summary>
         public int Width
         {
-            get
-            {
-                return Right - Left;
-            }
-            set
-            {
-                Right = Left + value;
-            }
+            get { return Right - Left; }
+            set { Right = Left + value; }
         }
 
         /// <summary>

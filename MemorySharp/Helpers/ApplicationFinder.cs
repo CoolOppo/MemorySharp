@@ -1,8 +1,8 @@
-﻿using Binarysharp.MemoryManagement.Windows;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Binarysharp.MemoryManagement.Windows;
 
 namespace Binarysharp.MemoryManagement.Helpers
 {
@@ -18,10 +18,7 @@ namespace Binarysharp.MemoryManagement.Helpers
         /// </summary>
         public static IEnumerable<IntPtr> TopLevelWindows
         {
-            get
-            {
-                return WindowCore.EnumTopLevelWindows();
-            }
+            get { return WindowCore.EnumTopLevelWindows(); }
         }
 
         #endregion Property TopLevelWindows
@@ -33,10 +30,7 @@ namespace Binarysharp.MemoryManagement.Helpers
         /// </summary>
         public static IEnumerable<IntPtr> Windows
         {
-            get
-            {
-                return WindowCore.EnumAllWindows();
-            }
+            get { return WindowCore.EnumAllWindows(); }
         }
 
         #endregion Property Windows
@@ -142,8 +136,7 @@ namespace Binarysharp.MemoryManagement.Helpers
         /// </returns>
         public static IEnumerable<Process> FromWindowTitleContains(string windowTitle)
         {
-            return
-                Windows.Where(window => WindowCore.GetWindowText(window).Contains(windowTitle)).Select(FromWindowHandle);
+            return Windows.Where(window => WindowCore.GetWindowText(window).Contains(windowTitle)).Select(FromWindowHandle);
         }
 
         #endregion FromWindowTitleContains

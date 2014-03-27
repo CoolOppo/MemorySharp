@@ -1,9 +1,9 @@
-﻿using Binarysharp.MemoryManagement.Memory;
-using Binarysharp.MemoryManagement.Native;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Binarysharp.MemoryManagement.Memory;
+using Binarysharp.MemoryManagement.Native;
 
 namespace Binarysharp.MemoryManagement.Modules
 {
@@ -17,8 +17,7 @@ namespace Binarysharp.MemoryManagement.Modules
         /// <summary>
         ///     The dictionary containing all cached functions of the remote module.
         /// </summary>
-        internal static readonly IDictionary<Tuple<string, SafeMemoryHandle>, RemoteFunction> CachedFunctions =
-            new Dictionary<Tuple<string, SafeMemoryHandle>, RemoteFunction>();
+        internal static readonly IDictionary<Tuple<string, SafeMemoryHandle>, RemoteFunction> CachedFunctions = new Dictionary<Tuple<string, SafeMemoryHandle>, RemoteFunction>();
 
         #endregion Fields
 
@@ -31,10 +30,7 @@ namespace Binarysharp.MemoryManagement.Modules
         /// </summary>
         public bool IsMainModule
         {
-            get
-            {
-                return MemorySharp.Native.MainModule.BaseAddress == BaseAddress;
-            }
+            get { return MemorySharp.Native.MainModule.BaseAddress == BaseAddress; }
         }
 
         #endregion IsMainModule
@@ -46,12 +42,7 @@ namespace Binarysharp.MemoryManagement.Modules
         /// </summary>
         public override bool IsValid
         {
-            get
-            {
-                return base.IsValid &&
-                       MemorySharp.Native.Modules.Cast<ProcessModule>()
-                                  .Any(m => m.BaseAddress == BaseAddress && m.ModuleName == Name);
-            }
+            get { return base.IsValid && MemorySharp.Native.Modules.Cast<ProcessModule>().Any(m => m.BaseAddress == BaseAddress && m.ModuleName == Name); }
         }
 
         #endregion IsValid
@@ -63,10 +54,7 @@ namespace Binarysharp.MemoryManagement.Modules
         /// </summary>
         public string Name
         {
-            get
-            {
-                return Native.ModuleName;
-            }
+            get { return Native.ModuleName; }
         }
 
         #endregion Name
@@ -87,10 +75,7 @@ namespace Binarysharp.MemoryManagement.Modules
         /// </summary>
         public string Path
         {
-            get
-            {
-                return Native.FileName;
-            }
+            get { return Native.FileName; }
         }
 
         #endregion Path
@@ -102,10 +87,7 @@ namespace Binarysharp.MemoryManagement.Modules
         /// </summary>
         public int Size
         {
-            get
-            {
-                return Native.ModuleMemorySize;
-            }
+            get { return Native.ModuleMemorySize; }
         }
 
         #endregion Size
@@ -119,10 +101,7 @@ namespace Binarysharp.MemoryManagement.Modules
         /// <returns>A new instance of a <see cref="RemoteFunction" /> class.</returns>
         public RemoteFunction this[string functionName]
         {
-            get
-            {
-                return FindFunction(functionName);
-            }
+            get { return FindFunction(functionName); }
         }
 
         #endregion This
@@ -136,8 +115,7 @@ namespace Binarysharp.MemoryManagement.Modules
         /// </summary>
         /// <param name="memorySharp">The reference of the <see cref="MemorySharp" /> object.</param>
         /// <param name="module">The native <see cref="ProcessModule" /> object corresponding to this module.</param>
-        internal RemoteModule(MemorySharp memorySharp, ProcessModule module)
-            : base(memorySharp, module.BaseAddress)
+        internal RemoteModule(MemorySharp memorySharp, ProcessModule module) : base(memorySharp, module.BaseAddress)
         {
             // Save the parameter
             Native = module;
@@ -185,10 +163,7 @@ namespace Binarysharp.MemoryManagement.Modules
 
             // If the function is not cached
             // Check if the local process has this module loaded
-            var localModule =
-                Process.GetCurrentProcess()
-                       .Modules.Cast<ProcessModule>()
-                       .FirstOrDefault(m => m.FileName.ToLower() == Path.ToLower());
+            var localModule = Process.GetCurrentProcess().Modules.Cast<ProcessModule>().FirstOrDefault(m => m.FileName.ToLower() == Path.ToLower());
             var isManuallyLoaded = false;
             try
             {
@@ -200,13 +175,10 @@ namespace Binarysharp.MemoryManagement.Modules
                 }
 
                 // Get the offset of the function
-                var offset = ModuleCore.GetProcAddress(localModule, functionName).ToInt64() -
-                             localModule.BaseAddress.ToInt64();
+                var offset = ModuleCore.GetProcAddress(localModule, functionName).ToInt64() - localModule.BaseAddress.ToInt64();
 
                 // Rebase the function with the remote module
-                var function = new RemoteFunction(MemorySharp,
-                                                  new IntPtr(Native.BaseAddress.ToInt64() + offset),
-                                                  functionName);
+                var function = new RemoteFunction(MemorySharp, new IntPtr(Native.BaseAddress.ToInt64() + offset), functionName);
 
                 // Store the function in the cache
                 CachedFunctions.Add(tuple, function);

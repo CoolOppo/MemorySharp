@@ -1,11 +1,11 @@
-﻿using Binarysharp.MemoryManagement.Assembly.Assembler;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Binarysharp.MemoryManagement.Assembly.Assembler;
 using Binarysharp.MemoryManagement.Assembly.CallingConvention;
 using Binarysharp.MemoryManagement.Internals;
 using Binarysharp.MemoryManagement.Memory;
 using Binarysharp.MemoryManagement.Threading;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Binarysharp.MemoryManagement.Assembly
 {
@@ -151,8 +151,7 @@ namespace Binarysharp.MemoryManagement.Assembly
         public T Execute<T>(IntPtr address, CallingConventions callingConvention, params dynamic[] parameters)
         {
             // Marshal the parameters
-            var marshalledParameters =
-                parameters.Select(p => MarshalValue.Marshal(MemorySharp, p)).Cast<IMarshalledValue>().ToArray();
+            var marshalledParameters = parameters.Select(p => MarshalValue.Marshal(MemorySharp, p)).Cast<IMarshalledValue>().ToArray();
             // Start a transaction
             AssemblyTransaction t;
             using (t = BeginTransaction())
@@ -234,7 +233,7 @@ namespace Binarysharp.MemoryManagement.Assembly
         /// </returns>
         public Task<T> ExecuteAsync<T>(IntPtr address, dynamic parameter)
         {
-            return Task.Run(() => (Task<T>)Execute<T>(address, parameter));
+            return Task.Run(() => (Task<T>) Execute<T>(address, parameter));
         }
 
         /// <summary>
@@ -276,9 +275,7 @@ namespace Binarysharp.MemoryManagement.Assembly
         ///     The return value is an asynchronous operation that return the exit code of the thread created to execute the
         ///     assembly code.
         /// </returns>
-        public Task<IntPtr> ExecuteAsync(IntPtr address,
-                                         CallingConventions callingConvention,
-                                         params dynamic[] parameters)
+        public Task<IntPtr> ExecuteAsync(IntPtr address, CallingConventions callingConvention, params dynamic[] parameters)
         {
             return ExecuteAsync<IntPtr>(address, callingConvention, parameters);
         }

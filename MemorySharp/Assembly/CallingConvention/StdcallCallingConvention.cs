@@ -14,10 +14,7 @@ namespace Binarysharp.MemoryManagement.Assembly.CallingConvention
         /// </summary>
         public CleanupTypes Cleanup
         {
-            get
-            {
-                return CleanupTypes.Callee;
-            }
+            get { return CleanupTypes.Callee; }
         }
 
         /// <summary>
@@ -25,10 +22,7 @@ namespace Binarysharp.MemoryManagement.Assembly.CallingConvention
         /// </summary>
         public string Name
         {
-            get
-            {
-                return "Stdcall";
-            }
+            get { return "Stdcall"; }
         }
 
         /// <summary>

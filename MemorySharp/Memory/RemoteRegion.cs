@@ -1,5 +1,5 @@
-﻿using Binarysharp.MemoryManagement.Native;
-using System;
+﻿using System;
+using Binarysharp.MemoryManagement.Native;
 
 namespace Binarysharp.MemoryManagement.Memory
 {
@@ -17,10 +17,7 @@ namespace Binarysharp.MemoryManagement.Memory
         /// </summary>
         public MemoryBasicInformation Information
         {
-            get
-            {
-                return MemoryCore.Query(MemorySharp.Handle, BaseAddress);
-            }
+            get { return MemoryCore.Query(MemorySharp.Handle, BaseAddress); }
         }
 
         #endregion Information
@@ -32,10 +29,7 @@ namespace Binarysharp.MemoryManagement.Memory
         /// </summary>
         public override bool IsValid
         {
-            get
-            {
-                return base.IsValid && Information.State != MemoryStateFlags.Free;
-            }
+            get { return base.IsValid && Information.State != MemoryStateFlags.Free; }
         }
 
         #endregion IsValid
@@ -49,8 +43,7 @@ namespace Binarysharp.MemoryManagement.Memory
         /// </summary>
         /// <param name="memorySharp">The reference of the <see cref="MemorySharp" /> object.</param>
         /// <param name="baseAddress">The base address of the memory region.</param>
-        internal RemoteRegion(MemorySharp memorySharp, IntPtr baseAddress)
-            : base(memorySharp, baseAddress)
+        internal RemoteRegion(MemorySharp memorySharp, IntPtr baseAddress) : base(memorySharp, baseAddress)
         {
         }
 
@@ -66,9 +59,7 @@ namespace Binarysharp.MemoryManagement.Memory
         /// <param name="protection">The new protection to apply.</param>
         /// <param name="mustBeDisposed">The resource will be automatically disposed when the finalizer collects the object.</param>
         /// <returns>A new instance of the <see cref="MemoryProtection" /> class.</returns>
-        public MemoryProtection ChangeProtection(
-            MemoryProtectionFlags protection = MemoryProtectionFlags.ExecuteReadWrite,
-            bool mustBeDisposed = true)
+        public MemoryProtection ChangeProtection(MemoryProtectionFlags protection = MemoryProtectionFlags.ExecuteReadWrite, bool mustBeDisposed = true)
         {
             return new MemoryProtection(MemorySharp, BaseAddress, Information.RegionSize, protection, mustBeDisposed);
         }
@@ -86,9 +77,7 @@ namespace Binarysharp.MemoryManagement.Memory
             {
                 return false;
             }
-            return ReferenceEquals(this, other) ||
-                   (BaseAddress.Equals(other.BaseAddress) && MemorySharp.Equals(other.MemorySharp) &&
-                    Information.RegionSize.Equals(other.Information.RegionSize));
+            return ReferenceEquals(this, other) || (BaseAddress.Equals(other.BaseAddress) && MemorySharp.Equals(other.MemorySharp) && Information.RegionSize.Equals(other.Information.RegionSize));
         }
 
         /// <summary>
@@ -104,7 +93,7 @@ namespace Binarysharp.MemoryManagement.Memory
             {
                 return true;
             }
-            return obj.GetType() == GetType() && Equals((RemoteRegion)obj);
+            return obj.GetType() == GetType() && Equals((RemoteRegion) obj);
         }
 
         #endregion Equals (override)
@@ -157,10 +146,7 @@ namespace Binarysharp.MemoryManagement.Memory
         /// </summary>
         public override string ToString()
         {
-            return string.Format("BaseAddress = 0x{0:X} Size = 0x{1:X} Protection = {2}",
-                                 BaseAddress.ToInt64(),
-                                 Information.RegionSize,
-                                 Information.Protect);
+            return string.Format("BaseAddress = 0x{0:X} Size = 0x{1:X} Protection = {2}", BaseAddress.ToInt64(), Information.RegionSize, Information.Protect);
         }
 
         #endregion ToString (override)

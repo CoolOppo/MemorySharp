@@ -1,4 +1,8 @@
-﻿using Binarysharp.MemoryManagement.Assembly;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Text;
+using Binarysharp.MemoryManagement.Assembly;
 using Binarysharp.MemoryManagement.Helpers;
 using Binarysharp.MemoryManagement.Internals;
 using Binarysharp.MemoryManagement.Memory;
@@ -6,10 +10,6 @@ using Binarysharp.MemoryManagement.Modules;
 using Binarysharp.MemoryManagement.Native;
 using Binarysharp.MemoryManagement.Threading;
 using Binarysharp.MemoryManagement.Windows;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 
 namespace Binarysharp.MemoryManagement
 {
@@ -54,14 +54,8 @@ namespace Binarysharp.MemoryManagement
         /// </summary>
         public bool IsDebugged
         {
-            get
-            {
-                return Peb.BeingDebugged;
-            }
-            set
-            {
-                Peb.BeingDebugged = value;
-            }
+            get { return Peb.BeingDebugged; }
+            set { Peb.BeingDebugged = value; }
         }
 
         #endregion IsDebugged
@@ -73,10 +67,7 @@ namespace Binarysharp.MemoryManagement
         /// </summary>
         public bool IsRunning
         {
-            get
-            {
-                return !Handle.IsInvalid && !Handle.IsClosed && !Native.HasExited;
-            }
+            get { return !Handle.IsInvalid && !Handle.IsClosed && !Native.HasExited; }
         }
 
         #endregion IsRunning
@@ -133,10 +124,7 @@ namespace Binarysharp.MemoryManagement
         /// </summary>
         public int Pid
         {
-            get
-            {
-                return Native.Id;
-            }
+            get { return Native.Id; }
         }
 
         #endregion Pid
@@ -150,10 +138,7 @@ namespace Binarysharp.MemoryManagement
         /// <returns>A new instance of a <see cref="RemoteModule" /> class.</returns>
         public RemoteModule this[string moduleName]
         {
-            get
-            {
-                return Modules[moduleName];
-            }
+            get { return Modules[moduleName]; }
         }
 
         /// <summary>
@@ -164,10 +149,7 @@ namespace Binarysharp.MemoryManagement
         /// <returns>A new instance of a <see cref="RemotePointer" /> class.</returns>
         public RemotePointer this[IntPtr address, bool isRelative = true]
         {
-            get
-            {
-                return new RemotePointer(this, isRelative ? MakeAbsolute(address) : address);
-            }
+            get { return new RemotePointer(this, isRelative ? MakeAbsolute(address) : address); }
         }
 
         #endregion This
@@ -208,22 +190,14 @@ namespace Binarysharp.MemoryManagement
             Peb = new ManagedPeb(this, ManagedPeb.FindPeb(Handle));
             // Create instances of the factories
             Factories = new List<IFactory>();
-            Factories.AddRange(new IFactory[]
-                               {
-                                   Assembly = new AssemblyFactory(this),
-                                   Memory = new MemoryFactory(this),
-                                   Modules = new ModuleFactory(this),
-                                   Threads = new ThreadFactory(this),
-                                   Windows = new WindowFactory(this)
-                               });
+            Factories.AddRange(new IFactory[] {Assembly = new AssemblyFactory(this), Memory = new MemoryFactory(this), Modules = new ModuleFactory(this), Threads = new ThreadFactory(this), Windows = new WindowFactory(this)});
         }
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="MemorySharp" /> class.
         /// </summary>
         /// <param name="processId">Process id of the process to open.</param>
-        public MemorySharp(int processId)
-            : this(ApplicationFinder.FromProcessId(processId))
+        public MemorySharp(int processId) : this(ApplicationFinder.FromProcessId(processId))
         {
         }
 
@@ -291,7 +265,7 @@ namespace Binarysharp.MemoryManagement
             {
                 return true;
             }
-            return obj.GetType() == GetType() && Equals((MemorySharp)obj);
+            return obj.GetType() == GetType() && Equals((MemorySharp) obj);
         }
 
         #endregion Equals (override)
@@ -320,8 +294,7 @@ namespace Binarysharp.MemoryManagement
             // Check if the relative address is not greater than the main module size
             if (address.ToInt64() > Modules.MainModule.Size)
             {
-                throw new ArgumentOutOfRangeException("address",
-                                                      "The relative address cannot be greater than the main module size.");
+                throw new ArgumentOutOfRangeException("address", "The relative address cannot be greater than the main module size.");
             }
             // Compute the absolute address
             return new IntPtr(Modules.MainModule.BaseAddress.ToInt64() + address.ToInt64());
@@ -341,8 +314,7 @@ namespace Binarysharp.MemoryManagement
             // Check if the absolute address is smaller than the main module base address
             if (address.ToInt64() < Modules.MainModule.BaseAddress.ToInt64())
             {
-                throw new ArgumentOutOfRangeException("address",
-                                                      "The absolute address cannot be smaller than the main module base address.");
+                throw new ArgumentOutOfRangeException("address", "The absolute address cannot be smaller than the main module base address.");
             }
             // Compute the relative address
             return new IntPtr(address.ToInt64() - Modules.MainModule.BaseAddress.ToInt64());
@@ -405,7 +377,7 @@ namespace Binarysharp.MemoryManagement
             // Read the array in the remote process
             for (var i = 0; i < count; i++)
             {
-                array[i] = Read<T>(address + MarshalType<T>.Size * i, isRelative);
+                array[i] = Read<T>(address + MarshalType<T>.Size*i, isRelative);
             }
             return array;
         }
@@ -550,7 +522,7 @@ namespace Binarysharp.MemoryManagement
             // Write the array in the remote process
             for (var i = 0; i < array.Length; i++)
             {
-                Write(address + MarshalType<T>.Size * i, array[i], isRelative);
+                Write(address + MarshalType<T>.Size*i, array[i], isRelative);
             }
         }
 
@@ -579,10 +551,7 @@ namespace Binarysharp.MemoryManagement
         protected void WriteBytes(IntPtr address, byte[] byteArray, bool isRelative = true)
         {
             // Change the protection of the memory to allow writable
-            using (
-                new MemoryProtection(this,
-                                     isRelative ? MakeAbsolute(address) : address,
-                                     MarshalType<byte>.Size * byteArray.Length))
+            using (new MemoryProtection(this, isRelative ? MakeAbsolute(address) : address, MarshalType<byte>.Size*byteArray.Length))
             {
                 // Write the byte array
                 MemoryCore.WriteBytes(Handle, isRelative ? MakeAbsolute(address) : address, byteArray);

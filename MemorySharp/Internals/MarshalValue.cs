@@ -1,5 +1,5 @@
-﻿using Binarysharp.MemoryManagement.Memory;
-using System;
+﻿using System;
+using Binarysharp.MemoryManagement.Memory;
 
 namespace Binarysharp.MemoryManagement.Internals
 {
@@ -44,6 +44,11 @@ namespace Binarysharp.MemoryManagement.Internals
         #region Properties
 
         /// <summary>
+        ///     The initial value.
+        /// </summary>
+        public T Value { get; private set; }
+
+        /// <summary>
         ///     The memory allocated where the value is fully written if needed. It can be unused.
         /// </summary>
         public RemoteAllocation Allocated { get; private set; }
@@ -52,11 +57,6 @@ namespace Binarysharp.MemoryManagement.Internals
         ///     The reference of the value. It can be directly the value or a pointer.
         /// </summary>
         public IntPtr Reference { get; private set; }
-
-        /// <summary>
-        ///     The initial value.
-        /// </summary>
-        public T Value { get; private set; }
 
         #endregion Properties
 
@@ -113,10 +113,10 @@ namespace Binarysharp.MemoryManagement.Internals
         /// <summary>
         ///     Marshals the value into the remote process.
         /// </summary>
-        private void Marshal()
+        void Marshal()
         {
             // If the type is string, it's a special case
-            if (typeof(T) == typeof(string))
+            if (typeof (T) == typeof (string))
             {
                 var text = Value.ToString();
                 // Allocate memory in the remote process (string + '\0')

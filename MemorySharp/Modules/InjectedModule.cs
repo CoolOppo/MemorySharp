@@ -1,7 +1,7 @@
-﻿using Binarysharp.MemoryManagement.Internals;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using Binarysharp.MemoryManagement.Internals;
 
 namespace Binarysharp.MemoryManagement.Modules
 {
@@ -40,8 +40,7 @@ namespace Binarysharp.MemoryManagement.Modules
         /// <param name="memorySharp">The reference of the <see cref="MemorySharp" /> object.</param>
         /// <param name="module">The native <see cref="ProcessModule" /> object corresponding to the injected module.</param>
         /// <param name="mustBeDisposed">The module will be ejected when the finalizer collects the object.</param>
-        internal InjectedModule(MemorySharp memorySharp, ProcessModule module, bool mustBeDisposed = true)
-            : base(memorySharp, module)
+        internal InjectedModule(MemorySharp memorySharp, ProcessModule module, bool mustBeDisposed = true) : base(memorySharp, module)
         {
             // Save the parameter
             MustBeDisposed = mustBeDisposed;
@@ -100,11 +99,7 @@ namespace Binarysharp.MemoryManagement.Modules
             // Get the inject module
             if (thread.GetExitCode<IntPtr>() != IntPtr.Zero)
             {
-                return new InjectedModule(memorySharp,
-                                          memorySharp.Modules.NativeModules.First(
-                                                                                  m =>
-                                                                                  m.BaseAddress ==
-                                                                                  thread.GetExitCode<IntPtr>()));
+                return new InjectedModule(memorySharp, memorySharp.Modules.NativeModules.First(m => m.BaseAddress == thread.GetExitCode<IntPtr>()));
             }
             return null;
         }

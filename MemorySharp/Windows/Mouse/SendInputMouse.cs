@@ -13,8 +13,7 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
         ///     Initializes a new instance of a child of the <see cref="SendInputMouse" /> class.
         /// </summary>
         /// <param name="window">The reference of the <see cref="RemoteWindow" /> object.</param>
-        public SendInputMouse(RemoteWindow window)
-            : base(window)
+        public SendInputMouse(RemoteWindow window) : base(window)
         {
         }
 
@@ -164,9 +163,9 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
         /// <summary>
         ///     Calculates the x-coordinate with the system metric.
         /// </summary>
-        private int CalculateAbsoluteCoordinateX(int x)
+        int CalculateAbsoluteCoordinateX(int x)
         {
-            return (x * 65536) / NativeMethods.GetSystemMetrics(SystemMetrics.CxScreen);
+            return (x*65536)/NativeMethods.GetSystemMetrics(SystemMetrics.CxScreen);
         }
 
         #endregion CalculateAbsoluteCoordinateX
@@ -176,9 +175,9 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
         /// <summary>
         ///     Calculates the y-coordinate with the system metric.
         /// </summary>
-        private int CalculateAbsoluteCoordinateY(int y)
+        int CalculateAbsoluteCoordinateY(int y)
         {
-            return (y * 65536) / NativeMethods.GetSystemMetrics(SystemMetrics.CyScreen);
+            return (y*65536)/NativeMethods.GetSystemMetrics(SystemMetrics.CyScreen);
         }
 
         #endregion CalculateAbsoluteCoordinateY
@@ -188,7 +187,7 @@ namespace Binarysharp.MemoryManagement.Windows.Mouse
         /// <summary>
         ///     Create an <see cref="Input" /> structure for mouse event.
         /// </summary>
-        private Input CreateInput()
+        Input CreateInput()
         {
             return new Input(InputTypes.Mouse);
         }

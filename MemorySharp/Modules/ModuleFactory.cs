@@ -1,10 +1,10 @@
-﻿using Binarysharp.MemoryManagement.Internals;
-using Binarysharp.MemoryManagement.Memory;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using Binarysharp.MemoryManagement.Internals;
+using Binarysharp.MemoryManagement.Memory;
 
 namespace Binarysharp.MemoryManagement.Modules
 {
@@ -36,10 +36,7 @@ namespace Binarysharp.MemoryManagement.Modules
         /// </summary>
         public IEnumerable<InjectedModule> InjectedModules
         {
-            get
-            {
-                return InternalInjectedModules.AsReadOnly();
-            }
+            get { return InternalInjectedModules.AsReadOnly(); }
         }
 
         #endregion InjectedModules
@@ -51,10 +48,7 @@ namespace Binarysharp.MemoryManagement.Modules
         /// </summary>
         public RemoteModule MainModule
         {
-            get
-            {
-                return FetchModule(MemorySharp.Native.MainModule);
-            }
+            get { return FetchModule(MemorySharp.Native.MainModule); }
         }
 
         #endregion MainModule
@@ -82,10 +76,7 @@ namespace Binarysharp.MemoryManagement.Modules
         /// </summary>
         internal IEnumerable<ProcessModule> NativeModules
         {
-            get
-            {
-                return MemorySharp.Native.Modules.Cast<ProcessModule>();
-            }
+            get { return MemorySharp.Native.Modules.Cast<ProcessModule>(); }
         }
 
         #endregion NativeModules (internal)
@@ -99,10 +90,7 @@ namespace Binarysharp.MemoryManagement.Modules
         /// <returns>A new instance of a <see cref="RemotePointer" /> class.</returns>
         public RemotePointer this[IntPtr address]
         {
-            get
-            {
-                return new RemotePointer(MemorySharp, address);
-            }
+            get { return new RemotePointer(MemorySharp, address); }
         }
 
         /// <summary>
@@ -112,10 +100,7 @@ namespace Binarysharp.MemoryManagement.Modules
         /// <returns>A new instance of a <see cref="RemoteModule" /> class.</returns>
         public RemoteModule this[string moduleName]
         {
-            get
-            {
-                return FetchModule(moduleName);
-            }
+            get { return FetchModule(moduleName); }
         }
 
         #endregion This
@@ -245,7 +230,7 @@ namespace Binarysharp.MemoryManagement.Modules
         /// </summary>
         /// <param name="module">A module in the remote process.</param>
         /// <returns>A new instance of a <see cref="RemoteModule" /> class.</returns>
-        private RemoteModule FetchModule(ProcessModule module)
+        RemoteModule FetchModule(ProcessModule module)
         {
             return FetchModule(module.ModuleName);
         }

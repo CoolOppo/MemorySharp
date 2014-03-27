@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace Binarysharp.MemoryManagement.Native
 {
+
     #region FlashWindowFlags
 
     /// <summary>
@@ -697,7 +698,6 @@ namespace Binarysharp.MemoryManagement.Native
         ///     Gets if the process is being debugged.
         /// </summary>
         BeingDebugged = 0x2,
-
         SpareBool = 0x3,
         Mutant = 0x4,
         ImageBaseAddress = 0x8,
@@ -720,7 +720,6 @@ namespace Binarysharp.MemoryManagement.Native
         ///     Length: 8 bytes.
         /// </summary>
         TlsBitmapBits = 0x44,
-
         ReadOnlySharedMemoryBase = 0x4C,
         ReadOnlySharedMemoryHeap = 0x50,
         ReadOnlyStaticServerData = 0x54,
@@ -738,7 +737,6 @@ namespace Binarysharp.MemoryManagement.Native
         ///     Length: 8 bytes (LARGE_INTEGER type).
         /// </summary>
         CriticalSectionTimeout = 0x70,
-
         HeapSegmentReserve = 0x78,
         HeapSegmentCommit = 0x7C,
         HeapDeCommitTotalFreeThreshold = 0x80,
@@ -762,7 +760,6 @@ namespace Binarysharp.MemoryManagement.Native
         ///     Length: 2 bytes.
         /// </summary>
         OsCsdVersion = 0xAE,
-
         OsPlatformId = 0xB0,
         ImageSubsystem = 0xB4,
         ImageSubsystemMajorVersion = 0xB8,
@@ -773,7 +770,6 @@ namespace Binarysharp.MemoryManagement.Native
         ///     Length: 0x88 bytes (0x22 * sizeof(IntPtr)).
         /// </summary>
         GdiHandleBuffer = 0xC4,
-
         PostProcessInitRoutine = 0x14C,
         TlsExpansionBitmap = 0x150,
 
@@ -781,7 +777,6 @@ namespace Binarysharp.MemoryManagement.Native
         ///     Length: 0x80 bytes (0x20 * sizeof(IntPtr))
         /// </summary>
         TlsExpansionBitmapBits = 0x154,
-
         SessionId = 0x1D4,
 
         /// <summary>
@@ -793,7 +788,6 @@ namespace Binarysharp.MemoryManagement.Native
         ///     Length: 8 bytes (LARGE_INTEGER type).
         /// </summary>
         AppCompatFlagsUser = 0x1E0,
-
         ShimData = 0x1E8,
         AppCompatInfo = 0x1EC,
 
@@ -801,7 +795,6 @@ namespace Binarysharp.MemoryManagement.Native
         ///     Length: 8 bytes (UNICODE_STRING type).
         /// </summary>
         CsdVersion = 0x1F0,
-
         ActivationContextData = 0x1F8,
         ProcessAssemblyStorageMap = 0x1FC,
         SystemDefaultActivationContextData = 0x200,
@@ -2644,7 +2637,6 @@ namespace Binarysharp.MemoryManagement.Native
         ///     The WM_WTSSESSION_CHANGE message notifies applications of changes in session state.
         /// </summary>
         WtsSessionChange = 0x02B1,
-
         TabletFirst = 0x02c0,
         TabletLast = 0x02df,
 

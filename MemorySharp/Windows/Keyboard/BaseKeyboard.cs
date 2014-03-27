@@ -1,8 +1,8 @@
-﻿using Binarysharp.MemoryManagement.Native;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Binarysharp.MemoryManagement.Native;
 
 namespace Binarysharp.MemoryManagement.Windows.Keyboard
 {

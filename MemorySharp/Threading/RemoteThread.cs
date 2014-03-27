@@ -1,11 +1,11 @@
-﻿using Binarysharp.MemoryManagement.Internals;
-using Binarysharp.MemoryManagement.Native;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Binarysharp.MemoryManagement.Internals;
+using Binarysharp.MemoryManagement.Native;
 using ThreadState = System.Diagnostics.ThreadState;
 
 namespace Binarysharp.MemoryManagement.Threading
@@ -25,12 +25,12 @@ namespace Binarysharp.MemoryManagement.Threading
         /// <summary>
         ///     The parameter passed to the thread when it was created.
         /// </summary>
-        private readonly IMarshalledValue _parameter;
+        readonly IMarshalledValue _parameter;
 
         /// <summary>
         ///     The task involved in cleaning the parameter memory when the <see cref="RemoteThread" /> object is collected.
         /// </summary>
-        private readonly Task _parameterCleaner;
+        readonly Task _parameterCleaner;
 
         #endregion Fields
 
@@ -60,10 +60,7 @@ namespace Binarysharp.MemoryManagement.Threading
                             Suspend();
                         }
                         // Get the context
-                        return ThreadCore.GetThreadContext(Handle,
-                                                           ThreadContextFlags.All | ThreadContextFlags.FloatingPoint |
-                                                           ThreadContextFlags.DebugRegisters |
-                                                           ThreadContextFlags.ExtendedRegisters);
+                        return ThreadCore.GetThreadContext(Handle, ThreadContextFlags.All | ThreadContextFlags.FloatingPoint | ThreadContextFlags.DebugRegisters | ThreadContextFlags.ExtendedRegisters);
                     }
                     finally
                     {
@@ -75,8 +72,7 @@ namespace Binarysharp.MemoryManagement.Threading
                     }
                 }
                 // The thread is closed, cannot set the context
-                throw new ThreadStateException(
-                    string.Format("Couldn't set the context of the thread #{0} because it is terminated.", Id));
+                throw new ThreadStateException(string.Format("Couldn't set the context of the thread #{0} because it is terminated.", Id));
             }
             set
             {
@@ -136,10 +132,7 @@ namespace Binarysharp.MemoryManagement.Threading
         /// </summary>
         public bool IsAlive
         {
-            get
-            {
-                return !IsTerminated;
-            }
+            get { return !IsTerminated; }
         }
 
         #endregion IsAlive
@@ -151,10 +144,7 @@ namespace Binarysharp.MemoryManagement.Threading
         /// </summary>
         public bool IsMainThread
         {
-            get
-            {
-                return this == MemorySharp.Threads.MainThread;
-            }
+            get { return this == MemorySharp.Threads.MainThread; }
         }
 
         #endregion IsMainThread
@@ -171,8 +161,7 @@ namespace Binarysharp.MemoryManagement.Threading
                 // Refresh the thread info
                 Refresh();
                 // Return if the thread is suspended
-                return Native != null && Native.ThreadState == ThreadState.Wait &&
-                       Native.WaitReason == ThreadWaitReason.Suspended;
+                return Native != null && Native.ThreadState == ThreadState.Wait && Native.WaitReason == ThreadWaitReason.Suspended;
             }
         }
 
@@ -242,8 +231,7 @@ namespace Binarysharp.MemoryManagement.Threading
         /// <param name="memorySharp">The reference of the <see cref="MemoryManagement.MemorySharp" /> object.</param>
         /// <param name="thread">The native <see cref="ProcessThread" /> object.</param>
         /// <param name="parameter">The parameter passed to the thread when it was created.</param>
-        internal RemoteThread(MemorySharp memorySharp, ProcessThread thread, IMarshalledValue parameter = null)
-            : this(memorySharp, thread)
+        internal RemoteThread(MemorySharp memorySharp, ProcessThread thread, IMarshalledValue parameter = null) : this(memorySharp, thread)
         {
             // Save the parameter
             _parameter = parameter;
@@ -309,7 +297,7 @@ namespace Binarysharp.MemoryManagement.Threading
             {
                 return true;
             }
-            return obj.GetType() == GetType() && Equals((RemoteThread)obj);
+            return obj.GetType() == GetType() && Equals((RemoteThread) obj);
         }
 
         #endregion Equals (override)
@@ -357,27 +345,21 @@ namespace Binarysharp.MemoryManagement.Threading
                 case SegmentRegisters.Cs:
                     entry = ThreadCore.GetThreadSelectorEntry(Handle, Context.SegCs);
                     break;
-
                 case SegmentRegisters.Ds:
                     entry = ThreadCore.GetThreadSelectorEntry(Handle, Context.SegDs);
                     break;
-
                 case SegmentRegisters.Es:
                     entry = ThreadCore.GetThreadSelectorEntry(Handle, Context.SegEs);
                     break;
-
                 case SegmentRegisters.Fs:
                     entry = ThreadCore.GetThreadSelectorEntry(Handle, Context.SegFs);
                     break;
-
                 case SegmentRegisters.Gs:
                     entry = ThreadCore.GetThreadSelectorEntry(Handle, Context.SegGs);
                     break;
-
                 case SegmentRegisters.Ss:
                     entry = ThreadCore.GetThreadSelectorEntry(Handle, Context.SegSs);
                     break;
-
                 default:
                     throw new InvalidEnumArgumentException("segment");
             }

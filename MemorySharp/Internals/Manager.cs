@@ -23,10 +23,7 @@ namespace Binarysharp.MemoryManagement.Internals
         /// </summary>
         public IReadOnlyDictionary<string, T> Items
         {
-            get
-            {
-                return InternalItems;
-            }
+            get { return InternalItems; }
         }
 
         #endregion Properties

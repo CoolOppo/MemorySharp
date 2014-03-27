@@ -1,5 +1,5 @@
-﻿using Binarysharp.MemoryManagement.Native;
-using System;
+﻿using System;
+using Binarysharp.MemoryManagement.Native;
 
 namespace Binarysharp.MemoryManagement.Windows.Keyboard
 {
@@ -10,8 +10,7 @@ namespace Binarysharp.MemoryManagement.Windows.Keyboard
     {
         #region Constructor
 
-        public MessageKeyboard(RemoteWindow window)
-            : base(window)
+        public MessageKeyboard(RemoteWindow window) : base(window)
         {
         }
 
@@ -27,7 +26,7 @@ namespace Binarysharp.MemoryManagement.Windows.Keyboard
         /// <param name="key">The virtual key to press.</param>
         public override void Press(Keys key)
         {
-            Window.PostMessage(WindowsMessages.KeyDown, new UIntPtr((uint)key), MakeKeyParameter(key, false));
+            Window.PostMessage(WindowsMessages.KeyDown, new UIntPtr((uint) key), MakeKeyParameter(key, false));
         }
 
         #endregion Press
@@ -42,7 +41,7 @@ namespace Binarysharp.MemoryManagement.Windows.Keyboard
         {
             // Call the base function
             base.Release(key);
-            Window.PostMessage(WindowsMessages.KeyUp, new UIntPtr((uint)key), MakeKeyParameter(key, true));
+            Window.PostMessage(WindowsMessages.KeyUp, new UIntPtr((uint) key), MakeKeyParameter(key, true));
         }
 
         #endregion Release
@@ -100,7 +99,7 @@ namespace Binarysharp.MemoryManagement.Windows.Keyboard
         ///     KeyDown resources: http://msdn.microsoft.com/en-us/library/windows/desktop/ms646280%28v=vs.85%29.aspx
         ///     KeyUp resources:  http://msdn.microsoft.com/en-us/library/windows/desktop/ms646281%28v=vs.85%29.aspx
         /// </remarks>
-        private UIntPtr MakeKeyParameter(Keys key, bool keyUp, bool fRepeat, uint cRepeat, bool altDown, bool fExtended)
+        UIntPtr MakeKeyParameter(Keys key, bool keyUp, bool fRepeat, uint cRepeat, bool altDown, bool fExtended)
         {
             // Create the result and assign it with the repeat count
             var result = cRepeat;
@@ -139,7 +138,7 @@ namespace Binarysharp.MemoryManagement.Windows.Keyboard
         ///     The value is always 1 for a <see cref="WindowsMessages.KeyUp" /> message.
         /// </param>
         /// <returns>The return value is the lParam when posting or sending a message regarding key press.</returns>
-        private UIntPtr MakeKeyParameter(Keys key, bool keyUp)
+        UIntPtr MakeKeyParameter(Keys key, bool keyUp)
         {
             return MakeKeyParameter(key, keyUp, keyUp, 1, false, false);
         }

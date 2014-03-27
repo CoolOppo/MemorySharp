@@ -1,12 +1,12 @@
-﻿using Binarysharp.MemoryManagement.Helpers;
-using Binarysharp.MemoryManagement.Internals;
-using Binarysharp.MemoryManagement.Native;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
+using Binarysharp.MemoryManagement.Helpers;
+using Binarysharp.MemoryManagement.Internals;
+using Binarysharp.MemoryManagement.Native;
 
 namespace Binarysharp.MemoryManagement.Windows
 {
@@ -68,8 +68,7 @@ namespace Binarysharp.MemoryManagement.Windows
             {
                 return ret;
             }
-            throw new Win32Exception(
-                "The call of GetSystemMetrics failed. Unfortunately, GetLastError code doesn't provide more information.");
+            throw new Win32Exception("The call of GetSystemMetrics failed. Unfortunately, GetLastError code doesn't provide more information.");
         }
 
         #endregion GetSystemMetrics
@@ -122,7 +121,7 @@ namespace Binarysharp.MemoryManagement.Windows
 
             // Allocate a WindowPlacement structure
             WindowPlacement placement;
-            placement.Length = Marshal.SizeOf(typeof(WindowPlacement));
+            placement.Length = Marshal.SizeOf(typeof (WindowPlacement));
 
             // Get the window placement
             if (!NativeMethods.GetWindowPlacement(windowHandle, out placement))
@@ -278,14 +277,7 @@ namespace Binarysharp.MemoryManagement.Windows
             HandleManipulator.ValidateAsArgument(windowHandle, "windowHandle");
 
             // Create the data structure
-            var flashInfo = new FlashInfo
-                            {
-                                Size = Marshal.SizeOf(typeof(FlashInfo)),
-                                Hwnd = windowHandle,
-                                Flags = flags,
-                                Count = count,
-                                Timeout = Convert.ToInt32(timeout.TotalMilliseconds)
-                            };
+            var flashInfo = new FlashInfo {Size = Marshal.SizeOf(typeof (FlashInfo)), Hwnd = windowHandle, Flags = flags, Count = count, Timeout = Convert.ToInt32(timeout.TotalMilliseconds)};
 
             // Flash the window
             NativeMethods.FlashWindowEx(ref flashInfo);
@@ -360,7 +352,7 @@ namespace Binarysharp.MemoryManagement.Windows
         /// </returns>
         public static uint MapVirtualKey(Keys key, TranslationTypes translation)
         {
-            return MapVirtualKey((uint)key, translation);
+            return MapVirtualKey((uint) key, translation);
         }
 
         #endregion MapVirtualKey
@@ -403,7 +395,7 @@ namespace Binarysharp.MemoryManagement.Windows
         /// <param name="lParam">Additional message-specific information.</param>
         public static void PostMessage(IntPtr windowHandle, WindowsMessages message, UIntPtr wParam, UIntPtr lParam)
         {
-            PostMessage(windowHandle, (uint)message, wParam, lParam);
+            PostMessage(windowHandle, (uint) message, wParam, lParam);
         }
 
         #endregion PostMessage
@@ -439,10 +431,7 @@ namespace Binarysharp.MemoryManagement.Windows
         /// <param name="input">A structure represents an event to be inserted into the keyboard or mouse input stream.</param>
         public static void SendInput(Input input)
         {
-            SendInput(new[]
-                      {
-                          input
-                      });
+            SendInput(new[] {input});
         }
 
         #endregion SendInput
@@ -480,7 +469,7 @@ namespace Binarysharp.MemoryManagement.Windows
         /// <returns>The return value specifies the result of the message processing; it depends on the message sent.</returns>
         public static IntPtr SendMessage(IntPtr windowHandle, WindowsMessages message, UIntPtr wParam, IntPtr lParam)
         {
-            return SendMessage(windowHandle, (uint)message, wParam, lParam);
+            return SendMessage(windowHandle, (uint) message, wParam, lParam);
         }
 
         #endregion SendMessage

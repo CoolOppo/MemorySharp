@@ -1,5 +1,5 @@
-﻿using Binarysharp.MemoryManagement.Memory;
-using System;
+﻿using System;
+using Binarysharp.MemoryManagement.Memory;
 
 namespace Binarysharp.MemoryManagement.Modules
 {
@@ -19,8 +19,7 @@ namespace Binarysharp.MemoryManagement.Modules
 
         #region Constructor
 
-        public RemoteFunction(MemorySharp memorySharp, IntPtr address, string functionName)
-            : base(memorySharp, address)
+        public RemoteFunction(MemorySharp memorySharp, IntPtr address, string functionName) : base(memorySharp, address)
         {
             // Save the parameter
             Name = functionName;

@@ -1,8 +1,8 @@
-﻿using Binarysharp.MemoryManagement.Assembly.CallingConvention;
-using Binarysharp.MemoryManagement.Native;
-using System;
+﻿using System;
 using System.Text;
 using System.Threading.Tasks;
+using Binarysharp.MemoryManagement.Assembly.CallingConvention;
+using Binarysharp.MemoryManagement.Native;
 
 namespace Binarysharp.MemoryManagement.Memory
 {
@@ -29,10 +29,7 @@ namespace Binarysharp.MemoryManagement.Memory
         /// </summary>
         public virtual bool IsValid
         {
-            get
-            {
-                return MemorySharp.IsRunning && BaseAddress != IntPtr.Zero;
-            }
+            get { return MemorySharp.IsRunning && BaseAddress != IntPtr.Zero; }
         }
 
         #endregion IsValid
@@ -75,10 +72,7 @@ namespace Binarysharp.MemoryManagement.Memory
         /// <param name="protection">The new protection to apply.</param>
         /// <param name="mustBeDisposed">The resource will be automatically disposed when the finalizer collects the object.</param>
         /// <returns>A new instance of the <see cref="MemoryProtection" /> class.</returns>
-        public MemoryProtection ChangeProtection(int size,
-                                                 MemoryProtectionFlags protection =
-                                                     MemoryProtectionFlags.ExecuteReadWrite,
-                                                 bool mustBeDisposed = true)
+        public MemoryProtection ChangeProtection(int size, MemoryProtectionFlags protection = MemoryProtectionFlags.ExecuteReadWrite, bool mustBeDisposed = true)
         {
             return new MemoryProtection(MemorySharp, BaseAddress, size, protection, mustBeDisposed);
         }
@@ -96,8 +90,7 @@ namespace Binarysharp.MemoryManagement.Memory
             {
                 return false;
             }
-            return ReferenceEquals(this, other) ||
-                   (BaseAddress.Equals(other.BaseAddress) && MemorySharp.Equals(other.MemorySharp));
+            return ReferenceEquals(this, other) || (BaseAddress.Equals(other.BaseAddress) && MemorySharp.Equals(other.MemorySharp));
         }
 
         /// <summary>
@@ -113,7 +106,7 @@ namespace Binarysharp.MemoryManagement.Memory
             {
                 return true;
             }
-            return obj.GetType() == GetType() && Equals((RemotePointer)obj);
+            return obj.GetType() == GetType() && Equals((RemotePointer) obj);
         }
 
         #endregion Equals (override)

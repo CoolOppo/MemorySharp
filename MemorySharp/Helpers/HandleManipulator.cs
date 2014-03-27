@@ -1,8 +1,8 @@
-﻿using Binarysharp.MemoryManagement.Native;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using Binarysharp.MemoryManagement.Native;
 
 namespace Binarysharp.MemoryManagement.Helpers
 {
@@ -85,8 +85,7 @@ namespace Binarysharp.MemoryManagement.Helpers
             // Search the thread by iterating the processes list
             foreach (var process in Process.GetProcesses())
             {
-                var ret =
-                    process.Threads.Cast<ProcessThread>().FirstOrDefault(t => t.Id == HandleToThreadId(threadHandle));
+                var ret = process.Threads.Cast<ProcessThread>().FirstOrDefault(t => t.Id == HandleToThreadId(threadHandle));
                 if (ret != null)
                 {
                     return ret;

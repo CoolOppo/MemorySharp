@@ -14,10 +14,7 @@ namespace Binarysharp.MemoryManagement.Assembly.CallingConvention
         /// </summary>
         public CleanupTypes Cleanup
         {
-            get
-            {
-                return CleanupTypes.Caller;
-            }
+            get { return CleanupTypes.Caller; }
         }
 
         /// <summary>
@@ -25,10 +22,7 @@ namespace Binarysharp.MemoryManagement.Assembly.CallingConvention
         /// </summary>
         public string Name
         {
-            get
-            {
-                return "Cdecl";
-            }
+            get { return "Cdecl"; }
         }
 
         /// <summary>
@@ -48,7 +42,7 @@ namespace Binarysharp.MemoryManagement.Assembly.CallingConvention
         /// <returns>The mnemonics to clean a given number of parameters.</returns>
         public string FormatCleaning(int nbParameters)
         {
-            return "add esp, " + nbParameters * 4;
+            return "add esp, " + nbParameters*4;
         }
 
         /// <summary>

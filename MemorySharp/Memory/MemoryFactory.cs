@@ -1,8 +1,8 @@
-﻿using Binarysharp.MemoryManagement.Internals;
-using Binarysharp.MemoryManagement.Native;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Binarysharp.MemoryManagement.Internals;
+using Binarysharp.MemoryManagement.Native;
 
 namespace Binarysharp.MemoryManagement.Memory
 {
@@ -34,10 +34,7 @@ namespace Binarysharp.MemoryManagement.Memory
         /// </summary>
         public IEnumerable<RemoteAllocation> RemoteAllocations
         {
-            get
-            {
-                return InternalRemoteAllocations.AsReadOnly();
-            }
+            get { return InternalRemoteAllocations.AsReadOnly(); }
         }
 
         #endregion RemoteAllocations
@@ -56,9 +53,7 @@ namespace Binarysharp.MemoryManagement.Memory
 #else
                 var adresseTo = new IntPtr(0x7fffffff);
 #endif
-                return
-                    MemoryCore.Query(MemorySharp.Handle, IntPtr.Zero, adresseTo)
-                              .Select(page => new RemoteRegion(MemorySharp, page.BaseAddress));
+                return MemoryCore.Query(MemorySharp.Handle, IntPtr.Zero, adresseTo).Select(page => new RemoteRegion(MemorySharp, page.BaseAddress));
             }
         }
 
@@ -101,9 +96,7 @@ namespace Binarysharp.MemoryManagement.Memory
         /// <param name="protection">The protection of the memory to allocate.</param>
         /// <param name="mustBeDisposed">The allocated memory will be released when the finalizer collects the object.</param>
         /// <returns>A new instance of the <see cref="RemoteAllocation" /> class.</returns>
-        public RemoteAllocation Allocate(int size,
-                                         MemoryProtectionFlags protection = MemoryProtectionFlags.ExecuteReadWrite,
-                                         bool mustBeDisposed = true)
+        public RemoteAllocation Allocate(int size, MemoryProtectionFlags protection = MemoryProtectionFlags.ExecuteReadWrite, bool mustBeDisposed = true)
         {
             // Allocate a memory space
             var memory = new RemoteAllocation(MemorySharp, size, protection, mustBeDisposed);

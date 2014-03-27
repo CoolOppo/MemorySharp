@@ -13,13 +13,12 @@ namespace Binarysharp.MemoryManagement.Helpers
         /// <summary>
         ///     Allowed characters in random strings.
         /// </summary>
-        private static readonly char[] AllowedChars =
-            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".ToCharArray();
+        static readonly char[] AllowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".ToCharArray();
 
         /// <summary>
         ///     Provides random engine.
         /// </summary>
-        private static readonly Random Random = new Random();
+        static readonly Random Random = new Random();
 
         #endregion Fields
 

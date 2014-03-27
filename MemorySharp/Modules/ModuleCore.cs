@@ -1,9 +1,9 @@
-﻿using Binarysharp.MemoryManagement.Native;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using Binarysharp.MemoryManagement.Native;
 
 namespace Binarysharp.MemoryManagement.Modules
 {
@@ -23,17 +23,12 @@ namespace Binarysharp.MemoryManagement.Modules
         public static IntPtr GetProcAddress(string moduleName, string functionName)
         {
             // Get the module
-            var module =
-                Process.GetCurrentProcess()
-                       .Modules.Cast<ProcessModule>()
-                       .FirstOrDefault(m => m.ModuleName.ToLower() == moduleName.ToLower());
+            var module = Process.GetCurrentProcess().Modules.Cast<ProcessModule>().FirstOrDefault(m => m.ModuleName.ToLower() == moduleName.ToLower());
 
             // Check whether there is a module loaded with this name
             if (module == null)
             {
-                throw new ArgumentException(
-                    string.Format("Couldn't get the module {0} because it doesn't exist in the current process.",
-                                  moduleName));
+                throw new ArgumentException(string.Format("Couldn't get the module {0} because it doesn't exist in the current process.", moduleName));
             }
 
             // Get the function address
@@ -71,17 +66,12 @@ namespace Binarysharp.MemoryManagement.Modules
         public static void FreeLibrary(string libraryName)
         {
             // Get the module
-            var module =
-                Process.GetCurrentProcess()
-                       .Modules.Cast<ProcessModule>()
-                       .FirstOrDefault(m => m.ModuleName.ToLower() == libraryName.ToLower());
+            var module = Process.GetCurrentProcess().Modules.Cast<ProcessModule>().FirstOrDefault(m => m.ModuleName.ToLower() == libraryName.ToLower());
 
             // Check whether there is a library loaded with this name
             if (module == null)
             {
-                throw new ArgumentException(
-                    string.Format("Couldn't free the library {0} because it doesn't exist in the current process.",
-                                  libraryName));
+                throw new ArgumentException(string.Format("Couldn't free the library {0} because it doesn't exist in the current process.", libraryName));
             }
 
             // Free the library
@@ -117,8 +107,7 @@ namespace Binarysharp.MemoryManagement.Modules
             // Check whether the file exists
             if (!File.Exists(libraryPath))
             {
-                throw new FileNotFoundException(
-                    string.Format("Couldn't load the library {0} because the file doesn't exist.", libraryPath));
+                throw new FileNotFoundException(string.Format("Couldn't load the library {0} because the file doesn't exist.", libraryPath));
             }
 
             // Load the library

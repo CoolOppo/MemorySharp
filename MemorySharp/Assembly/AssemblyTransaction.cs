@@ -1,6 +1,6 @@
-﻿using Binarysharp.MemoryManagement.Internals;
-using System;
+﻿using System;
 using System.Text;
+using Binarysharp.MemoryManagement.Internals;
 
 namespace Binarysharp.MemoryManagement.Assembly
 {
@@ -74,8 +74,7 @@ namespace Binarysharp.MemoryManagement.Assembly
         /// </summary>
         /// <param name="memorySharp">The reference of the <see cref="MemorySharp" /> object.</param>
         /// <param name="autoExecute">Indicates whether the assembly code is executed once the object is disposed.</param>
-        public AssemblyTransaction(MemorySharp memorySharp, bool autoExecute)
-            : this(memorySharp, IntPtr.Zero, autoExecute)
+        public AssemblyTransaction(MemorySharp memorySharp, bool autoExecute) : this(memorySharp, IntPtr.Zero, autoExecute)
         {
         }
 
@@ -137,7 +136,7 @@ namespace Binarysharp.MemoryManagement.Assembly
                 {
                     ExitCode = MemorySharp.Assembly.InjectAndExecute<IntPtr>(Mnemonics.ToString(), Address);
                 }
-                // Else the assembly code is just injected
+                    // Else the assembly code is just injected
                 else
                 {
                     MemorySharp.Assembly.Inject(Mnemonics.ToString(), Address);

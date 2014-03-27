@@ -1,5 +1,5 @@
-﻿using Binarysharp.MemoryManagement.Native;
-using System;
+﻿using System;
+using Binarysharp.MemoryManagement.Native;
 
 namespace Binarysharp.MemoryManagement.Memory
 {
@@ -13,7 +13,7 @@ namespace Binarysharp.MemoryManagement.Memory
         /// <summary>
         ///     The reference of the <see cref="MemorySharp" /> object.
         /// </summary>
-        private readonly MemorySharp _memorySharp;
+        readonly MemorySharp _memorySharp;
 
         #endregion Fields
 
@@ -76,11 +76,7 @@ namespace Binarysharp.MemoryManagement.Memory
         /// <param name="size">The size of the memory to change.</param>
         /// <param name="protection">The new protection to apply.</param>
         /// <param name="mustBeDisposed">The resource will be automatically disposed when the finalizer collects the object.</param>
-        public MemoryProtection(MemorySharp memorySharp,
-                                IntPtr baseAddress,
-                                int size,
-                                MemoryProtectionFlags protection = MemoryProtectionFlags.ExecuteReadWrite,
-                                bool mustBeDisposed = true)
+        public MemoryProtection(MemorySharp memorySharp, IntPtr baseAddress, int size, MemoryProtectionFlags protection = MemoryProtectionFlags.ExecuteReadWrite, bool mustBeDisposed = true)
         {
             // Save the parameters
             _memorySharp = memorySharp;
@@ -130,10 +126,7 @@ namespace Binarysharp.MemoryManagement.Memory
         /// </summary>
         public override string ToString()
         {
-            return string.Format("BaseAddress = 0x{0:X} NewProtection = {1} OldProtection = {2}",
-                                 BaseAddress.ToInt64(),
-                                 NewProtection,
-                                 OldProtection);
+            return string.Format("BaseAddress = 0x{0:X} NewProtection = {1} OldProtection = {2}", BaseAddress.ToInt64(), NewProtection, OldProtection);
         }
 
         #endregion ToString (override)

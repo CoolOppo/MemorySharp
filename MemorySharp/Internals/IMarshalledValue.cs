@@ -1,5 +1,5 @@
-﻿using Binarysharp.MemoryManagement.Memory;
-using System;
+﻿using System;
+using Binarysharp.MemoryManagement.Memory;
 
 namespace Binarysharp.MemoryManagement.Internals
 {
