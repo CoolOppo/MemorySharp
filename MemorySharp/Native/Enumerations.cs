@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 
 namespace Binarysharp.MemoryManagement.Native
 {
 
-    #region FlashWindowFlags
+	#region FlashWindowFlags
 
-    /// <summary>
-    ///     Flash window flags list.
-    /// </summary>
-    [Flags]
+	/// <summary>
+	///     Flash window flags list.
+	/// </summary>
+	[Flags]
     public enum FlashWindowFlags
     {
         /// <summary>
