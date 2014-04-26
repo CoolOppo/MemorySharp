@@ -1,11 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Binarysharp.MemoryManagement.Assembly.Assembler;
+﻿using Binarysharp.MemoryManagement.Assembly.Assembler;
 using Binarysharp.MemoryManagement.Assembly.CallingConvention;
 using Binarysharp.MemoryManagement.Internals;
 using Binarysharp.MemoryManagement.Memory;
 using Binarysharp.MemoryManagement.Threading;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Binarysharp.MemoryManagement.Assembly
 {

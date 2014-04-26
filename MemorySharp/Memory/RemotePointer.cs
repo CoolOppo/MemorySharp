@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Binarysharp.MemoryManagement.Assembly.CallingConvention;
+using Binarysharp.MemoryManagement.Native;
+using System;
 using System.Text;
 using System.Threading.Tasks;
-using Binarysharp.MemoryManagement.Assembly.CallingConvention;
-using Binarysharp.MemoryManagement.Native;
 
 namespace Binarysharp.MemoryManagement.Memory
 {

@@ -1,5 +1,5 @@
-﻿using System;
-using Binarysharp.MemoryManagement.Helpers;
+﻿using Binarysharp.MemoryManagement.Helpers;
+using System;
 
 namespace Binarysharp.MemoryManagement.Assembly.CallingConvention
 {

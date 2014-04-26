@@ -1,6 +1,6 @@
-﻿using System;
-using Binarysharp.MemoryManagement.Memory;
+﻿using Binarysharp.MemoryManagement.Memory;
 using Binarysharp.MemoryManagement.Threading;
+using System;
 
 namespace Binarysharp.MemoryManagement.Native
 {

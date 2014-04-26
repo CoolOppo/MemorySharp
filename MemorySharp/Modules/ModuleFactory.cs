@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Binarysharp.MemoryManagement.Internals;
+using Binarysharp.MemoryManagement.Memory;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using Binarysharp.MemoryManagement.Internals;
-using Binarysharp.MemoryManagement.Memory;
 
 namespace Binarysharp.MemoryManagement.Modules
 {

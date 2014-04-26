@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using Binarysharp.MemoryManagement.Helpers;
+﻿using Binarysharp.MemoryManagement.Helpers;
 using Binarysharp.MemoryManagement.Internals;
 using Binarysharp.MemoryManagement.Native;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Binarysharp.MemoryManagement.Memory
 {

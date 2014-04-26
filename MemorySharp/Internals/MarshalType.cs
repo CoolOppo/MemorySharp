@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Binarysharp.MemoryManagement.Memory;
+using System;
 using System.Runtime.InteropServices;
 using System.Text;
-using Binarysharp.MemoryManagement.Memory;
 
 namespace Binarysharp.MemoryManagement.Internals
 {
